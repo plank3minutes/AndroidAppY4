@@ -13,15 +13,63 @@
         android:id="@+id/homeCoursesFragment"
         android:name="com.appsnipp.education.ui.menuhome.HomeCoursesFragment"
         android:label="fragment_home_courses"
-        tools:layout="@layout/fragment_home_courses" />
+        tools:layout="@layout/fragment_home_courses">
+        <action
+            android:id="@+id/action_homeCoursesFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/coursesStaggedFragment"
         android:name="com.appsnipp.education.ui.menucourses.CoursesStaggedFragment"
         android:label="fragment_courses_stagged"
-        tools:layout="@layout/fragment_courses_stagged" />
+        tools:layout="@layout/fragment_courses_stagged">
+        <action
+            android:id="@+id/action_coursesStaggedFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/matchesCoursesFragment"
         android:name="com.appsnipp.education.ui.menusearch.MatchesCoursesFragment"
         android:label="fragment_matches_courses"
-        tools:layout="@layout/fragment_matches_courses" />
+        tools:layout="@layout/fragment_matches_courses">
+        <action
+            android:id="@+id/action_matchesCoursesFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseDetailFragment"
+        android:name="com.appsnipp.education.ui.course.CourseDetailFragment"
+        android:label="fragment_course_detail"
+        tools:layout="@layout/fragment_course_detail">
+        <argument
+            android:name="courseId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_courseDetailFragment_to_lessonDetailFragment"
+            app:destination="@id/lessonDetailFragment" />
+        <action
+            android:id="@+id/action_courseDetailFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lessonDetailFragment"
+        android:name="com.appsnipp.education.ui.lesson.LessonDetailFragment"
+        android:label="fragment_lesson_detail"
+        tools:layout="@layout/fragment_lesson_detail">
+        <argument
+            android:name="lessonId"
+            app:argType="string" />
+        <argument
+            android:name="courseId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.appsnipp.education.ui.quiz.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz">
+        <argument
+            android:name="courseId"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -6,25 +6,25 @@ package com.appsnipp.education.ui.model;
 
 public class CourseCard {
 
-    private int id;
+    private String id;
     private String title;
     private String quantityCourses;
     private int imageResource;
 
     private String urlCourse;
 
-    public CourseCard(int id, String title, String quantityCourses, int imageResource) {
+    public CourseCard(String id, String title, String quantityCourses, int imageResource) {
         this.id = id;
         this.title = title;
         this.quantityCourses = quantityCourses;
         this.imageResource = imageResource;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,7 +68,7 @@ public class CourseCard {
             // Using equals() here allows the Model class to implement it's own version of equality, rather than
             // us always checking for referential equality.
             CourseCard courseCard = (CourseCard) other;
-            return courseCard.getId()==(this.getId());
+            return courseCard.getId().equals(this.getId());
         }
 
         return false;

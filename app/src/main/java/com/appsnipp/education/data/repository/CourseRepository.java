@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.appsnipp.education.R;
+import com.appsnipp.education.data.JsonDataRepository;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.Question;
@@ -24,6 +25,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CourseRepository {
@@ -50,12 +52,19 @@ public class CourseRepository {
 
     public LiveData<Course> getCourseById(String courseId) {
         MutableLiveData<Course> course = new MutableLiveData<>();
-        List<Course> currentCourses = allCourses.getValue();
-        if (currentCourses != null) {
-            for (Course c : currentCourses) {
-                if (c.getId().equals(courseId)) {
-                    course.setValue(c);
-                    break;
+        // Sử dụng JsonDataRepository để lấy thông tin khóa học từ JSON
+        Course foundCourse = JsonDataRepository.getInstance(context).getCourseById(courseId);
+        if (foundCourse != null) {
+            course.setValue(foundCourse);
+        } else {
+            // Nếu không tìm thấy trong JSON, thử tìm trong dữ liệu hiện có
+            List<Course> currentCourses = allCourses.getValue();
+            if (currentCourses != null) {
+                for (Course c : currentCourses) {
+                    if (c.getId().equals(courseId)) {
+                        course.setValue(c);
+                        break;
+                    }
                 }
             }
         }
@@ -64,51 +73,33 @@ public class CourseRepository {
 
     public LiveData<List<Quiz>> getQuizzesByCourseId(String courseId) {
         MutableLiveData<List<Quiz>> quizzes = new MutableLiveData<>();
-        List<Quiz> courseQuizzes = new ArrayList<>();
-        
-        // In a real app, this would load from the JSON
-        // For demo, we'll create some sample quizzes
-        List<String> options = Arrays.asList("Option 1", "Option 2", "Option 3", "Option 4");
-        
-        List<Question> questions = new ArrayList<>();
-        questions.add(new Question("q1", "quiz1", "What is the capital of France?", options, 1));
-        questions.add(new Question("q2", "quiz1", "What is 2+2?", options, 3));
-        
-        Quiz quiz = new Quiz("quiz1", courseId, questions, "Course Quiz");
-        courseQuizzes.add(quiz);
-        
-        quizzes.setValue(courseQuizzes);
+        Course course = JsonDataRepository.getInstance(context).getCourseById(courseId);
+        if (course != null && course.getQuiz() != null) {
+            quizzes.setValue(Collections.singletonList(course.getQuiz()));
+        } else {
+            quizzes.setValue(new ArrayList<>());
+        }
         return quizzes;
     }
 
     private void loadCoursesFromJson() {
         try {
-            // In a real app, this would load from assets/courses.json
-            // For now, create sample data
-            List<Course> courses = createSampleCourses();
+            // Lấy danh sách khóa học từ file courses.json
+            List<Course> courses = new ArrayList<>();
+            JsonDataRepository jsonRepo = JsonDataRepository.getInstance(context);
+            List<String> courseIds = jsonRepo.getCourseIds();
+            
+            for (String courseId : courseIds) {
+                Course course = jsonRepo.getCourseById(courseId);
+                if (course != null) {
+                    courses.add(course);
+                }
+            }
+            
             allCourses.setValue(courses);
         } catch (Exception e) {
             Log.e(TAG, "Error loading courses: " + e.getMessage());
             allCourses.setValue(new ArrayList<>());
         }
-    }
-
-    private List<Course> createSampleCourses() {
-        List<Course> courses = new ArrayList<>();
-        
-        // Create sample Lessons
-        List<Lesson> androidLessons = new ArrayList<>();
-        androidLessons.add(new Lesson("l1", "c1", "Introduction to Android", "Android is an open source mobile operating system developed by Google...", null));
-        androidLessons.add(new Lesson("l2", "c1", "Activity Lifecycle", "The activity lifecycle is a set of states through which an activity transitions...", "https://example.com/video1"));
-        
-        List<Lesson> javaLessons = new ArrayList<>();
-        javaLessons.add(new Lesson("l3", "c2", "Java Basics", "Java is a popular programming language...", null));
-        javaLessons.add(new Lesson("l4", "c2", "Object-Oriented Programming", "OOP is a programming paradigm based on the concept of objects...", "https://example.com/video2"));
-        
-        // Create sample Courses
-        courses.add(new Course("c1", "Android Development", "Learn Android development from scratch", androidLessons, R.drawable.course_android));
-        courses.add(new Course("c2", "Java Programming", "Master Java programming language", javaLessons, R.drawable.course_java));
-        
-        return courses;
     }
 } 

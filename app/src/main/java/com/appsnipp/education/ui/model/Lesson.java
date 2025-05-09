@@ -23,6 +23,16 @@ public class Lesson {
         this.videoUrl = videoUrl;
         this.isBookmarked = false;
     }
+    
+    // Thêm constructor mới để phù hợp với dữ liệu từ JSON
+    public Lesson(String id, String title, String content, String videoUrl, boolean isBookmarked) {
+        this.id = id;
+        this.courseId = null; // Sẽ được set sau khi biết courseId
+        this.title = title;
+        this.content = content;
+        this.videoUrl = videoUrl;
+        this.isBookmarked = isBookmarked;
+    }
 
     public String getId() {
         return id;

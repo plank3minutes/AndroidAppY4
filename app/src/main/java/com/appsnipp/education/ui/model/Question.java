@@ -23,6 +23,15 @@ public class Question {
         this.options = options;
         this.correctIndex = correctIndex;
     }
+    
+    // Thêm constructor để hỗ trợ dữ liệu từ JSON
+    public Question(String text, List<String> options, int correctIndex) {
+        this.id = String.valueOf(System.currentTimeMillis()); // Tạo id tạm thời
+        this.quizId = null; // Sẽ được set sau khi biết quizId
+        this.text = text;
+        this.options = options;
+        this.correctIndex = correctIndex;
+    }
 
     public String getId() {
         return id;

@@ -17,21 +17,27 @@ import com.appsnipp.education.ui.base.BaseViewHolder;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.CourseCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseRecyclerAdapter extends
         RecyclerView.Adapter<BaseViewHolder<CourseCard>> {
 
     final Context mContext;
-    private final List<CourseCard> mData;
+    private List<CourseCard> mData;
     private final ItemClickListener<CourseCard> itemClickListener;
 
     public CourseRecyclerAdapter(Context mContext, List<CourseCard> mData, ItemClickListener<CourseCard> listener) {
         this.mContext = mContext;
-        this.mData = mData;
+        this.mData = mData != null ? mData : new ArrayList<>();
         this.itemClickListener = listener;
     }
 
+    // Thêm phương thức để cập nhật danh sách khóa học
+    public void setCourseCards(List<CourseCard> courseCards) {
+        this.mData = courseCards != null ? courseCards : new ArrayList<>();
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -56,7 +62,13 @@ public class CourseRecyclerAdapter extends
     @Override
     public long getItemId(int position) {
         CourseCard courseCard = mData.get(position);
-        return courseCard.getId();
+        // Chuyển đổi id từ String sang long cho getItemId
+        try {
+            return Long.parseLong(courseCard.getId());
+        } catch (NumberFormatException e) {
+            // Nếu không thể chuyển đổi, trả về vị trí
+            return position;
+        }
     }
 
     @Override
@@ -71,7 +83,7 @@ public class CourseRecyclerAdapter extends
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mData != null ? mData.size() : 0;
     }
 
     public static class ViewHolder extends BaseViewHolder<CourseCard> {

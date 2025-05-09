@@ -9,12 +9,12 @@ import androidx.annotation.NonNull;
 
 public class MatchCourse {
 
-    private final int id;
+    private final String id;
     private final String name;
     private final String numberOfCourses;
     private final int imageResource;
 
-    public MatchCourse(int id, String name, String numberOfCourses, int imageResource) {
+    public MatchCourse(String id, String name, String numberOfCourses, int imageResource) {
         this.id = id;
         this.name = name;
         this.numberOfCourses = numberOfCourses;
@@ -25,14 +25,14 @@ public class MatchCourse {
     @Override
     public String toString() {
         return "MatchCourse{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", numberOfCourses='" + numberOfCourses + '\'' +
                 ", imageResource=" + imageResource +
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

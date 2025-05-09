@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentLessonDetailBinding;
@@ -137,14 +138,24 @@ public class LessonDetailFragment extends Fragment {
     }
 
     private void setupButtonListeners() {
-        binding.buttonCompleteLesson.setOnClickListener(v -> markLessonAsComplete());
+        binding.buttonCompleteLesson.setOnClickListener(v -> {
+            markLessonAsComplete();
+        });
         
         binding.fabBookmark.setOnClickListener(v -> {
             if (currentLesson != null) {
+                // Toggle bookmark state
                 boolean newState = !currentLesson.isBookmarked();
                 currentLesson.setBookmarked(newState);
                 updateBookmarkButton(newState);
-                // TODO: Update bookmark state in repository/database
+                
+                // Hiển thị thông báo
+                String message = newState ? 
+                    getString(R.string.bookmark_added) : 
+                    getString(R.string.bookmark_removed);
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                
+                // TODO: Cập nhật trạng thái bookmark trong database
             }
         });
     }
@@ -159,12 +170,18 @@ public class LessonDetailFragment extends Fragment {
                         progress.setLastAccess(new Date());
                         progressViewModel.update(progress);
                         Toast.makeText(requireContext(), getString(R.string.lesson_completed), Toast.LENGTH_SHORT).show();
+                        
+                        // Quay lại màn hình trước đó sau khi hoàn thành bài học
+                        NavHostFragment.findNavController(this).popBackStack();
                     }
                 } else {
                     // If no progress record exists, create one
                     UserProgress newProgress = new UserProgress(courseId, lessonIndex + 1, 0, new Date());
                     progressViewModel.insert(newProgress);
                     Toast.makeText(requireContext(), getString(R.string.lesson_completed), Toast.LENGTH_SHORT).show();
+                    
+                    // Quay lại màn hình trước đó sau khi hoàn thành bài học
+                    NavHostFragment.findNavController(this).popBackStack();
                 }
             });
         }

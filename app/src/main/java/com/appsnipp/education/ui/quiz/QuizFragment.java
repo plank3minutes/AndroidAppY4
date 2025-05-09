@@ -4,6 +4,7 @@
 
 package com.appsnipp.education.ui.quiz;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentQuizBinding;
@@ -148,6 +150,9 @@ public class QuizFragment extends Fragment {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
                 displayCurrentQuestion();
+            } else {
+                // Nếu đang ở câu hỏi đầu tiên, hiển thị thông báo
+                Toast.makeText(requireContext(), "This is the first question", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -157,8 +162,15 @@ public class QuizFragment extends Fragment {
                 currentQuestionIndex++;
                 displayCurrentQuestion();
             } else {
-                // This is the last question, calculate score
-                calculateScore();
+                // Nếu đang ở câu hỏi cuối cùng, hiển thị hộp thoại xác nhận hoàn thành
+                new AlertDialog.Builder(requireContext())
+                    .setTitle("Complete Quiz")
+                    .setMessage("Are you sure you want to submit your answers?")
+                    .setPositiveButton("Submit", (dialog, which) -> {
+                        calculateScore();
+                    })
+                    .setNegativeButton("Review", null)
+                    .show();
             }
         });
 
@@ -217,8 +229,8 @@ public class QuizFragment extends Fragment {
         // Show result in a toast and navigate back
         Toast.makeText(requireContext(), getString(R.string.quiz_score, score, questions.size(), percentage), Toast.LENGTH_LONG).show();
         
-        // Navigate back
-        // Navigation.findNavController(requireView()).popBackStack();
+        // Quay lại màn hình trước đó sau khi hoàn thành quiz
+        NavHostFragment.findNavController(this).popBackStack();
     }
 
     @Override

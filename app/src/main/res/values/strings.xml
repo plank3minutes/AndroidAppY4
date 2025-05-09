@@ -70,6 +70,8 @@
     <string name="search_hint">Search courses and lessons</string>
     <string name="no_bookmarks">No bookmarks yet</string>
     <string name="no_search_results">No search results found</string>
+    <string name="bookmark_added">Added to bookmarks</string>
+    <string name="bookmark_removed">Removed from bookmarks</string>
     
     <!-- New strings for settings -->
     <string name="settings">Settings</string>

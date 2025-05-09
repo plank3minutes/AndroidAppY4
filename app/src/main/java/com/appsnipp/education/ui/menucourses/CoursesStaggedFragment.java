@@ -16,12 +16,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.appsnipp.education.R;
-import com.appsnipp.education.data.CourseCardsFake;
 import com.appsnipp.education.databinding.FragmentCoursesStaggedBinding;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
+import com.appsnipp.education.ui.menusearch.CoursesViewModel;
 import com.appsnipp.education.ui.model.CourseCard;
 import com.appsnipp.education.ui.utils.MyUtilsApp;
 import com.appsnipp.education.ui.utils.helpers.GridSpacingItemDecoration;
@@ -34,6 +36,7 @@ public class CoursesStaggedFragment extends Fragment
 
     FragmentCoursesStaggedBinding binding;
     private Context mcontext;
+    private CoursesViewModel viewModel;
 
     public CoursesStaggedFragment() {
         // Required empty public constructor
@@ -52,7 +55,6 @@ public class CoursesStaggedFragment extends Fragment
         binding = FragmentCoursesStaggedBinding.inflate(getLayoutInflater());
         mcontext = this.getContext();
         View view = binding.getRoot();
-
 
         binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -82,13 +84,18 @@ public class CoursesStaggedFragment extends Fragment
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.horizontal_card);
         binding.rvCourses.addItemDecoration(new GridSpacingItemDecoration(2, spacingInPixels, true, 0));
 
-        List<CourseCard> courseCards;
-
-        courseCards = CourseCardsFake.getInstance().getSearchCoursesCards();
-        CourseRecyclerAdapter adapter = new CourseRecyclerAdapter(mcontext, courseCards, this);
-
-
+        CourseRecyclerAdapter adapter = new CourseRecyclerAdapter(mcontext, null, this);
         binding.rvCourses.setAdapter(adapter);
+
+        // Tạo và thiết lập ViewModel
+        viewModel = new ViewModelProvider(this, new CoursesViewModel.MyCoursesViewModelFactory(requireContext())).get(CoursesViewModel.class);
+        
+        // Lấy dữ liệu từ ViewModel
+        viewModel.fetchCourseCards();
+        viewModel.courseCards().observe(getViewLifecycleOwner(), courseCards -> {
+            adapter.setCourseCards(courseCards);
+        });
+
         return view;
     }
 
@@ -101,8 +108,18 @@ public class CoursesStaggedFragment extends Fragment
 
     @Override
     public void onItemClick(CourseCard item, ImageView imageView) {
-        String quantityCourseMessage = item.getQuantityCourses() + " courses";
-        MyUtilsApp.showToast(requireContext(), quantityCourseMessage);
-
+        // Sử dụng item.getId() đã là String
+        String courseId = item.getId();
+        
+        // Cách 1: Sử dụng NavHostFragment để điều hướng
+        Bundle args = new Bundle();
+        args.putString("courseId", courseId);
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_coursesStaggedFragment_to_courseDetailFragment, args);
+            
+        // Cách 2: Sử dụng MainActivity để điều hướng (bỏ comment nếu muốn dùng)
+        // if (getActivity() instanceof MainActivity) {
+        //     ((MainActivity) getActivity()).navigateToCourseDetail(courseId);
+        // }
     }
 }

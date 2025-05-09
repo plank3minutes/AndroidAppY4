@@ -12,6 +12,7 @@ public class Course {
     private String description;
     private List<Lesson> lessons;
     private int imageResource;
+    private Quiz quiz;
 
     public Course() {
     }
@@ -22,6 +23,15 @@ public class Course {
         this.description = description;
         this.lessons = lessons;
         this.imageResource = imageResource;
+    }
+
+    public Course(String id, String title, String description, int imageResource, List<Lesson> lessons, Quiz quiz) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.lessons = lessons;
+        this.imageResource = imageResource;
+        this.quiz = quiz;
     }
 
     public String getId() {
@@ -62,6 +72,14 @@ public class Course {
 
     public void setImageResource(int imageResource) {
         this.imageResource = imageResource;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
     @Override

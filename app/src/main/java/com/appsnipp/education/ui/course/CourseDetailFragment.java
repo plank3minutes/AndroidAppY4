@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.appsnipp.education.R;
@@ -119,13 +121,15 @@ public class CourseDetailFragment extends Fragment {
             if (courseId != null) {
                 Bundle args = new Bundle();
                 args.putString("courseId", courseId);
-                // Navigate to quiz screen
-                // Navigation.findNavController(v).navigate(R.id.action_courseDetailFragment_to_quizFragment, args);
+                // Sử dụng Navigation Component để điều hướng đến màn hình quiz
+                NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_courseDetailFragment_to_quizFragment, args);
             }
         });
 
         binding.fabBookmarkCourse.setOnClickListener(v -> {
             // TODO: Implement bookmark functionality
+            Toast.makeText(requireContext(), "Bookmark feature coming soon", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -135,8 +139,9 @@ public class CourseDetailFragment extends Fragment {
             Bundle args = new Bundle();
             args.putString("lessonId", lesson.getId());
             args.putString("courseId", courseId);
-            // Navigate to lesson detail screen
-            // Navigation.findNavController(requireView()).navigate(R.id.action_courseDetailFragment_to_lessonDetailFragment, args);
+            // Sử dụng Navigation Component để điều hướng đến màn hình chi tiết bài học
+            NavHostFragment.findNavController(CourseDetailFragment.this)
+                .navigate(R.id.action_courseDetailFragment_to_lessonDetailFragment, args);
         }
 
         @Override
@@ -145,6 +150,9 @@ public class CourseDetailFragment extends Fragment {
             lesson.setBookmarked(!lesson.isBookmarked());
             lessonAdapter.notifyItemChanged(position);
             // TODO: Update in database
+            String message = lesson.isBookmarked() ? 
+                "Added to bookmarks" : "Removed from bookmarks";
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
         }
     };
 

@@ -21,6 +21,14 @@ public class Quiz {
         this.questions = questions;
         this.title = title;
     }
+    
+    // Thêm constructor để hỗ trợ dữ liệu từ JSON
+    public Quiz(String courseId, String title, List<Question> questions) {
+        this.id = String.valueOf(System.currentTimeMillis()); // Tạo id tạm thời
+        this.courseId = courseId;
+        this.questions = questions;
+        this.title = title;
+    }
 
     public String getId() {
         return id;

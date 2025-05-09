@@ -16,11 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.appsnipp.education.R;
-import com.appsnipp.education.data.CourseCardsFake;
 import com.appsnipp.education.data.CoursesRepository;
 import com.appsnipp.education.databinding.FragmentMatchesCoursesBinding;
 import com.appsnipp.education.ui.model.CourseCard;
@@ -67,8 +67,7 @@ public class MatchesCoursesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setUpAdapters();
-        viewModel = new ViewModelProvider(this, new CoursesViewModel.MyCoursesViewModelFactory(
-                new CoursesRepository())).get(CoursesViewModel.class);
+        viewModel = new ViewModelProvider(this, new CoursesViewModel.MyCoursesViewModelFactory(requireContext())).get(CoursesViewModel.class);
 
         viewModel.fetchMatchedCourses();
 
@@ -80,27 +79,43 @@ public class MatchesCoursesFragment extends Fragment {
         binding.rvPopularCourses.hasFixedSize();
         binding.rvPopularCourses.setLayoutManager(new LinearLayoutManager(mcontext, LinearLayoutManager.VERTICAL, false));
 
-        List<CourseCard> courseCards;
-
-        courseCards = CourseCardsFake.getInstance().getSearchCoursesCards();
-
-
-        binding.rvPopularCourses.setAdapter(popularCoursesAdapter);
-        popularCoursesAdapter.setListDataItems(courseCards);
+        // Lấy dữ liệu từ ViewModel
+        viewModel.fetchCourseCards();
+        viewModel.courseCards().observe(getViewLifecycleOwner(), courseCards -> {
+            binding.rvPopularCourses.setAdapter(popularCoursesAdapter);
+            popularCoursesAdapter.setListDataItems(courseCards);
+        });
     }
 
     private void setUpAdapters() {
         //Popular Courses
-        popularCoursesAdapter = new CoursesAdapter((view1, position) -> {
-            AppLogger.d("[" + TAG + "] lambda CLick CoursesAdapter " + view1.getCourseTitle());
+        popularCoursesAdapter = new CoursesAdapter((courseCard, position) -> {
+            AppLogger.d("[" + TAG + "] lambda CLick CoursesAdapter " + courseCard.getCourseTitle());
+            
+            // courseCard.getId() trả về String
+            String courseId = courseCard.getId();
+            
+            // Điều hướng đến CourseDetailFragment
+            Bundle args = new Bundle();
+            args.putString("courseId", courseId);
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_matchesCoursesFragment_to_courseDetailFragment, args);
         });
 
 
         //Matched Courses
-        courseTopicsViewPager = new CourseTopicsViewPager((item, imageView) -> {
-            AppLogger.d("[" + TAG + "] lambda CLick CourseTopicsViewPager () " + item);
+        courseTopicsViewPager = new CourseTopicsViewPager((matchCourse, imageView) -> {
+            AppLogger.d("[" + TAG + "] lambda CLick CourseTopicsViewPager () " + matchCourse);
+            
+            // Không cần kiểm tra null vì id đã là String
+            String courseId = matchCourse.getId();
+            
+            // Điều hướng đến CourseDetailFragment
+            Bundle args = new Bundle();
+            args.putString("courseId", courseId);
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_matchesCoursesFragment_to_courseDetailFragment, args);
         });
-
     }
 
     private void setupAdapter(int currentItem) {
