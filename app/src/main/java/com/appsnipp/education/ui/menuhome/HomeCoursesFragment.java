@@ -20,13 +20,18 @@ import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentHomeCoursesBinding;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.Course;
+import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.utils.MyUtilsApp;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
+import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
+
+import java.util.Date;
 
 public class HomeCoursesFragment extends Fragment implements ItemClickListener<Course> {
 
     private FragmentHomeCoursesBinding binding;
     private PopularCoursesAdapter popularCoursesAdapter;
+    private ProgressViewModel progressViewModel;
     private TutorialsAdapter tutorialsAdapter;
     private CourseViewModel viewModel;
     private static final String TAG = "HomeCoursesFragment";
@@ -82,6 +87,33 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
             popularCoursesAdapter.setListDataItems(courses);
 //            tutorialsAdapter.setListDataItems(courses);
         });
+
+        progressViewModel = new ViewModelProvider(requireActivity()).get(ProgressViewModel.class);
+
+
+        // Observe progress data
+        progressViewModel.getLatestUserProgress().observe(getViewLifecycleOwner(), progress -> {
+            if (progress != null) {
+                viewModel.getCourseById(progress.getCourseId()).observe(getViewLifecycleOwner(), course -> {
+                    // Cập nhật UI với dữ liệu progress
+                    updateProgressUI(progress, course);
+                });
+            } else {
+                MyUtilsApp.showToast(requireContext(), "No progress data available");
+            }
+        });
+    }
+
+    private void updateProgressUI(UserProgress progress, Course currentCourse) {
+        int completionPercentage = 0;
+        if (currentCourse != null && currentCourse.getLessons().size() > 0) {
+            completionPercentage = (progress.getLessonIndex() * 100) / currentCourse.getLessons().size();
+        }
+
+        binding.tvHomeCourse.setText("Continue to " + currentCourse.getCourseTitle());
+        binding.pbHomeCourse.setProgress(completionPercentage);
+        binding.tvPercentage.setText(completionPercentage + "% " + getString(R.string.completed));
+
     }
 
     @Override

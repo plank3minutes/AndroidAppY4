@@ -42,6 +42,10 @@ public class ProgressRepository {
         return userProgressDao.getUserProgressByCourseId(courseId);
     }
 
+    public LiveData<UserProgress> getLatestUserProgress() {
+        return userProgressDao.getLatestUserProgress();
+    }
+
     public void insert(UserProgress userProgress) {
         userProgress.setLastAccess(new Date());
         new InsertUserProgressAsyncTask(userProgressDao).execute(userProgress);

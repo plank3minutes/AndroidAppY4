@@ -35,4 +35,7 @@ public interface UserProgressDao {
 
     @Query("DELETE FROM user_progress")
     void deleteAll();
+
+    @Query("SELECT * FROM user_progress ORDER BY lastAccess DESC LIMIT 1")
+    LiveData<UserProgress> getLatestUserProgress();
 } 

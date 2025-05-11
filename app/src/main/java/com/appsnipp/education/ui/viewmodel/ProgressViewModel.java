@@ -33,6 +33,10 @@ public class ProgressViewModel extends AndroidViewModel {
         return repository.getUserProgressByCourseId(courseId);
     }
 
+    public LiveData<UserProgress> getLatestUserProgress() {
+        return repository.getLatestUserProgress();
+    }
+
     public void insert(UserProgress userProgress) {
         repository.insert(userProgress);
     }
