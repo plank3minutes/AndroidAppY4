@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2023. rogergcc
- */
-
-package com.appsnipp.education.ui.menuhome;
+package com.example.android.ui.menuhome;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,8 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.appsnipp.education.databinding.ItemTutorialBinding;
-import com.appsnipp.education.ui.model.CourseCard;
+import com.example.android.databinding.ItemTutorialBinding;
+import com.example.android.ui.model.CourseCard;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 

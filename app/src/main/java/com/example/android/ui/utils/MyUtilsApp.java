@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
-package com.appsnipp.education.ui.utils;
+package com.example.android.ui.utils;
 
 import android.content.Context;
 import android.widget.Toast;

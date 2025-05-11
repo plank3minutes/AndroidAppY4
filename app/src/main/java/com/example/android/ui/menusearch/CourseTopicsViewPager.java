@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
-package com.appsnipp.education.ui.menusearch;
+package com.example.android.ui.menusearch;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,10 +6,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.appsnipp.education.databinding.ItemPagerCardBinding;
-import com.appsnipp.education.ui.base.BaseViewHolder;
-import com.appsnipp.education.ui.listeners.ItemClickListener;
-import com.appsnipp.education.ui.model.MatchCourse;
+import com.example.android.databinding.ItemPagerCardBinding;
+import com.example.android.ui.base.BaseViewHolder;
+import com.example.android.ui.listeners.ItemClickListener;
+import com.example.android.ui.model.MatchCourse;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 

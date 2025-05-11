@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2024. rogergcc
- */
-
-package com.appsnipp.education.ui.utils.helpers;
+package com.example.android.ui.utils.helpers;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,14 +1,10 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
-package com.appsnipp.education.ui.menusearch;
+package com.example.android.ui.menusearch;
 
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.appsnipp.education.data.MatchesCoursesFake;
-import com.appsnipp.education.ui.model.MatchCourse;
+import com.example.android.data.MatchesCoursesFake;
+import com.example.android.ui.model.MatchCourse;
 
 import java.util.List;
 

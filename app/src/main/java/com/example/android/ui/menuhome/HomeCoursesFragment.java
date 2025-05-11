@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
-package com.appsnipp.education.ui.menuhome;
+package com.example.android.ui.menuhome;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.appsnipp.education.R;
-import com.appsnipp.education.data.CourseCardsFake;
-import com.appsnipp.education.databinding.FragmentHomeCoursesBinding;
-import com.appsnipp.education.ui.model.CourseCard;
-import com.appsnipp.education.ui.utils.MyUtilsApp;
+import com.example.android.R;
+import com.example.android.data.CourseCardsFake;
+import com.example.android.databinding.FragmentHomeCoursesBinding;
+import com.example.android.ui.model.CourseCard;
+import com.example.android.ui.utils.MyUtilsApp;
 
 import java.util.List;
 

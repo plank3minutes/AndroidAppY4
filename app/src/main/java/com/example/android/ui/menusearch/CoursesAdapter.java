@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2024. rogergcc
- */
-
-package com.appsnipp.education.ui.menusearch;
+package com.example.android.ui.menusearch;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,8 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.appsnipp.education.databinding.ItemPopularCourseBinding;
-import com.appsnipp.education.ui.model.CourseCard;
+import com.example.android.databinding.ItemPopularCourseBinding;
+import com.example.android.ui.model.CourseCard;
 
 import org.jetbrains.annotations.NotNull;
 

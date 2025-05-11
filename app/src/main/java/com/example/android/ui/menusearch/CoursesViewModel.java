@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
-package com.appsnipp.education.ui.menusearch;
+package com.example.android.ui.menusearch;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -10,8 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.appsnipp.education.data.CoursesRepository;
-import com.appsnipp.education.ui.model.MatchCourse;
+import com.example.android.data.CoursesRepository;
+import com.example.android.ui.model.MatchCourse;
 
 import java.util.List;
 

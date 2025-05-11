@@ -1,17 +1,9 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
+package com.example.android.ui.utils;
 
-package com.appsnipp.education.ui.utils;
-
-import com.appsnipp.education.BuildConfig;
+import com.example.android.BuildConfig;
 
 import timber.log.Timber;
 
-/**
- * Created on October.
- * year 2021 .
- */
 public final class AppLogger {
 
     private AppLogger() {

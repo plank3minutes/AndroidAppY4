@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
-package com.appsnipp.education.ui.menusearch;
+package com.example.android.ui.menusearch;
 
 import static java.lang.Math.abs;
 
@@ -19,15 +15,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.appsnipp.education.R;
-import com.appsnipp.education.data.CourseCardsFake;
-import com.appsnipp.education.data.CoursesRepository;
-import com.appsnipp.education.databinding.FragmentMatchesCoursesBinding;
-import com.appsnipp.education.ui.model.CourseCard;
-import com.appsnipp.education.ui.model.MatchCourse;
-import com.appsnipp.education.ui.utils.AppLogger;
-import com.appsnipp.education.ui.utils.MyUtilsApp;
-import com.appsnipp.education.ui.utils.helpers.HorizontalMarginItemDecoration;
+import com.example.android.R;
+import com.example.android.data.CourseCardsFake;
+import com.example.android.data.CoursesRepository;
+import com.example.android.databinding.FragmentMatchesCoursesBinding;
+import com.example.android.ui.model.CourseCard;
+import com.example.android.ui.model.MatchCourse;
+import com.example.android.ui.utils.AppLogger;
+import com.example.android.ui.utils.MyUtilsApp;
+import com.example.android.ui.utils.helpers.HorizontalMarginItemDecoration;
 
 import java.util.List;
 import java.util.Locale;
