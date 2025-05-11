@@ -23,103 +23,89 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentCoursesStaggedBinding;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
-import com.appsnipp.education.ui.menusearch.CoursesViewModel;
-import com.appsnipp.education.ui.model.CourseCard;
+import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.utils.MyUtilsApp;
 import com.appsnipp.education.ui.utils.helpers.GridSpacingItemDecoration;
+import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 
 import java.util.List;
 
+public class CoursesStaggedFragment extends Fragment implements ItemClickListener<Course> {
 
-public class CoursesStaggedFragment extends Fragment
-        implements ItemClickListener<CourseCard> {
-
-    FragmentCoursesStaggedBinding binding;
-    private Context mcontext;
-    private CoursesViewModel viewModel;
-
-    public CoursesStaggedFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+    private FragmentCoursesStaggedBinding binding;
+    private CourseRecyclerAdapter adapter;
+    private CourseViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                           Bundle savedInstanceState) {
+        binding = FragmentCoursesStaggedBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
-        binding = FragmentCoursesStaggedBinding.inflate(getLayoutInflater());
-        mcontext = this.getContext();
-        View view = binding.getRoot();
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupRecyclerView();
+        setupViewModel();
+        setupSearchView();
+    }
 
+    private void setupRecyclerView() {
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        binding.rvCourses.setLayoutManager(layoutManager);
+        binding.rvCourses.addItemDecoration(new GridSpacingItemDecoration(2, 30, true, 0));
+
+        adapter = new CourseRecyclerAdapter(requireContext(), null, this);
+        binding.rvCourses.setAdapter(adapter);
+    }
+
+    private void setupViewModel() {
+        viewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
+
+        viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+            adapter.setCourseCards(courses);
+        });
+    }
+
+    private void setupSearchView() {
         binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-                //For this example only use seach option
-                //U can use a other view with activityresult
-                performSearch();
-                Toast.makeText(mcontext,
-                        "Edt Searching Click: " + binding.edtSearch.getText().toString().trim(),
-                        Toast.LENGTH_SHORT).show();
+                String query = v.getText().toString().trim();
+                if (!query.isEmpty()) {
+                    performSearch(query);
+                }
+                hideKeyboard();
                 return true;
             }
             return false;
         });
-
-        StaggeredGridLayoutManager layoutManager =
-                new StaggeredGridLayoutManager(
-                        2,
-                        StaggeredGridLayoutManager.VERTICAL);
-
-        binding.rvCourses.setLayoutManager(
-                layoutManager
-        );
-        binding.rvCourses.setClipToPadding(false);
-        binding.rvCourses.setHasFixedSize(true);
-
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.horizontal_card);
-        binding.rvCourses.addItemDecoration(new GridSpacingItemDecoration(2, spacingInPixels, true, 0));
-
-        CourseRecyclerAdapter adapter = new CourseRecyclerAdapter(mcontext, null, this);
-        binding.rvCourses.setAdapter(adapter);
-
-        // Tạo và thiết lập ViewModel
-        viewModel = new ViewModelProvider(this, new CoursesViewModel.MyCoursesViewModelFactory(requireContext())).get(CoursesViewModel.class);
-        
-        // Lấy dữ liệu từ ViewModel
-        viewModel.fetchCourseCards();
-        viewModel.courseCards().observe(getViewLifecycleOwner(), courseCards -> {
-            adapter.setCourseCards(courseCards);
-        });
-
-        return view;
     }
 
-    private void performSearch() {
-        binding.edtSearch.clearFocus();
-        InputMethodManager in = (InputMethodManager) mcontext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        in.hideSoftInputFromWindow(binding.edtSearch.getWindowToken(), 0);
-        //...perform search
+    private void performSearch(String query) {
+        // TODO: Implement search functionality
+        Toast.makeText(requireContext(), "Searching: " + query, Toast.LENGTH_SHORT).show();
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null && binding.edtSearch != null) {
+            imm.hideSoftInputFromWindow(binding.edtSearch.getWindowToken(), 0);
+        }
     }
 
     @Override
-    public void onItemClick(CourseCard item, ImageView imageView) {
-        // Sử dụng item.getId() đã là String
-        String courseId = item.getId();
-        
-        // Cách 1: Sử dụng NavHostFragment để điều hướng
+    public void onItemClick(Course course, ImageView imageView) {
+        MyUtilsApp.showToast(requireContext(), course.getCourseTitle());
         Bundle args = new Bundle();
-        args.putString("courseId", courseId);
+        args.putString("courseId", course.getId());
         NavHostFragment.findNavController(this)
             .navigate(R.id.action_coursesStaggedFragment_to_courseDetailFragment, args);
-            
-        // Cách 2: Sử dụng MainActivity để điều hướng (bỏ comment nếu muốn dùng)
-        // if (getActivity() instanceof MainActivity) {
-        //     ((MainActivity) getActivity()).navigateToCourseDetail(courseId);
-        // }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

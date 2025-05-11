@@ -44,7 +44,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/stag_item_quantity_course"
+            android:id="@+id/stag_item_quantity_lesson"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/normalPadding"

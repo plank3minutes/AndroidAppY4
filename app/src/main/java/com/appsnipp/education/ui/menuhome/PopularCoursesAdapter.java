@@ -4,6 +4,7 @@
 
 package com.appsnipp.education.ui.menuhome;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.databinding.CardPopularCoursesBinding;
-import com.appsnipp.education.ui.model.CourseCard;
+import com.appsnipp.education.ui.base.BaseViewHolder;
+import com.appsnipp.education.ui.listeners.ItemClickListener;
+import com.appsnipp.education.ui.model.Course;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -19,20 +22,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-/**
- * Created on diciembre.
- * year 2023 .
- */
-public class PopularCoursesAdapter extends RecyclerView.Adapter<PopularCoursesAdapter.ViewHolder> {
 
-    private static ClickListener mClickListener;
-    private List<CourseCard> mCoursesList;
+public class PopularCoursesAdapter
+        extends RecyclerView.Adapter<BaseViewHolder<Course>> {
 
-    public PopularCoursesAdapter(ClickListener clickListener) {
-        mClickListener = clickListener;
+    final Context mContext;
+    private final ItemClickListener<Course> itemClickListener;
+    private List<Course> mCoursesList;
+
+    public PopularCoursesAdapter(Context mContext, List<Course> mData, ItemClickListener<Course> listener) {
+        this.mCoursesList = mData;
+        this.mContext = mContext;
+        this.itemClickListener = listener;
     }
-
-    public void setListDataItems(List<CourseCard> listItems) {
+    public void setListDataItems(List<Course> listItems) {
         this.mCoursesList = listItems;
         notifyDataSetChanged();
     }
@@ -45,30 +48,34 @@ public class PopularCoursesAdapter extends RecyclerView.Adapter<PopularCoursesAd
             return mCoursesList.size();
     }
 
-    @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int i) {
-
-        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-//        ItemListaInicioBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_job, parent, false);
-        CardPopularCoursesBinding binding = CardPopularCoursesBinding.inflate(inflater, viewGroup, false);
-        return new ViewHolder(binding);
-
+    public long getItemId(int position) {
+        Course course = mCoursesList.get(position);
+        return Long.parseLong(course.getId());
     }
 
+    @NotNull
     @Override
-    public void onBindViewHolder(@NotNull ViewHolder viewHolder, int i) {
-        CourseCard item = mCoursesList.get(i);
+    public BaseViewHolder<Course> onCreateViewHolder(@NotNull ViewGroup viewGroup, int i) {
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        CardPopularCoursesBinding binding = CardPopularCoursesBinding.inflate(inflater, viewGroup, false);
+        return new ViewHolder(binding);
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NotNull BaseViewHolder<Course> holder, int i) {
+        Course item = mCoursesList.get(i);
         if (item != null) {
-            viewHolder.bind(item);
+            holder.bind(item);
+            holder.itemView.setOnClickListener(v -> {
+                ViewHolder viewHolder = (ViewHolder) holder;
+                itemClickListener.onItemClick(item, viewHolder.getItemCardBinding().imvCoursePhoto);
+            });
         }
     }
 
-    public interface ClickListener {
-        void onClick(CourseCard view, int position);
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends BaseViewHolder<Course> {
         private final CardPopularCoursesBinding binding;
 
         public ViewHolder(CardPopularCoursesBinding binding) {
@@ -76,18 +83,17 @@ public class PopularCoursesAdapter extends RecyclerView.Adapter<PopularCoursesAd
             this.binding = binding;
         }
 
-        void bind(@NonNull CourseCard data) {
-            Glide.with(itemView.getContext())
-//            Glide.with(itemListaInicioBinding.getRoot())
-                    .load(data.getImageCourse())
-                    .apply(new RequestOptions().centerCrop())
-                    .into(binding.imvCoursePhoto);
-            binding.tvCourseTitle.setText(data.getCourseTitle());
-            binding.getRoot()
-                    .setOnClickListener(
-                            v -> mClickListener.onClick(data, getLayoutPosition()));
+        public CardPopularCoursesBinding getItemCardBinding() {
+            return binding;
         }
 
+        @Override
+        public void bind(Course data) {
+            binding.tvCourseTitle.setText(data.getCourseTitle());
+            Glide.with(itemView.getContext())
+                .load(data.getImageResource())
+                .apply(new RequestOptions().centerCrop())
+                .into(binding.imvCoursePhoto);
+        }
     }
-
 }

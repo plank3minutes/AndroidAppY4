@@ -5,11 +5,10 @@
 package com.appsnipp.education.ui.listeners;
 
 import android.widget.ImageView;
-
-import com.appsnipp.education.ui.model.CourseCard;
+import com.appsnipp.education.ui.model.Course;
 
 public interface CoursesItemClickListener {
 
-    void onDashboardCourseClick(CourseCard courseCard, ImageView imageView); // Shoud use imageview to make the shared animation between the two activity
+    void onDashboardCourseClick(Course course, ImageView imageView); // Shoud use imageview to make the shared animation between the two activity
 
 }

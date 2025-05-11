@@ -15,41 +15,44 @@ import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.ItemCardBinding;
 import com.appsnipp.education.ui.base.BaseViewHolder;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
-import com.appsnipp.education.ui.model.CourseCard;
+import com.appsnipp.education.ui.model.Course;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourseRecyclerAdapter extends
-        RecyclerView.Adapter<BaseViewHolder<CourseCard>> {
+        RecyclerView.Adapter<BaseViewHolder<Course>> {
 
     final Context mContext;
-    private List<CourseCard> mData;
-    private final ItemClickListener<CourseCard> itemClickListener;
+    private List<Course> mData;
+    private final ItemClickListener<Course> itemClickListener;
 
-    public CourseRecyclerAdapter(Context mContext, List<CourseCard> mData, ItemClickListener<CourseCard> listener) {
+    public CourseRecyclerAdapter(Context mContext, List<Course> mData, ItemClickListener<Course> listener) {
+        this.mData = mData;
         this.mContext = mContext;
-        this.mData = mData != null ? mData : new ArrayList<>();
         this.itemClickListener = listener;
     }
 
-    // Thêm phương thức để cập nhật danh sách khóa học
-    public void setCourseCards(List<CourseCard> courseCards) {
-        this.mData = courseCards != null ? courseCards : new ArrayList<>();
+    public void setCourseCards(List<Course> courses) {
+        this.mData = courses != null ? courses : new ArrayList<>();
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public BaseViewHolder<CourseCard> onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public BaseViewHolder<Course> onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         ItemCardBinding itemCardBinding = ItemCardBinding.inflate(layoutInflater, viewGroup, false);
         return new ViewHolder(itemCardBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseViewHolder<CourseCard> holder, int position) {
-        CourseCard item = mData.get(position);
+    public void onBindViewHolder(@NonNull BaseViewHolder<Course> holder, int position) {
+        Course item = mData.get(position);
         holder.bind(item);
         holder.itemView.setOnClickListener(v -> {
             ViewHolder viewHolder = (ViewHolder) holder;
@@ -57,38 +60,19 @@ public class CourseRecyclerAdapter extends
         });
     }
 
-
+    @Override
+    public int getItemCount() {
+        return mData.size();
+    }
 
     @Override
     public long getItemId(int position) {
-        CourseCard courseCard = mData.get(position);
-        // Chuyển đổi id từ String sang long cho getItemId
-        try {
-            return Long.parseLong(courseCard.getId());
-        } catch (NumberFormatException e) {
-            // Nếu không thể chuyển đổi, trả về vị trí
-            return position;
-        }
+        Course course = mData.get(position);
+        return Long.parseLong(course.getId());
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mData != null ? mData.size() : 0;
-    }
-
-    public static class ViewHolder extends BaseViewHolder<CourseCard> {
-
-        ItemCardBinding itemCardBinding;
+    public static class ViewHolder extends BaseViewHolder<Course> {
+        private final ItemCardBinding itemCardBinding;
 
         public ViewHolder(@NonNull ItemCardBinding cardBinding) {
             super(cardBinding.getRoot());
@@ -100,11 +84,22 @@ public class CourseRecyclerAdapter extends
         }
 
         @Override
-        public void bind(CourseCard item) {
-            this.itemCardBinding.cardViewImage.setImageResource(item.getImageCourse());
-            this.itemCardBinding.stagItemCourse.setText(item.getCourseTitle());
-            this.itemCardBinding.stagItemQuantityCourse.setText(item.getQuantityCourses());
-            this.itemCardBinding.cardViewImage.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color1));
+        public void bind(Course item) {
+            // Tải hình ảnh bằng Glide thay vì setImageResource
+            Glide.with(itemView.getContext())
+                    .load(item.getImageResource())
+                    .apply(new RequestOptions().centerCrop())
+                    .into(itemCardBinding.cardViewImage);
+
+            // Đặt tiêu đề khóa học
+            itemCardBinding.stagItemCourse.setText(item.getCourseTitle());
+
+            // Sửa lỗi: Chuyển int thành String cho số lượng bài học
+            itemCardBinding.stagItemQuantityLesson.setText(item.getLessonCount() + " bài học");
+
+            // Đặt màu nền
+            itemCardBinding.cardViewImage.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color1));
         }
     }
+
 }

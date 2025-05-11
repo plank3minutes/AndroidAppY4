@@ -110,14 +110,17 @@ public class MainActivity extends AppCompatActivity
                     binding.appBarMain.bottomNavigationView.setVisibility(View.VISIBLE);
                 }
 
-                // Hiển thị toolbar khi vào màn hình chi tiết
-                if (destination.getId() == R.id.courseDetailFragment
-                        || destination.getId() == R.id.lessonDetailFragment
-                        || destination.getId() == R.id.quizFragment) {
-                    binding.appBarMain.toolbar.setVisibility(View.VISIBLE);
-                } else {
-                    binding.appBarMain.toolbar.setVisibility(View.GONE);
-                }
+//                // Hiển thị toolbar khi vào màn hình chi tiết
+//                if (destination.getId() == R.id.courseDetailFragment
+//                        || destination.getId() == R.id.lessonDetailFragment
+//                        || destination.getId() == R.id.quizFragment) {
+//                    binding.appBarMain.toolbar.setVisibility(View.VISIBLE);
+//                } else {
+//                    binding.appBarMain.toolbar.setVisibility(View.GONE);
+//                }
+
+//              Luôn ẩn toolbar
+                binding.appBarMain.toolbar.setVisibility(View.GONE);
             });
         }
     }
@@ -126,14 +129,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onSupportNavigateUp() {
         NavController navController = navHostFragment.getNavController();
 
-        // Điều hướng lùi nếu có thể
-        if (NavigationUI.navigateUp(navController, appBarConfiguration)) {
-            return true;
-        }
-
         // Nếu Drawer đang mở thì đóng lại
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        }
+
+        // Điều hướng lùi nếu có thể
+        if (NavigationUI.navigateUp(navController, appBarConfiguration)) {
             return true;
         }
 

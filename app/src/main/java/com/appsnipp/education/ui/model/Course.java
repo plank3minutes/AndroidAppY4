@@ -25,15 +25,6 @@ public class Course {
         this.imageResource = imageResource;
     }
 
-    public Course(String id, String title, String description, int imageResource, List<Lesson> lessons, Quiz quiz) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.lessons = lessons;
-        this.imageResource = imageResource;
-        this.quiz = quiz;
-    }
-
     public String getId() {
         return id;
     }
@@ -80,6 +71,26 @@ public class Course {
 
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
+    }
+
+    public String getCourseTitle() {
+        return title;
+    }
+
+    public void setCourseTitle(String courseTitle) {
+        this.title = courseTitle;
+    }
+
+    public String getName() {
+        return title;
+    }
+
+    public void setName(String name) {
+        this.title = name;
+    }
+
+    public int getLessonCount() {
+        return lessons != null ? lessons.size() : 0;
     }
 
     @Override

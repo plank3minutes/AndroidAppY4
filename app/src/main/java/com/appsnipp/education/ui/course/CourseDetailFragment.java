@@ -55,10 +55,20 @@ public class CourseDetailFragment extends Fragment {
             courseId = getArguments().getString("courseId");
         }
 
+        setupToolbar();
         setupViewModels();
         setupRecyclerView();
         observeCourseData();
         setupButtonListeners();
+    }
+
+    private void setupToolbar() {
+        // Thiết lập toolbar
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        binding.toolbar.setNavigationOnClickListener(v -> {
+            // Xử lý sự kiện khi nhấn nút back
+            NavHostFragment.findNavController(this).navigateUp();
+        });
     }
 
     private void setupViewModels() {

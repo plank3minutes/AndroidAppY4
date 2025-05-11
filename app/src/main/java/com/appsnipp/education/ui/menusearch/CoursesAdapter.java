@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.databinding.ItemPopularCourseBinding;
-import com.appsnipp.education.ui.model.CourseCard;
+import com.appsnipp.education.ui.model.Course;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,13 +20,13 @@ import java.util.List;
 public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHolder> {
 
     private static ClickListener mClickListener;
-    private List<CourseCard> mCoursesList;
+    private List<Course> mCoursesList;
 
     public CoursesAdapter(ClickListener clickListener) {
         mClickListener = clickListener;
     }
 
-    public void setListDataItems(List<CourseCard> listItems) {
+    public void setListDataItems(List<Course> listItems) {
         this.mCoursesList = listItems;
         notifyDataSetChanged();
     }
@@ -42,47 +42,35 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int i) {
-
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-//        ItemListaInicioBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_job, parent, false);
         ItemPopularCourseBinding binding = ItemPopularCourseBinding.inflate(inflater, viewGroup, false);
         return new ViewHolder(binding);
-
     }
 
     @Override
     public void onBindViewHolder(@NotNull ViewHolder viewHolder, int i) {
-        CourseCard item = mCoursesList.get(i);
+        Course item = mCoursesList.get(i);
         if (item != null) {
             viewHolder.bind(item);
         }
     }
 
     public interface ClickListener {
-        void onClick(CourseCard view, int position);
+        void onClick(Course course, int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemPopularCourseBinding binding;
 
-        public ViewHolder(ItemPopularCourseBinding binding) {
+        public ViewHolder(@NonNull ItemPopularCourseBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        void bind(@NonNull CourseCard data) {
-//            Glide.with(itemView.getContext())
-////            Glide.with(itemListaInicioBinding.getRoot())
-//                    .load(data.getImageCourse())
-//                    .apply(new RequestOptions().centerCrop())
-//                    .into(binding.ivPlayCourse);
+        void bind(@NonNull Course data) {
             binding.tvTitleCourse.setText(data.getCourseTitle());
-            binding.tvDetailsCourse.setText(data.getQuantityCourses());
-            binding.getRoot()
-                    .setOnClickListener(
-                            v -> mClickListener.onClick(data, getLayoutPosition()));
+            binding.tvDetailsCourse.setText(data.getDescription());
+            itemView.setOnClickListener(v -> mClickListener.onClick(data, getAdapterPosition()));
         }
-
     }
-
 }

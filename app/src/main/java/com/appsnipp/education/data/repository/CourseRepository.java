@@ -52,12 +52,10 @@ public class CourseRepository {
 
     public LiveData<Course> getCourseById(String courseId) {
         MutableLiveData<Course> course = new MutableLiveData<>();
-        // Sử dụng JsonDataRepository để lấy thông tin khóa học từ JSON
         Course foundCourse = JsonDataRepository.getInstance(context).getCourseById(courseId);
         if (foundCourse != null) {
             course.setValue(foundCourse);
         } else {
-            // Nếu không tìm thấy trong JSON, thử tìm trong dữ liệu hiện có
             List<Course> currentCourses = allCourses.getValue();
             if (currentCourses != null) {
                 for (Course c : currentCourses) {
@@ -84,7 +82,6 @@ public class CourseRepository {
 
     private void loadCoursesFromJson() {
         try {
-            // Lấy danh sách khóa học từ file courses.json
             List<Course> courses = new ArrayList<>();
             JsonDataRepository jsonRepo = JsonDataRepository.getInstance(context);
             List<String> courseIds = jsonRepo.getCourseIds();
