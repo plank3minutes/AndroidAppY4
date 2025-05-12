@@ -191,7 +191,7 @@ public class CourseDetailFragment extends Fragment {
     private final LessonAdapter.LessonListener lessonListener = new LessonAdapter.LessonListener() {
         @Override
         public void onLessonClicked(Lesson lesson, int position) {
-            if (position == userProgress.getCompletedLessons()) {
+            if (position <= userProgress.getCompletedLessons()) {
                 navigateToLesson(lesson);
             } else {
                 Toast.makeText(getContext(), getString(R.string.notif_lession_in_order), Toast.LENGTH_SHORT).show();
