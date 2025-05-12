@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/imageBookmark"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Introduction to Android" />
@@ -46,15 +46,6 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textLessonDescription" />
-
-        <ImageView
-            android:id="@+id/imageBookmark"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@string/bookmark_button"
-            android:src="@drawable/ic_bookmark_border"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageCompleted"
