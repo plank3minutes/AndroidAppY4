@@ -14,17 +14,19 @@ public class UserProgress {
     @PrimaryKey(autoGenerate = true)
     private int uid;
     private String courseId;
-    private int lessonIndex;
-    private int quizScore;
+    private int totalLessons;
+    private int completedLessons;
+    private boolean isMarked;
     private Date lastAccess;
 
     public UserProgress() {
     }
 
-    public UserProgress(String courseId, int lessonIndex, int quizScore, Date lastAccess) {
+    public UserProgress(String courseId, int totalLessons, int completedLessons, boolean isMarked, Date lastAccess) {
         this.courseId = courseId;
-        this.lessonIndex = lessonIndex;
-        this.quizScore = quizScore;
+        this.totalLessons = totalLessons;
+        this.completedLessons = completedLessons;
+        this.isMarked = isMarked;
         this.lastAccess = lastAccess;
     }
 
@@ -44,20 +46,28 @@ public class UserProgress {
         this.courseId = courseId;
     }
 
-    public int getLessonIndex() {
-        return lessonIndex;
+    public int getTotalLessons() {
+        return totalLessons;
     }
 
-    public void setLessonIndex(int lessonIndex) {
-        this.lessonIndex = lessonIndex;
+    public void setTotalLessons(int totalLessons) {
+        this.totalLessons = totalLessons;
     }
 
-    public int getQuizScore() {
-        return quizScore;
+    public int getCompletedLessons() {
+        return completedLessons;
     }
 
-    public void setQuizScore(int quizScore) {
-        this.quizScore = quizScore;
+    public void setCompletedLessons(int completedLessons) {
+        this.completedLessons = completedLessons;
+    }
+
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    public void setMarked(boolean marked) {
+        isMarked = marked;
     }
 
     public Date getLastAccess() {

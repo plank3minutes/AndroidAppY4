@@ -41,39 +41,44 @@ public class JsonDataRepository {
                 String title = lessonJson.getString("title");
                 String content = lessonJson.getString("content");
                 String videoUrl = lessonJson.getString("videoUrl");
-                boolean isBookmarked = lessonJson.getBoolean("isBookmarked");
                 
-                lessons.add(new Lesson(lessonId, title, content, videoUrl, isBookmarked));
+                // Lấy quiz từ lesson nếu có
+                Quiz quiz = null;
+                if (lessonJson.has("quiz")) {
+                    quiz = getQuizFromLessonJson(lessonJson.getJSONObject("quiz"), lessonId);
+                }
+                
+                lessons.add(new Lesson(lessonId, title, content, videoUrl, quiz));
             }
         }
         return lessons;
     }
 
-    private Quiz getQuizFromCourseJson(JSONObject courseJson, String courseId) throws JSONException {
-        if (courseJson.has("quiz")) {
-            JSONObject quizJson = courseJson.getJSONObject("quiz");
-            List<Question> questions = new ArrayList<>();
-            
-            if (quizJson.has("questions")) {
-                JSONArray questionsArray = quizJson.getJSONArray("questions");
-                for (int j = 0; j < questionsArray.length(); j++) {
-                    JSONObject questionJson = questionsArray.getJSONObject(j);
-                    String text = questionJson.getString("text");
-                    JSONArray optionsArray = questionJson.getJSONArray("options");
-                    List<String> options = new ArrayList<>();
-                    
-                    for (int k = 0; k < optionsArray.length(); k++) {
-                        options.add(optionsArray.getString(k));
-                    }
-                    
-                    int correctIndex = questionJson.getInt("correctIndex");
-                    questions.add(new Question(text, options, correctIndex));
+    private Quiz getQuizFromLessonJson(JSONObject quizJson, String lessonId) throws JSONException {
+        String quizId = quizJson.getString("id");
+        String title = quizJson.getString("title");
+        List<Question> questions = new ArrayList<>();
+        
+        if (quizJson.has("questions")) {
+            JSONArray questionsArray = quizJson.getJSONArray("questions");
+            for (int j = 0; j < questionsArray.length(); j++) {
+                JSONObject questionJson = questionsArray.getJSONObject(j);
+                String questionId = questionJson.getString("id");
+                String text = questionJson.getString("text");
+                JSONArray optionsArray = questionJson.getJSONArray("options");
+                List<String> options = new ArrayList<>();
+                
+                for (int k = 0; k < optionsArray.length(); k++) {
+                    options.add(optionsArray.getString(k));
                 }
+                
+                int correctIndex = questionJson.getInt("correctIndex");
+                Question question = new Question(questionId, quizId, text, options, correctIndex);
+                questions.add(question);
             }
-            
-            return new Quiz(courseId, "Quiz for " + courseJson.getString("title"), questions);
         }
-        return null;
+        
+        return new Quiz(quizId, lessonId, questions, title);
     }
 
     public List<String> getCourseIds() {
@@ -104,10 +109,8 @@ public class JsonDataRepository {
                             imageName, "drawable", context.getPackageName());
                     
                     List<Lesson> lessons = getLessonsFromCourseJson(courseJson);
-                    Quiz quiz = getQuizFromCourseJson(courseJson, id);
                     
                     Course course = new Course(id, title, description, lessons, imageResource);
-                    course.setQuiz(quiz);
                     return course;
                 }
             }

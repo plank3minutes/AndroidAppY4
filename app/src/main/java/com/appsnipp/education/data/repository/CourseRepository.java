@@ -72,12 +72,32 @@ public class CourseRepository {
     public LiveData<List<Quiz>> getQuizzesByCourseId(String courseId) {
         MutableLiveData<List<Quiz>> quizzes = new MutableLiveData<>();
         Course course = JsonDataRepository.getInstance(context).getCourseById(courseId);
-        if (course != null && course.getQuiz() != null) {
-            quizzes.setValue(Collections.singletonList(course.getQuiz()));
+        if (course != null) {
+            List<Quiz> courseQuizzes = new ArrayList<>();
+            for (Lesson lesson : course.getLessons()) {
+                if (lesson.getQuiz() != null) {
+                    courseQuizzes.add(lesson.getQuiz());
+                }
+            }
+            quizzes.setValue(courseQuizzes);
         } else {
             quizzes.setValue(new ArrayList<>());
         }
         return quizzes;
+    }
+
+    public LiveData<Quiz> getQuizByLessonId(String courseId, String lessonId) {
+        MutableLiveData<Quiz> quiz = new MutableLiveData<>();
+        Course course = JsonDataRepository.getInstance(context).getCourseById(courseId);
+        if (course != null) {
+            for (Lesson lesson : course.getLessons()) {
+                if (lesson.getId().equals(lessonId) && lesson.getQuiz() != null) {
+                    quiz.setValue(lesson.getQuiz());
+                    break;
+                }
+            }
+        }
+        return quiz;
     }
 
     private void loadCoursesFromJson() {

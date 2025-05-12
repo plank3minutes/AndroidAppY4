@@ -1,95 +1,258 @@
 [
   {
-    "id": "1",
-    "title": "Khóa học lập trình Android",
-    "description": "Khóa học về lập trình Android",
-    "imageResource": "course_thinking",
-    "lessons": [
-      {
-        "id": "1",
-        "title": "Giới thiệu về Android",
-        "content": "Bài học đầu tiên về Android",
-        "videoUrl": "https://example.com/android-intro",
-        "isBookmarked": false
-      },
-      {
-        "id": "2",
-        "title": "Cài đặt môi trường",
-        "content": "Hướng dẫn cài đặt Android Studio",
-        "videoUrl": "https://example.com/android-setup",
-        "isBookmarked": false
-      }
-    ],
-    "quiz": {
-      "questions": [
-        {
-          "text": "Android là gì?",
-          "options": ["Hệ điều hành", "Trình duyệt", "Ứng dụng"],
-          "correctIndex": 0
-        }
-      ]
-    }
-  },
-  {
-    "id": "2",
-    "title": "Khóa học lập trình iOS",
-    "description": "Khóa học về lập trình iOS",
+    "id": "course1",
+    "title": "Java for Beginners",
+    "description": "Learn Java from scratch with practical examples.",
     "imageResource": "course_design_coding",
     "lessons": [
       {
-        "id": "1",
-        "title": "Giới thiệu về iOS",
-        "content": "Bài học đầu tiên về iOS",
-        "videoUrl": "https://example.com/ios-intro",
-        "isBookmarked": false
+        "id": "lesson1_1",
+        "courseId": "course1",
+        "title": "Introduction to Java",
+        "content": "Java is a high-level, class-based, object-oriented programming language.",
+        "videoUrl": "https://example.com/java-intro.mp4",
+        "quiz": {
+          "id": "quiz1_1",
+          "courseId": "course1",
+          "title": "Quiz: Java Basics",
+          "questions": [
+            {
+              "id": "q1_1",
+              "quizId": "quiz1_1",
+              "text": "Who created Java?",
+              "options": ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Guido van Rossum"],
+              "correctIndex": 0
+            },
+            {
+              "id": "q1_2",
+              "quizId": "quiz1_1",
+              "text": "Which year was Java released?",
+              "options": ["1995", "1991", "2000", "1985"],
+              "correctIndex": 0
+            }
+          ]
+        }
       },
       {
-        "id": "2",
-        "title": "Cài đặt Xcode",
-        "content": "Hướng dẫn cài đặt Xcode",
-        "videoUrl": "https://example.com/ios-setup",
-        "isBookmarked": false
-      }
-    ],
-    "quiz": {
-      "questions": [
-        {
-          "text": "iOS là gì?",
-          "options": ["Hệ điều hành", "Trình duyệt", "Ứng dụng"],
-          "correctIndex": 0
+        "id": "lesson1_2",
+        "courseId": "course1",
+        "title": "Variables and Data Types",
+        "content": "Java supports various data types including int, float, char, and boolean.",
+        "videoUrl": "https://example.com/java-variables.mp4",
+        "quiz": {
+          "id": "quiz1_2",
+          "courseId": "course1",
+          "title": "Quiz: Data Types",
+          "questions": [
+            {
+              "id": "q1_3",
+              "quizId": "quiz1_2",
+              "text": "Which of these is a valid data type in Java?",
+              "options": ["integer", "double", "number", "decimal"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q1_4",
+              "quizId": "quiz1_2",
+              "text": "Default value of a boolean variable?",
+              "options": ["true", "false", "null", "0"],
+              "correctIndex": 1
+            }
+          ]
         }
-      ]
-    }
+      }
+    ]
   },
   {
-    "id": "3",
-    "title": "Khóa học lập trình Web",
-    "description": "Khóa học về lập trình Web",
-    "imageResource": "course_design_securityexpert",
+    "id": "course2",
+    "title": "Kotlin Essentials",
+    "description": "Master Kotlin fundamentals for Android development.",
+    "imageResource": "course_design_coding",
     "lessons": [
       {
-        "id": "1",
-        "title": "Giới thiệu về Web",
-        "content": "Bài học đầu tiên về Web",
-        "videoUrl": "https://example.com/web-intro",
-        "isBookmarked": false
+        "id": "lesson2_1",
+        "courseId": "course2",
+        "title": "Kotlin Syntax Overview",
+        "content": "Kotlin is concise, safe, and fully interoperable with Java.",
+        "videoUrl": "https://example.com/kotlin-syntax.mp4",
+        "quiz": {
+          "id": "quiz2_1",
+          "courseId": "course2",
+          "title": "Quiz: Syntax Basics",
+          "questions": [
+            {
+              "id": "q2_1",
+              "quizId": "quiz2_1",
+              "text": "What keyword is used to define a variable in Kotlin?",
+              "options": ["let", "var", "def", "val"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q2_2",
+              "quizId": "quiz2_1",
+              "text": "Is Kotlin null-safe?",
+              "options": ["Yes", "No", "Partially", "Only for Int"],
+              "correctIndex": 0
+            }
+          ]
+        }
       },
       {
-        "id": "2",
-        "title": "HTML cơ bản",
-        "content": "Hướng dẫn HTML cơ bản",
-        "videoUrl": "https://example.com/web-html",
-        "isBookmarked": false
-      }
-    ],
-    "quiz": {
-      "questions": [
-        {
-          "text": "HTML là gì?",
-          "options": ["Ngôn ngữ đánh dấu", "Ngôn ngữ lập trình", "Cơ sở dữ liệu"],
-          "correctIndex": 0
+        "id": "lesson2_2",
+        "courseId": "course2",
+        "title": "Functions and Lambdas",
+        "content": "Kotlin treats functions as first-class citizens.",
+        "videoUrl": "https://example.com/kotlin-functions.mp4",
+        "quiz": {
+          "id": "quiz2_2",
+          "courseId": "course2",
+          "title": "Quiz: Functions",
+          "questions": [
+            {
+              "id": "q2_3",
+              "quizId": "quiz2_2",
+              "text": "What symbol is used for lambda in Kotlin?",
+              "options": ["->", "=>", "<-", "::"],
+              "correctIndex": 0
+            },
+            {
+              "id": "q2_4",
+              "quizId": "quiz2_2",
+              "text": "How do you declare a function?",
+              "options": ["func", "function", "def", "fun"],
+              "correctIndex": 3
+            }
+          ]
         }
-      ]
-    }
+      }
+    ]
+  },
+  {
+    "id": "course3",
+    "title": "Android UI Design",
+    "description": "Design beautiful and responsive UI with XML and Jetpack Compose.",
+    "imageResource": "course_design_coding",
+    "lessons": [
+      {
+        "id": "lesson3_1",
+        "courseId": "course3",
+        "title": "Introduction to XML Layouts",
+        "content": "XML is used to define UI in traditional Android development.",
+        "videoUrl": "https://example.com/android-xml.mp4",
+        "quiz": {
+          "id": "quiz3_1",
+          "courseId": "course3",
+          "title": "Quiz: XML Basics",
+          "questions": [
+            {
+              "id": "q3_1",
+              "quizId": "quiz3_1",
+              "text": "Which layout arranges views in a vertical or horizontal row?",
+              "options": ["LinearLayout", "RelativeLayout", "ConstraintLayout", "FrameLayout"],
+              "correctIndex": 0
+            },
+            {
+              "id": "q3_2",
+              "quizId": "quiz3_1",
+              "text": "Which attribute sets the view width?",
+              "options": ["layout_width", "view_width", "width", "wrap_width"],
+              "correctIndex": 0
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson3_2",
+        "courseId": "course3",
+        "title": "Jetpack Compose Basics",
+        "content": "Jetpack Compose is Android's modern UI toolkit.",
+        "videoUrl": "https://example.com/compose-intro.mp4",
+        "quiz": {
+          "id": "quiz3_2",
+          "courseId": "course3",
+          "title": "Quiz: Compose",
+          "questions": [
+            {
+              "id": "q3_3",
+              "quizId": "quiz3_2",
+              "text": "Compose uses which language?",
+              "options": ["Kotlin", "Java", "Dart", "XML"],
+              "correctIndex": 0
+            },
+            {
+              "id": "q3_4",
+              "quizId": "quiz3_2",
+              "text": "Which function sets content in Compose?",
+              "options": ["setView()", "setContent()", "createView()", "initUI()"],
+              "correctIndex": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "course4",
+    "title": "Data Structures in Java",
+    "description": "Explore arrays, lists, maps, and more in Java.",
+    "imageResource": "course_design_coding", 
+    "lessons": [
+      {
+        "id": "lesson4_1",
+        "courseId": "course4",
+        "title": "Arrays and Lists",
+        "content": "Lists are dynamic, arrays are fixed-size.",
+        "videoUrl": "https://example.com/java-arrays.mp4",
+        "quiz": {
+          "id": "quiz4_1",
+          "courseId": "course4",
+          "title": "Quiz: Lists & Arrays",
+          "questions": [
+            {
+              "id": "q4_1",
+              "quizId": "quiz4_1",
+              "text": "Which class represents a dynamic array?",
+              "options": ["Array", "List", "ArrayList", "Map"],
+              "correctIndex": 2
+            },
+            {
+              "id": "q4_2",
+              "quizId": "quiz4_1",
+              "text": "What is the index of the first element in an array?",
+              "options": ["0", "1", "-1", "Depends"],
+              "correctIndex": 0
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson4_2",
+        "courseId": "course4",
+        "title": "HashMap and TreeMap",
+        "content": "Maps store key-value pairs and allow quick lookup.",
+        "videoUrl": "https://example.com/java-maps.mp4",
+        "quiz": {
+          "id": "quiz4_2",
+          "courseId": "course4",
+          "title": "Quiz: Maps",
+          "questions": [
+            {
+              "id": "q4_3",
+              "quizId": "quiz4_2",
+              "text": "Which class maintains order of keys?",
+              "options": ["HashMap", "TreeMap", "Map", "LinkedList"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q4_4",
+              "quizId": "quiz4_2",
+              "text": "Which method retrieves a value by key?",
+              "options": ["getValue()", "value()", "get()", "find()"],
+              "correctIndex": 2
+            }
+          ]
+        }
+      }
+    ]
   }
-] 
+]

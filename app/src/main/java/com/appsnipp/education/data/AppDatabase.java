@@ -11,17 +11,20 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.appsnipp.education.data.dao.LessonStatusDao;
 import com.appsnipp.education.data.dao.UserProgressDao;
 import com.appsnipp.education.data.converter.DateConverter;
+import com.appsnipp.education.ui.model.LessonStatus;
 import com.appsnipp.education.ui.model.UserProgress;
 
-@Database(entities = {UserProgress.class}, version = 1, exportSchema = false)
+@Database(entities = {UserProgress.class, LessonStatus.class}, version = 2, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "education_db";
     private static AppDatabase INSTANCE;
 
     public abstract UserProgressDao userProgressDao();
+    public abstract LessonStatusDao lessonStatusDao();
 
     public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {

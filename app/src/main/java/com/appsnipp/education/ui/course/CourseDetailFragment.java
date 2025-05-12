@@ -98,7 +98,7 @@ public class CourseDetailFragment extends Fragment {
                     updateProgressUI(progress);
                 } else {
                     // Create new progress if none exists
-                    UserProgress newProgress = new UserProgress(courseId, 0, 0, new Date());
+                    UserProgress newProgress = new UserProgress(courseId, currentCourse.getLessonCount(), 0, false, new Date());
                     progressViewModel.insert(newProgress);
                 }
             });
@@ -118,8 +118,8 @@ public class CourseDetailFragment extends Fragment {
 
     private void updateProgressUI(UserProgress progress) {
         int completionPercentage = 0;
-        if (currentCourse != null && currentCourse.getLessons().size() > 0) {
-            completionPercentage = (progress.getLessonIndex() * 100) / currentCourse.getLessons().size();
+        if (currentCourse != null && currentCourse.getLessonCount() > 0) {
+            completionPercentage = (progress.getCompletedLessons() * 100) / currentCourse.getLessonCount();
         }
         
         binding.progressBarCourse.setProgress(completionPercentage);
@@ -152,17 +152,6 @@ public class CourseDetailFragment extends Fragment {
             // Sử dụng Navigation Component để điều hướng đến màn hình chi tiết bài học
             NavHostFragment.findNavController(CourseDetailFragment.this)
                 .navigate(R.id.action_courseDetailFragment_to_lessonDetailFragment, args);
-        }
-
-        @Override
-        public void onBookmarkClicked(Lesson lesson, int position) {
-            // Toggle bookmark status
-            lesson.setBookmarked(!lesson.isBookmarked());
-            lessonAdapter.notifyItemChanged(position);
-            // TODO: Update in database
-            String message = lesson.isBookmarked() ? 
-                "Added to bookmarks" : "Removed from bookmarks";
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
         }
     };
 

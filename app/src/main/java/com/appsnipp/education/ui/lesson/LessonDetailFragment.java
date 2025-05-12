@@ -109,9 +109,7 @@ public class LessonDetailFragment extends Fragment {
         } else {
             binding.videoViewLesson.setVisibility(View.GONE);
         }
-        
-        // Setup bookmark button
-        updateBookmarkButton(lesson.isBookmarked());
+
     }
 
     private void setupVideoPlayer(String videoUrl) {
@@ -132,31 +130,10 @@ public class LessonDetailFragment extends Fragment {
         }
     }
 
-    private void updateBookmarkButton(boolean isBookmarked) {
-        binding.fabBookmark.setImageResource(isBookmarked ?
-                R.drawable.ic_bookmark : R.drawable.ic_bookmark_border);
-    }
 
     private void setupButtonListeners() {
         binding.buttonCompleteLesson.setOnClickListener(v -> {
             markLessonAsComplete();
-        });
-        
-        binding.fabBookmark.setOnClickListener(v -> {
-            if (currentLesson != null) {
-                // Toggle bookmark state
-                boolean newState = !currentLesson.isBookmarked();
-                currentLesson.setBookmarked(newState);
-                updateBookmarkButton(newState);
-                
-                // Hiển thị thông báo
-                String message = newState ? 
-                    getString(R.string.bookmark_added) : 
-                    getString(R.string.bookmark_removed);
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
-                
-                // TODO: Cập nhật trạng thái bookmark trong database
-            }
         });
     }
 

@@ -10,7 +10,7 @@ public class Lesson {
     private String title;
     private String content;
     private String videoUrl;
-    private boolean isBookmarked;
+    private Quiz quiz;
 
     public Lesson() {
     }
@@ -21,17 +21,16 @@ public class Lesson {
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
-        this.isBookmarked = false;
     }
     
     // Thêm constructor mới để phù hợp với dữ liệu từ JSON
-    public Lesson(String id, String title, String content, String videoUrl, boolean isBookmarked) {
+    public Lesson(String id, String title, String content, String videoUrl, Quiz quiz) {
         this.id = id;
         this.courseId = null; // Sẽ được set sau khi biết courseId
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
-        this.isBookmarked = isBookmarked;
+        this.quiz = quiz;
     }
 
     public String getId() {
@@ -74,12 +73,12 @@ public class Lesson {
         this.videoUrl = videoUrl;
     }
 
-    public boolean isBookmarked() {
-        return isBookmarked;
+    public Quiz getQuiz() {
+        return quiz;
     }
 
-    public void setBookmarked(boolean bookmarked) {
-        isBookmarked = bookmarked;
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
     @Override

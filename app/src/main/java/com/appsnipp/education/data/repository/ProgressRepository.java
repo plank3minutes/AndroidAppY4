@@ -56,6 +56,14 @@ public class ProgressRepository {
         new UpdateUserProgressAsyncTask(userProgressDao).execute(userProgress);
     }
 
+    public void updateProgress(String courseId, int totalLessons, int completedLessons) {
+        new UpdateProgressAsyncTask(userProgressDao).execute(new ProgressUpdate(courseId, totalLessons, completedLessons));
+    }
+
+    public void toggleMark(String courseId, boolean isMarked) {
+        new ToggleMarkAsyncTask(userProgressDao).execute(new MarkUpdate(courseId, isMarked));
+    }
+
     public void delete(UserProgress userProgress) {
         new DeleteUserProgressAsyncTask(userProgressDao).execute(userProgress);
     }
@@ -92,6 +100,47 @@ public class ProgressRepository {
         }
     }
 
+    private static class UpdateProgressAsyncTask extends AsyncTask<ProgressUpdate, Void, Void> {
+        private final UserProgressDao userProgressDao;
+
+        private UpdateProgressAsyncTask(UserProgressDao userProgressDao) {
+            this.userProgressDao = userProgressDao;
+        }
+
+        @Override
+        protected Void doInBackground(ProgressUpdate... updates) {
+            ProgressUpdate update = updates[0];
+            UserProgress progress = userProgressDao.getUserProgressByCourseIdSync(update.courseId);
+            if (progress != null) {
+                progress.setTotalLessons(update.totalLessons);
+                progress.setCompletedLessons(update.completedLessons);
+                progress.setLastAccess(new Date());
+                userProgressDao.update(progress);
+            }
+            return null;
+        }
+    }
+
+    private static class ToggleMarkAsyncTask extends AsyncTask<MarkUpdate, Void, Void> {
+        private final UserProgressDao userProgressDao;
+
+        private ToggleMarkAsyncTask(UserProgressDao userProgressDao) {
+            this.userProgressDao = userProgressDao;
+        }
+
+        @Override
+        protected Void doInBackground(MarkUpdate... updates) {
+            MarkUpdate update = updates[0];
+            UserProgress progress = userProgressDao.getUserProgressByCourseIdSync(update.courseId);
+            if (progress != null) {
+                progress.setMarked(update.isMarked);
+                progress.setLastAccess(new Date());
+                userProgressDao.update(progress);
+            }
+            return null;
+        }
+    }
+
     private static class DeleteUserProgressAsyncTask extends AsyncTask<UserProgress, Void, Void> {
         private final UserProgressDao userProgressDao;
 
@@ -117,6 +166,28 @@ public class ProgressRepository {
         protected Void doInBackground(Void... voids) {
             userProgressDao.deleteAll();
             return null;
+        }
+    }
+
+    private static class ProgressUpdate {
+        final String courseId;
+        final int totalLessons;
+        final int completedLessons;
+
+        ProgressUpdate(String courseId, int totalLessons, int completedLessons) {
+            this.courseId = courseId;
+            this.totalLessons = totalLessons;
+            this.completedLessons = completedLessons;
+        }
+    }
+
+    private static class MarkUpdate {
+        final String courseId;
+        final boolean isMarked;
+
+        MarkUpdate(String courseId, boolean isMarked) {
+            this.courseId = courseId;
+            this.isMarked = isMarked;
         }
     }
 } 

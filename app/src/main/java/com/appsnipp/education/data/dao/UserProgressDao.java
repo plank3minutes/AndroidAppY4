@@ -23,6 +23,10 @@ public interface UserProgressDao {
     @Delete
     void delete(UserProgress userProgress);
 
+    // Trong UserProgressDao.java
+    @Query("SELECT * FROM user_progress WHERE courseId = :courseId LIMIT 1")
+    UserProgress getUserProgressByCourseIdSync(String courseId);
+
     @Query("SELECT * FROM user_progress WHERE courseId = :courseId")
     LiveData<UserProgress> getUserProgressByCourseId(String courseId);
 

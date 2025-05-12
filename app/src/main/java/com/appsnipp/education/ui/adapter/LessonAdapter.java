@@ -78,19 +78,10 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
                 imageVideoIndicator.setVisibility(View.GONE);
             }
             
-            // Set bookmark icon
-            imageBookmark.setImageResource(lesson.isBookmarked() ? R.drawable.ic_bookmark : R.drawable.ic_bookmark_border);
-            
             // Setup click listeners
             itemView.setOnClickListener(v -> {
                 if (lessonListener != null) {
                     lessonListener.onLessonClicked(lesson, position);
-                }
-            });
-            
-            imageBookmark.setOnClickListener(v -> {
-                if (lessonListener != null) {
-                    lessonListener.onBookmarkClicked(lesson, position);
                 }
             });
         }
@@ -98,6 +89,5 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
 
     public interface LessonListener {
         void onLessonClicked(Lesson lesson, int position);
-        void onBookmarkClicked(Lesson lesson, int position);
     }
 } 
