@@ -38,7 +38,7 @@
         "courseId": "course1",
         "title": "Variables and Data Types",
         "content": "Java supports various data types including int, float, char, and boolean.",
-        "videoUrl": "https://example.com/java-variables.mp4",
+        "videoUrl": "KYrnTn9nXFI",
         "quiz": {
           "id": "quiz1_2",
           "courseId": "course1",
@@ -74,7 +74,7 @@
         "courseId": "course2",
         "title": "Kotlin Syntax Overview",
         "content": "Kotlin is concise, safe, and fully interoperable with Java.",
-        "videoUrl": "https://example.com/kotlin-syntax.mp4",
+        "videoUrl": "KYrnTn9nXFI",
         "quiz": {
           "id": "quiz2_1",
           "courseId": "course2",
@@ -102,7 +102,7 @@
         "courseId": "course2",
         "title": "Functions and Lambdas",
         "content": "Kotlin treats functions as first-class citizens.",
-        "videoUrl": "https://example.com/kotlin-functions.mp4",
+        "videoUrl": "",
         "quiz": {
           "id": "quiz2_2",
           "courseId": "course2",
@@ -138,7 +138,7 @@
         "courseId": "course3",
         "title": "Introduction to XML Layouts",
         "content": "XML is used to define UI in traditional Android development.",
-        "videoUrl": "https://example.com/android-xml.mp4",
+        "videoUrl": "KYrnTn9nXFI",
         "quiz": {
           "id": "quiz3_1",
           "courseId": "course3",
@@ -166,7 +166,7 @@
         "courseId": "course3",
         "title": "Jetpack Compose Basics",
         "content": "Jetpack Compose is Android's modern UI toolkit.",
-        "videoUrl": "https://example.com/compose-intro.mp4",
+        "videoUrl": "KYrnTn9nXFI",
         "quiz": {
           "id": "quiz3_2",
           "courseId": "course3",
@@ -202,7 +202,7 @@
         "courseId": "course4",
         "title": "Arrays and Lists",
         "content": "Lists are dynamic, arrays are fixed-size.",
-        "videoUrl": "https://example.com/java-arrays.mp4",
+        "videoUrl": "KYrnTn9nXFI",
         "quiz": {
           "id": "quiz4_1",
           "courseId": "course4",
@@ -230,7 +230,7 @@
         "courseId": "course4",
         "title": "HashMap and TreeMap",
         "content": "Maps store key-value pairs and allow quick lookup.",
-        "videoUrl": "https://example.com/java-maps.mp4",
+        "videoUrl": "KYrnTn9nXFI",
         "quiz": {
           "id": "quiz4_2",
           "courseId": "course4",

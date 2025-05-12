@@ -144,15 +144,14 @@ public class LessonDetailFragment extends Fragment {
         
         // Setup video if available
         if (lesson.getVideoUrl() != null && !lesson.getVideoUrl().isEmpty()) {
+            binding.videoWebViewContainer.setVisibility(View.VISIBLE);
             binding.videoViewLesson.setVisibility(View.VISIBLE);
             setupVideoPlayer(lesson.getVideoUrl());
         } else {
+            binding.videoWebViewContainer.setVisibility(View.GONE);
             binding.videoViewLesson.setVisibility(View.GONE);
             isVideoWatched = true; // No video means no need to watch
         }
-
-//        // Disable complete button initially
-//        binding.buttonCompleteLesson.setEnabled(false);
     }
 
     private void setupVideoPlayer(String videoUrl) {
@@ -218,11 +217,21 @@ public class LessonDetailFragment extends Fragment {
     }
 
     // Interface để nhận thông tin từ JavaScript
-    public static class WebAppInterface {
+    public class WebAppInterface {
         @JavascriptInterface
         public void onVideoStateChange(String state) {
             // Xử lý trạng thái video (nếu cần)
             System.out.println("Video state: " + state);
+        }
+
+        @JavascriptInterface
+        public void onVideoHalfway() {
+            // Xử lý khi video xem được 50%
+            requireActivity().runOnUiThread(() -> {
+                Toast.makeText(requireContext(), "Đã xem được 50% video!", Toast.LENGTH_SHORT).show();
+                isVideoWatched = true;
+                checkCompletionStatus();
+            });
         }
     }
 
@@ -243,28 +252,6 @@ public class LessonDetailFragment extends Fragment {
     public void stopVideo() {
         videoWebView.evaluateJavascript("stopVideo();", null);
     }
-
-//    private void setupVideoPlayer(String videoUrl) {
-//        try {
-//            MediaController mediaController = new MediaController(requireContext());
-//            mediaController.setAnchorView(binding.videoViewLesson);
-//
-//            Uri videoUri = Uri.parse(videoUrl);
-//            binding.videoViewLesson.setMediaController(mediaController);
-//            binding.videoViewLesson.setVideoURI(videoUri);
-//            binding.videoViewLesson.requestFocus();
-//
-//            // Add completion listener
-//            binding.videoViewLesson.setOnCompletionListener(mp -> {
-//                isVideoWatched = true;
-//                checkCompletionStatus();
-//            });
-//        } catch (Exception e) {
-//            Toast.makeText(requireContext(), getString(R.string.video_error), Toast.LENGTH_SHORT).show();
-//            binding.videoViewLesson.setVisibility(View.GONE);
-//            isVideoWatched = true; // If video fails, consider it watched
-//        }
-//    }
 
     private void setupButtonListeners() {
         binding.buttonTakeQuiz.setOnClickListener(v -> {
@@ -302,8 +289,8 @@ public class LessonDetailFragment extends Fragment {
     }
 
     private void checkCompletionStatus() {
-//        boolean canComplete = isVideoWatched && isQuizCompleted;
-        boolean canComplete = isQuizCompleted; // Assuming video is not mandatory
+        boolean canComplete = isVideoWatched && isQuizCompleted;
+//        boolean canComplete = isQuizCompleted; // Assuming video is not mandatory
         binding.buttonCompleteLesson.setEnabled(canComplete);
     }
 
@@ -357,6 +344,8 @@ public class LessonDetailFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        videoWebView.destroy();
+        if (videoWebView != null) {
+            videoWebView.destroy();
+        }
     }
 } 

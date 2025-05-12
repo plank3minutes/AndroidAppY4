@@ -20,6 +20,7 @@
 
     // Biến toàn cục để lưu player
     var player;
+    var hasReachedHalf = false; // Theo dõi xem đã đạt 50% chưa
 
     // Hàm được gọi khi API sẵn sàng
     function onYouTubeIframeAPIReady() {
@@ -43,6 +44,7 @@
     function onPlayerReady(event) {
         // Ví dụ: Phát video khi sẵn sàng
         // event.target.playVideo();
+        setInterval(checkVideoProgress, 2000); // Kiểm tra mỗi giây
     }
 
     // Hàm xử lý thay đổi trạng thái player
@@ -50,6 +52,23 @@
         // Xử lý các trạng thái: -1 (chưa bắt đầu), 0 (kết thúc), 1 (đang phát), 2 (tạm dừng), 3 (đang đệm), 5 (video cued)
         if (event.data == YT.PlayerState.PLAYING) {
             console.log("Video is playing");
+        }
+    }
+
+    function checkVideoProgress() {
+        if (player && player.getPlayerState() == YT.PlayerState.PLAYING) {
+            var currentTime = player.getCurrentTime(); // Thời gian hiện tại (giây)
+            var duration = player.getDuration(); // Tổng thời lượng video (giây)
+
+            if (duration > 0 && !hasReachedHalf) {
+                var halfTime = duration / 2;
+                if (currentTime >= halfTime) {
+                    hasReachedHalf = true; // Đánh dấu đã đạt 50%
+                    if (typeof Android !== 'undefined' && Android.onVideoHalfway) {
+                        Android.onVideoHalfway(); // Gọi hàm Android
+                    }
+                }
+            }
         }
     }
 
