@@ -37,6 +37,12 @@ public class ProgressViewModel extends AndroidViewModel {
         return repository.getLatestUserProgress();
     }
 
+    public void toggleMark(UserProgress progress) {
+        progress.setMarked(!progress.isMarked());
+        update(progress);
+    }
+
+
     public void insert(UserProgress userProgress) {
         repository.insert(userProgress);
     }

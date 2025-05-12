@@ -21,8 +21,10 @@ import com.appsnipp.education.databinding.FragmentCourseDetailBinding;
 import com.appsnipp.education.ui.adapter.LessonAdapter;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
+import com.appsnipp.education.ui.model.LessonStatus;
 import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
+import com.appsnipp.education.ui.viewmodel.LessonStatusViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 
 import java.util.ArrayList;
@@ -34,8 +36,11 @@ public class CourseDetailFragment extends Fragment {
     private FragmentCourseDetailBinding binding;
     private CourseViewModel courseViewModel;
     private ProgressViewModel progressViewModel;
+    private LessonStatusViewModel lessonStatusViewModel;
     private String courseId;
     private Course currentCourse;
+    private UserProgress userProgress;
+    private List<LessonStatus> lessonStatuses;
     private LessonAdapter lessonAdapter;
 
     @Override
@@ -70,6 +75,7 @@ public class CourseDetailFragment extends Fragment {
     private void setupViewModels() {
         courseViewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
         progressViewModel = new ViewModelProvider(requireActivity()).get(ProgressViewModel.class);
+        lessonStatusViewModel = new ViewModelProvider(requireActivity()).get(LessonStatusViewModel.class);
     }
 
     private void setupRecyclerView() {
@@ -108,7 +114,11 @@ public class CourseDetailFragment extends Fragment {
     }
 
     private boolean isLessonCompleted(String lessonId) {
-        // TODO: Implement kiểm tra trạng thái hoàn thành của bài học
+        for (LessonStatus status : lessonStatuses) {
+            if (status.getLessonId().equals(lessonId)) {
+                return status.isCompleted();
+            }
+        }
         return false;
     }
 
@@ -121,7 +131,10 @@ public class CourseDetailFragment extends Fragment {
     }
 
     private void toggleBookmark() {
-        // TODO: Implement chức năng bookmark
+        if (userProgress != null) {
+            progressViewModel.toggleMark(userProgress);
+            binding.fabBookmarkCourse.setImageResource(userProgress.isMarked() ? R.drawable.ic_bookmark : R.drawable.ic_bookmark_border);
+        }
     }
 
     private void observeCourseData() {
@@ -136,9 +149,16 @@ public class CourseDetailFragment extends Fragment {
             progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
                 if (progress != null) {
                     updateProgressUI(progress);
+                    this.userProgress = progress;
                 } else {
                     UserProgress newProgress = new UserProgress(courseId, currentCourse.getLessonCount(), 0, false, new Date());
                     progressViewModel.insert(newProgress);
+                }
+            });
+
+            lessonStatusViewModel.getLessonStatusByCourseId(courseId).observe(getViewLifecycleOwner(), lessonStatuses -> {
+                if (lessonStatuses != null) {
+                    this.lessonStatuses = lessonStatuses;
                 }
             });
         }
@@ -156,6 +176,7 @@ public class CourseDetailFragment extends Fragment {
     }
 
     private void updateProgressUI(UserProgress progress) {
+        binding.fabBookmarkCourse.setImageResource(progress.isMarked() ? R.drawable.ic_bookmark : R.drawable.ic_bookmark_border);
         int completionPercentage = 0;
         if (currentCourse != null && currentCourse.getLessonCount() > 0) {
             completionPercentage = (progress.getCompletedLessons() * 100) / currentCourse.getLessonCount();
