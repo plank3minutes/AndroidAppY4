@@ -72,6 +72,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         private final TextView textLessonDescription;
         private final ImageView imageVideoIndicator;
         private final ImageView imageCompleted;
+        private final TextView textLessonNumber;
 
         public LessonViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,9 +80,11 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
             textLessonDescription = itemView.findViewById(R.id.textLessonDescription);
             imageVideoIndicator = itemView.findViewById(R.id.imageVideoIndicator);
             imageCompleted = itemView.findViewById(R.id.imageCompleted);
+            textLessonNumber = itemView.findViewById(R.id.textLessonNumber);
         }
 
         public void bind(Lesson lesson, LessonStatus status, int position) {
+            textLessonNumber.setText(String.valueOf(position + 1));
             textLessonTitle.setText(lesson.getTitle());
             textLessonDescription.setText(lesson.getContent().substring(0, Math.min(lesson.getContent().length(), 100)) + "...");
             

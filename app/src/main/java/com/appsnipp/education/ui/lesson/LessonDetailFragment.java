@@ -60,10 +60,6 @@ public class LessonDetailFragment extends Fragment {
         if (getArguments() != null) {
             lessonId = getArguments().getString("lessonId");
             courseId = getArguments().getString("courseId");
-            int quizScore = getArguments().getInt("quizScore", 0);
-            if (quizScore > 0) {
-                onQuizCompleted(quizScore);
-            }
         }
 
         setupToolbar();
@@ -178,6 +174,12 @@ public class LessonDetailFragment extends Fragment {
                             binding.buttonCompleteLesson.setEnabled(false);
                             binding.buttonTakeQuiz.setEnabled(false);
                         }
+                        if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
+                            onQuizCompleted();
+                        }
+                        if (status == null ) {
+                            binding.buttonCompleteLesson.setEnabled(false);
+                        }
                     });
         }
     }
@@ -188,7 +190,7 @@ public class LessonDetailFragment extends Fragment {
         binding.buttonCompleteLesson.setEnabled(canComplete);
     }
 
-    public void onQuizCompleted(int score) {
+    public void onQuizCompleted() {
         isQuizCompleted = true;
         checkCompletionStatus();
     }

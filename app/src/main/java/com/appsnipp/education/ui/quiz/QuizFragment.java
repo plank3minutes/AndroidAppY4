@@ -272,12 +272,14 @@ public class QuizFragment extends Fragment {
         Toast.makeText(requireContext(), getString(R.string.quiz_score, score, questions.size(), percentage), Toast.LENGTH_LONG).show();
 
         // Navigate to quiz fragment
-        Bundle args = new Bundle();
-        args.putString("lessonId", lessonId);
-        args.putString("courseId", courseId);
-        args.putInt("quizScore", percentage);
-        NavHostFragment.findNavController(this)
-                .navigate(R.id.action_quizFragment_to_lessonDetailFragment, args);
+//        Bundle args = new Bundle();
+//        args.putString("lessonId", lessonId);
+//        args.putString("courseId", courseId);
+//        args.putInt("quizScore", percentage);
+//        NavHostFragment.findNavController(this)
+//                .navigate(R.id.action_quizFragment_to_lessonDetailFragment, args);
+
+        NavHostFragment.findNavController(this).popBackStack();
     }
 
     @Override

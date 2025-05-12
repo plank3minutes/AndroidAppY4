@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/card_background"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:strokeColor="#33FFFFFF"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,38 +17,87 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/textLessonNumber"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/circle_background"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <TextView
             android:id="@+id/textLessonTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/textLessonDescription"
+            app:layout_constraintEnd_toStartOf="@+id/imageCompleted"
+            app:layout_constraintStart_toEndOf="@+id/textLessonNumber"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Introduction to Android" />
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Introduction to Android Development" />
 
         <TextView
             android:id="@+id/textLessonDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
-            android:maxLines="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:textColor="#B3FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageCompleted"
+            app:layout_constraintStart_toEndOf="@+id/textLessonNumber"
             app:layout_constraintTop_toBottomOf="@+id/textLessonTitle"
             tools:text="Learn the basics of Android development and the Android ecosystem" />
 
-        <ImageView
-            android:id="@+id/imageVideoIndicator"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:contentDescription="@string/video_available"
-            android:src="@drawable/ic_video"
+        <LinearLayout
+            android:id="@+id/layoutIndicators"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textLessonDescription" />
+            app:layout_constraintStart_toEndOf="@+id/textLessonNumber"
+            app:layout_constraintTop_toBottomOf="@+id/textLessonDescription">
+
+            <ImageView
+                android:id="@+id/imageVideoIndicator"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@string/video_available"
+                android:src="@drawable/ic_video"
+                app:tint="#B3FFFFFF" />
+
+        </LinearLayout>
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageStatus"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:contentDescription="@string/lesson_completed"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:src="@drawable/ic_play_circle"-->
+<!--            tools:tint="@color/bright_orange" />-->
 
         <ImageView
             android:id="@+id/imageCompleted"
@@ -55,8 +107,13 @@
             android:contentDescription="@string/lesson_completed"
             android:src="@drawable/ic_check_circle"
             android:visibility="gone"
+            tools:tint="@color/bright_orange"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textLessonDescription" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView> 
+</com.google.android.material.card.MaterialCardView>
+
+
