@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -169,8 +170,8 @@ public class CourseDetailFragment extends Fragment {
         binding.textCourseTitle.setText(course.getTitle());
         binding.textCourseDescription.setText(course.getDescription());
         binding.imageCourse.setImageResource(course.getImageResource());
-        binding.textInstructor.setText(course.getLessonCount() + " lessons");
-        binding.textLessonCount.setText(course.getLessonCount() + " lessons");
+        binding.textInstructor.setText(getString(R.string.num_lesson, course.getLessonCount()));
+        binding.textLessonCount.setText(getString(R.string.num_lesson, course.getLessonCount()));
         
         lessonAdapter.updateLessons(course.getLessons());
         binding.collapsingToolbar.setTitle(course.getTitle());
@@ -184,13 +185,17 @@ public class CourseDetailFragment extends Fragment {
         }
         
         binding.progressBarCourse.setProgress(completionPercentage);
-        binding.textProgress.setText(completionPercentage + "% completed");
+        binding.textProgress.setText(getString(R.string.percentage_course, completionPercentage));
     }
 
     private final LessonAdapter.LessonListener lessonListener = new LessonAdapter.LessonListener() {
         @Override
         public void onLessonClicked(Lesson lesson, int position) {
-            navigateToLesson(lesson);
+            if (position == userProgress.getCompletedLessons()) {
+                navigateToLesson(lesson);
+            } else {
+                Toast.makeText(getContext(), getString(R.string.notif_lession_in_order), Toast.LENGTH_SHORT).show();
+            }
         }
     };
 

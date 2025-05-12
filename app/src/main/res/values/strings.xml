@@ -29,6 +29,11 @@
     <string name="hello_message">Hello Roger</string>
     <string name="percentage_course">%1$d%% Completed</string>
 
+    <string name="play_video">Play video</string>
+    <string name="lesson_illustration">Lesson illustration</string>
+    <string name="notif_lession_in_order">You need to complete the lessons in order.</string>
+
+
 
     <string name="text_see_more">See All</string>
     <string name="imageAccess">Image</string>
@@ -51,8 +56,9 @@
     <string name="bookmark_button">Bookmark</string>
     <string name="course_image">Course image</string>
     <string name="completed">Completed</string>
-    
+
     <!-- New strings for lesson detail -->
+    <string name="num_lesson">%1$d Lesson</string>
     <string name="lesson_image">Lesson image</string>
     <string name="mark_as_complete">Mark as Complete</string>
     <string name="video_error">Error loading video</string>
@@ -89,6 +95,4 @@
     <string name="backup_success">Backup successful</string>
     <string name="restore_success">Restore successful</string>
 
-    <string name="play_video">Play video</string>
-    <string name="lesson_illustration">Lesson illustration</string>
 </resources>

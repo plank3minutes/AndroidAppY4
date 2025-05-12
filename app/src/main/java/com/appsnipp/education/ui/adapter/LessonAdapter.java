@@ -25,6 +25,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     private final LessonListener lessonListener;
     private List<LessonStatus> lessonStatuses;
 
+
     public LessonAdapter(List<Lesson> lessons, LessonListener lessonListener) {
         this.lessons = lessons;
         this.lessonListener = lessonListener;
