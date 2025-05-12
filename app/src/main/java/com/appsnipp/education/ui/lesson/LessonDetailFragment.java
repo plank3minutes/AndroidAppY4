@@ -111,7 +111,11 @@ public class LessonDetailFragment extends Fragment {
         
         // Setup WebView to display content
         binding.webViewLessonContent.setWebViewClient(new WebViewClient());
-        String htmlContent = "<html><body style='text-align:justify'>" + lesson.getContent() + "</body></html>";
+        binding.webViewLessonContent.getSettings().setJavaScriptEnabled(true);
+        binding.webViewLessonContent.setBackgroundColor(getResources().getColor(R.color.card_background));
+        String htmlContent = "<html><body style='text-align:justify;'>"
+                + lesson.getContent() +
+                "</body></html>";
         binding.webViewLessonContent.loadData(htmlContent, "text/html", "UTF-8");
         
         // Setup video if available
@@ -174,10 +178,10 @@ public class LessonDetailFragment extends Fragment {
                             binding.buttonCompleteLesson.setEnabled(false);
                             binding.buttonTakeQuiz.setEnabled(false);
                         }
-                        if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
+                        else if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
                             onQuizCompleted();
                         }
-                        if (status == null ) {
+                        else {
                             binding.buttonCompleteLesson.setEnabled(false);
                         }
                     });

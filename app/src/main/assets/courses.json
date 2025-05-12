@@ -2,15 +2,15 @@
   {
     "id": "course1",
     "title": "Java for Beginners",
-    "description": "Learn Java from scratch with practical examples.",
+    "description": "Learn to code in Java — a robust programming language used to create software, web and mobile apps, and more.",
     "imageResource": "course_design_coding",
     "lessons": [
       {
         "id": "lesson1_1",
         "courseId": "course1",
         "title": "Introduction to Java",
-        "content": "Java is a high-level, class-based, object-oriented programming language.",
-        "videoUrl": "https://example.com/java-intro.mp4",
+        "content": "<div>\n  <p><strong>Java</strong> is a high-level, object-oriented programming language used to build applications across platforms—from web and mobile apps to enterprise software. It is known for its <strong>Write Once, Run Anywhere</strong> capability, meaning code written in Java can run on any device that supports the Java Virtual Machine (JVM).</p>\n\n  <p>Java shares similarities with other C-based languages like <a href=\"https://www.geeksforgeeks.org/c-plus-plus/\" target=\"_blank\">C++</a> and C#, especially in terms of syntax and structure. Its robustness, cross-platform compatibility, and strong memory management have made it a go-to language for developers worldwide for over two decades.</p>\n\n  <img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250312132108088185/Applications-of-Java.webp\" alt=\"Applications of Java\">\n  <img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250312132127482135/Web-Development.webp\" alt=\"Web Development\">\n  <img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250312132148158680/Android-App-Development.webp\" alt=\"Android App Development\">\n  <img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250312132210495550/Enterprise-Applications.webp\" alt=\"Enterprise Applications\">\n</div>",
+        "videoUrl": "https://youtu.be/r59xYe3Vyks?list=PLS1QulWo1RIbfTjQvTdj8Y6yyq4R7g-Al",
         "quiz": {
           "id": "quiz1_1",
           "courseId": "course1",
