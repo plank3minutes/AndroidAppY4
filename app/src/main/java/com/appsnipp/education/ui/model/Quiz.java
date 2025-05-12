@@ -8,24 +8,24 @@ import java.util.List;
 
 public class Quiz {
     private String id;
-    private String courseId;
+    private String lessonId;
     private List<Question> questions;
     private String title;
 
     public Quiz() {
     }
 
-    public Quiz(String id, String courseId, List<Question> questions, String title) {
+    public Quiz(String id, String lessonId, List<Question> questions, String title) {
         this.id = id;
-        this.courseId = courseId;
+        this.lessonId = lessonId;
         this.questions = questions;
         this.title = title;
     }
     
     // Thêm constructor để hỗ trợ dữ liệu từ JSON
-    public Quiz(String courseId, String title, List<Question> questions) {
+    public Quiz(String lessonId, String title, List<Question> questions) {
         this.id = String.valueOf(System.currentTimeMillis()); // Tạo id tạm thời
-        this.courseId = courseId;
+        this.lessonId = lessonId;
         this.questions = questions;
         this.title = title;
     }
@@ -38,12 +38,12 @@ public class Quiz {
         this.id = id;
     }
 
-    public String getCourseId() {
-        return courseId;
+    public String getLessonId() {
+        return lessonId;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setLesson(String lessonId) {
+        this.lessonId = lessonId;
     }
 
     public List<Question> getQuestions() {

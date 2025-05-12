@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.ui.model;
 
 import androidx.room.Entity;
@@ -12,28 +8,25 @@ import java.util.Date;
 @Entity(tableName = "user_progress")
 public class UserProgress {
     @PrimaryKey(autoGenerate = true)
-    private int uid;
+    private String uid;
+    private String userId;
+    private String lessonId;
+    private boolean videoWatched;
+    private boolean quizPassed;
+    private int score;
+    private int total;
     private String courseId;
-    private int lessonIndex;
-    private int quizScore;
-    private Date lastAccess;
 
-    public UserProgress() {
-    }
+    public UserProgress(){}
 
-    public UserProgress(String courseId, int lessonIndex, int quizScore, Date lastAccess) {
+    public UserProgress(String userId, String lessonId, boolean videoWatched, boolean quizPassed, int score, int total, String courseId){
+        this.userId = userId;
+        this.lessonId = lessonId;
+        this.videoWatched = videoWatched;
+        this.quizPassed = quizPassed;
+        this.score = score;
+        this.total = total;
         this.courseId = courseId;
-        this.lessonIndex = lessonIndex;
-        this.quizScore = quizScore;
-        this.lastAccess = lastAccess;
-    }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
     }
 
     public String getCourseId() {
@@ -44,27 +37,55 @@ public class UserProgress {
         this.courseId = courseId;
     }
 
-    public int getLessonIndex() {
-        return lessonIndex;
+    public String getUid(){
+        return this.uid;
     }
 
-    public void setLessonIndex(int lessonIndex) {
-        this.lessonIndex = lessonIndex;
+    public String getUserId() {
+        return userId;
     }
 
-    public int getQuizScore() {
-        return quizScore;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setQuizScore(int quizScore) {
-        this.quizScore = quizScore;
+    public String getLessonId() {
+        return lessonId;
     }
 
-    public Date getLastAccess() {
-        return lastAccess;
+    public void setLessonId(String lessonId) {
+        this.lessonId = lessonId;
     }
 
-    public void setLastAccess(Date lastAccess) {
-        this.lastAccess = lastAccess;
+    public boolean isVideoWatched() {
+        return videoWatched;
     }
-} 
+
+    public void setVideoWatched(boolean videoWatched) {
+        this.videoWatched = videoWatched;
+    }
+
+    public boolean isQuizPassed() {
+        return quizPassed;
+    }
+
+    public void setQuizPassed(boolean quizPassed) {
+        this.quizPassed = quizPassed;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+}

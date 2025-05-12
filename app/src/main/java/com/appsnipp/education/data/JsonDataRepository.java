@@ -14,14 +14,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JsonDataRepository {
     private static JsonDataRepository instance;
     private final Context context;
+    private Map<String, Course> courseMap = new HashMap<>();
 
     private JsonDataRepository(Context context) {
         this.context = context.getApplicationContext();
+
     }
 
     public static synchronized JsonDataRepository getInstance(Context context) {
@@ -41,19 +45,17 @@ public class JsonDataRepository {
                 String title = lessonJson.getString("title");
                 String content = lessonJson.getString("content");
                 String videoUrl = lessonJson.getString("videoUrl");
-                boolean isBookmarked = lessonJson.getBoolean("isBookmarked");
-                
-                lessons.add(new Lesson(lessonId, title, content, videoUrl, isBookmarked));
+
             }
         }
         return lessons;
     }
 
-    private Quiz getQuizFromCourseJson(JSONObject courseJson, String courseId) throws JSONException {
+    private Quiz getQuizFromLesson(JSONObject courseJson, String courseId) throws JSONException {
         if (courseJson.has("quiz")) {
             JSONObject quizJson = courseJson.getJSONObject("quiz");
             List<Question> questions = new ArrayList<>();
-            
+
             if (quizJson.has("questions")) {
                 JSONArray questionsArray = quizJson.getJSONArray("questions");
                 for (int j = 0; j < questionsArray.length(); j++) {
@@ -61,16 +63,16 @@ public class JsonDataRepository {
                     String text = questionJson.getString("text");
                     JSONArray optionsArray = questionJson.getJSONArray("options");
                     List<String> options = new ArrayList<>();
-                    
+
                     for (int k = 0; k < optionsArray.length(); k++) {
                         options.add(optionsArray.getString(k));
                     }
-                    
+
                     int correctIndex = questionJson.getInt("correctIndex");
                     questions.add(new Question(text, options, correctIndex));
                 }
             }
-            
+
             return new Quiz(courseId, "Quiz for " + courseJson.getString("title"), questions);
         }
         return null;
@@ -102,12 +104,10 @@ public class JsonDataRepository {
                     String imageName = courseJson.getString("imageResource");
                     int imageResource = context.getResources().getIdentifier(
                             imageName, "drawable", context.getPackageName());
-                    
+
                     List<Lesson> lessons = getLessonsFromCourseJson(courseJson);
-                    Quiz quiz = getQuizFromCourseJson(courseJson, id);
-                    
+
                     Course course = new Course(id, title, description, lessons, imageResource);
-                    course.setQuiz(quiz);
                     return course;
                 }
             }
@@ -116,4 +116,4 @@ public class JsonDataRepository {
         }
         return null;
     }
-} 
+}

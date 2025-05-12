@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.data.repository;
 
 import android.content.Context;
@@ -10,29 +6,28 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.appsnipp.education.R;
 import com.appsnipp.education.data.JsonDataRepository;
 import com.appsnipp.education.ui.model.Course;
-import com.appsnipp.education.ui.model.Lesson;
-import com.appsnipp.education.ui.model.Question;
-import com.appsnipp.education.ui.model.Quiz;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import com.appsnipp.education.util.JsonUtil;
+import com.google.gson.Gson;
 
 public class CourseRepository {
     private static final String TAG = "CourseRepository";
     private static CourseRepository instance;
     private final MutableLiveData<List<Course>> allCourses = new MutableLiveData<>();
     private final Context context;
+    private final Gson gson = new Gson();
+    private boolean isDataLoaded = false;
+    private final Map<String, Course> courseMap = new HashMap<>();
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private CourseRepository(Context context) {
         this.context = context.getApplicationContext();
@@ -52,51 +47,46 @@ public class CourseRepository {
 
     public LiveData<Course> getCourseById(String courseId) {
         MutableLiveData<Course> course = new MutableLiveData<>();
-        Course foundCourse = JsonDataRepository.getInstance(context).getCourseById(courseId);
-        if (foundCourse != null) {
-            course.setValue(foundCourse);
-        } else {
-            List<Course> currentCourses = allCourses.getValue();
-            if (currentCourses != null) {
-                for (Course c : currentCourses) {
-                    if (c.getId().equals(courseId)) {
-                        course.setValue(c);
-                        break;
-                    }
+        List<Course> currentCourses = allCourses.getValue();
+        if (currentCourses != null) {
+            for (Course c : currentCourses) {
+                if (c.getId().equals(courseId)) {
+                    course.setValue(c);
+                    break;
                 }
             }
         }
         return course;
     }
 
-    public LiveData<List<Quiz>> getQuizzesByCourseId(String courseId) {
-        MutableLiveData<List<Quiz>> quizzes = new MutableLiveData<>();
-        Course course = JsonDataRepository.getInstance(context).getCourseById(courseId);
-        if (course != null && course.getQuiz() != null) {
-            quizzes.setValue(Collections.singletonList(course.getQuiz()));
-        } else {
-            quizzes.setValue(new ArrayList<>());
-        }
-        return quizzes;
-    }
-
     private void loadCoursesFromJson() {
-        try {
-            List<Course> courses = new ArrayList<>();
-            JsonDataRepository jsonRepo = JsonDataRepository.getInstance(context);
-            List<String> courseIds = jsonRepo.getCourseIds();
-            
-            for (String courseId : courseIds) {
-                Course course = jsonRepo.getCourseById(courseId);
-                if (course != null) {
-                    courses.add(course);
+        if (isDataLoaded) return;
+        executor.execute(() -> {
+            try {
+                String jsonString = JsonUtil.loadJSONStringFromAsset(context, "courses.json");
+                if (jsonString == null) {
+                    throw new Exception("Failed to load courses.json");
                 }
+                Course[] courses = gson.fromJson(jsonString, Course[].class);
+                synchronized (courseMap) {
+                    courseMap.clear();
+                    for (Course course : courses) {
+                        if (course.getId() == null || course.getId().isEmpty()) {
+                            Log.w("JsonDataRepository", "Invalid course ID, skipping");
+                            continue;
+                        }
+                        courseMap.put(course.getId(), course);
+                    }
+                    isDataLoaded = true;
+                }
+                allCourses.postValue(new ArrayList<>(courseMap.values()));
+            } catch (Exception e) {
+                Log.e("JsonDataRepository", "Error loading courses", e);
+                synchronized (courseMap) {
+                    courseMap.clear();
+                }
+                allCourses.postValue(null);
             }
-            
-            allCourses.setValue(courses);
-        } catch (Exception e) {
-            Log.e(TAG, "Error loading courses: " + e.getMessage());
-            allCourses.setValue(new ArrayList<>());
-        }
+        });
     }
-} 
+}

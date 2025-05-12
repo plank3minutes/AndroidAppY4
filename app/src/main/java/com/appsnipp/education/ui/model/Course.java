@@ -12,10 +12,8 @@ public class Course {
     private String description;
     private List<Lesson> lessons;
     private int imageResource;
-    private Quiz quiz;
 
-    public Course() {
-    }
+    public Course() {}
 
     public Course(String id, String title, String description, List<Lesson> lessons, int imageResource) {
         this.id = id;
@@ -63,14 +61,6 @@ public class Course {
 
     public void setImageResource(int imageResource) {
         this.imageResource = imageResource;
-    }
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
     }
 
     public String getCourseTitle() {
