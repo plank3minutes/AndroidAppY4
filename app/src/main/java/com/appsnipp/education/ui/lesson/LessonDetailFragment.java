@@ -233,12 +233,44 @@ public class LessonDetailFragment extends Fragment {
                 checkCompletionStatus();
             });
         }
+
+        @JavascriptInterface
+        public void onVideoError(int errorCode) {
+            requireActivity().runOnUiThread(() -> {
+                String errorMessage;
+                switch (errorCode) {
+                    case 0:
+                        errorMessage = "Player chưa sẵn sàng!";
+                        break;
+                    case 2:
+                        errorMessage = "Video ID không hợp lệ!";
+                        break;
+                    case 100:
+                        errorMessage = "Video không tìm thấy!";
+                        break;
+                    case 101:
+                    case 150:
+                        errorMessage = "Video bị hạn chế nhúng!";
+                        break;
+                    default:
+                        errorMessage = "Lỗi video không xác định: " + errorCode;
+                }
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                // Lỗi thì nghe nhạc Jack tạm nhé =))
+                setVideoId("KYrnTn9nXFI");
+                Toast.makeText(requireContext(), "Lỗi thì nghe nhạc Jack tạm nhé, hoặc tắt player đi thì vào code bỏ comment =))", Toast.LENGTH_SHORT).show();
+                // Hoặc có thể ẩn video
+//                binding.videoWebViewContainer.setVisibility(View.GONE);
+//                binding.videoViewLesson.setVisibility(View.GONE);
+//                isVideoWatched = true; // Đánh dấu video đã "xem" để bỏ qua yêu cầu
+//                checkCompletionStatus();
+            });
+        }
     }
 
     public void setVideoId(String videoId) {
         // Gọi hàm JavaScript để thiết lập video ID
-        videoWebView.evaluateJavascript("player.loadVideoById('" + videoId +"');", null);
-    }
+        videoWebView.evaluateJavascript("loadVideoById('" + videoId + "');", null);    }
 
     // Gọi hàm JavaScript từ Android
     public void playVideo() {

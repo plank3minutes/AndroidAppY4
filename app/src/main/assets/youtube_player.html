@@ -21,13 +21,14 @@
     // Biến toàn cục để lưu player
     var player;
     var hasReachedHalf = false; // Theo dõi xem đã đạt 50% chưa
+    var maxRetries = 5; // Số lần thử lại tối đa
+    var retryDelay = 1000; // Độ trễ giữa các lần thử (ms)
 
     // Hàm được gọi khi API sẵn sàng
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
             height: '100%',
             width: '100%',
-            videoId: 'KYrnTn9nXFI', // Thay bằng ID video YouTube của bạn
             playerVars: {
                 'autoplay': 0, // 0: không tự động phát, 1: tự động phát
                 'controls': 1, // Hiển thị thanh điều khiển
@@ -35,7 +36,8 @@
                 },
             events: {
                 'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
+                'onStateChange': onPlayerStateChange,
+                'onError': onPlayerError
             }
         });
     }
@@ -55,6 +57,27 @@
         }
     }
 
+    // Hàm để tải videoId từ Android với logic retry
+    function loadVideoById(videoId, retryCount = 0) {
+        if (player && player.loadVideoById) {
+            hasReachedHalf = false; // Reset trạng thái 50% khi tải video mới
+            player.loadVideoById(videoId);
+            console.log("Loaded video with ID: " + videoId);
+        } else {
+            if (retryCount < maxRetries) {
+                console.warn("Player not ready, retrying in " + retryDelay + "ms (attempt " + (retryCount + 1) + "/" + maxRetries + ")");
+                setTimeout(function() {
+                    loadVideoById(videoId, retryCount + 1); // Thử lại với retryCount tăng
+                }, retryDelay);
+            } else {
+                console.error("Failed to load video after " + maxRetries + " attempts");
+                if (typeof Android !== 'undefined' && Android.onVideoError) {
+                    Android.onVideoError(0); // Mã lỗi tùy chỉnh cho player chưa sẵn sàng
+                }
+            }
+        }
+    }
+
     function checkVideoProgress() {
         if (player && player.getPlayerState() == YT.PlayerState.PLAYING) {
             var currentTime = player.getCurrentTime(); // Thời gian hiện tại (giây)
@@ -69,6 +92,12 @@
                     }
                 }
             }
+        }
+    }
+
+    function onPlayerError(event) {
+        if (typeof Android !== 'undefined' && Android.onVideoError) {
+            Android.onVideoError(event.data); // Gửi mã lỗi về Android
         }
     }
 
