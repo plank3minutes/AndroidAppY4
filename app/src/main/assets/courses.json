@@ -1,0 +1,95 @@
+[
+  {
+    "id": "1",
+    "title": "Khóa học lập trình Android",
+    "description": "Khóa học về lập trình Android",
+    "imageResource": "course_thinking",
+    "lessons": [
+      {
+        "id": "1",
+        "title": "Giới thiệu về Android",
+        "content": "Bài học đầu tiên về Android",
+        "videoUrl": "https://example.com/android-intro",
+        "isBookmarked": false
+      },
+      {
+        "id": "2",
+        "title": "Cài đặt môi trường",
+        "content": "Hướng dẫn cài đặt Android Studio",
+        "videoUrl": "https://example.com/android-setup",
+        "isBookmarked": false
+      }
+    ],
+    "quiz": {
+      "questions": [
+        {
+          "text": "Android là gì?",
+          "options": ["Hệ điều hành", "Trình duyệt", "Ứng dụng"],
+          "correctIndex": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "2",
+    "title": "Khóa học lập trình iOS",
+    "description": "Khóa học về lập trình iOS",
+    "imageResource": "course_design_coding",
+    "lessons": [
+      {
+        "id": "1",
+        "title": "Giới thiệu về iOS",
+        "content": "Bài học đầu tiên về iOS",
+        "videoUrl": "https://example.com/ios-intro",
+        "isBookmarked": false
+      },
+      {
+        "id": "2",
+        "title": "Cài đặt Xcode",
+        "content": "Hướng dẫn cài đặt Xcode",
+        "videoUrl": "https://example.com/ios-setup",
+        "isBookmarked": false
+      }
+    ],
+    "quiz": {
+      "questions": [
+        {
+          "text": "iOS là gì?",
+          "options": ["Hệ điều hành", "Trình duyệt", "Ứng dụng"],
+          "correctIndex": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "3",
+    "title": "Khóa học lập trình Web",
+    "description": "Khóa học về lập trình Web",
+    "imageResource": "course_design_securityexpert",
+    "lessons": [
+      {
+        "id": "1",
+        "title": "Giới thiệu về Web",
+        "content": "Bài học đầu tiên về Web",
+        "videoUrl": "https://example.com/web-intro",
+        "isBookmarked": false
+      },
+      {
+        "id": "2",
+        "title": "HTML cơ bản",
+        "content": "Hướng dẫn HTML cơ bản",
+        "videoUrl": "https://example.com/web-html",
+        "isBookmarked": false
+      }
+    ],
+    "quiz": {
+      "questions": [
+        {
+          "text": "HTML là gì?",
+          "options": ["Ngôn ngữ đánh dấu", "Ngôn ngữ lập trình", "Cơ sở dữ liệu"],
+          "correctIndex": 0
+        }
+      ]
+    }
+  }
+] 
