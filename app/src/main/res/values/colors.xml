@@ -52,4 +52,11 @@
 
     <color name="colorPrimaryText">@android:color/white</color>
 
+    <color name="dark_navy">#1F2237</color>
+    <color name="bright_orange">#FF5733</color>
+    <color name="card_background">#2A2E45</color>
+    <color name="video_background">#1A1D2E</color>
+    <color name="complete_button">#4CAF50</color>
+    <color name="fab_background">#FF5733</color>
+
 </resources>

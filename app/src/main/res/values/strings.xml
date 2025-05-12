@@ -88,4 +88,7 @@
     <string name="restore">Restore</string>
     <string name="backup_success">Backup successful</string>
     <string name="restore_success">Restore successful</string>
+
+    <string name="play_video">Play video</string>
+    <string name="lesson_illustration">Lesson illustration</string>
 </resources>
