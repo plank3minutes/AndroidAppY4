@@ -9,7 +9,7 @@
         "id": "lesson1_1",
         "courseId": "course1",
         "title": "Introduction to Java",
-        "content": "<div>\n  <p><strong>Java</strong> is a high-level, object-oriented programming language used to build applications across platforms—from web and mobile apps to enterprise software. It is known for its <strong>Write Once, Run Anywhere</strong> capability, meaning code written in Java can run on any device that supports the Java Virtual Machine (JVM).</p>\n\n  <p>Java shares similarities with other C-based languages like <a href=\"https://www.geeksforgeeks.org/c-plus-plus/\" target=\"_blank\">C++</a> and C#, especially in terms of syntax and structure. Its robustness, cross-platform compatibility, and strong memory management have made it a go-to language for developers worldwide for over two decades.</p>\n\n  <img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250312132108088185/Applications-of-Java.webp\" alt=\"Applications of Java\">\n</div>",
+        "content": "<div>\n  <p><strong>Java</strong> is a high-level, object-oriented programming language used to build applications across platforms—from web and mobile apps to enterprise software. It is known for its <strong>Write Once, Run Anywhere</strong> capability, meaning code written in Java can run on any device that supports the Java Virtual Machine (JVM).</p>\n\n  <p>Java shares similarities with other C-based languages like C++ and C#, especially in terms of syntax and structure. Its robustness, cross-platform compatibility, and strong memory management have made it a go-to language for developers worldwide for over two decades.</p>\n\n  <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB5bph-5f7ESuCJeq7dXCuMnyGDHcaldiaCw&s\" alt=\"Applications of Java\">\n</div>",
         "videoUrl": "KYrnTn9nXFI",
         "quiz": {
           "id": "quiz1_1",
@@ -37,8 +37,8 @@
         "id": "lesson1_2",
         "courseId": "course1",
         "title": "Variables and Data Types",
-        "content": "Java supports various data types including int, float, char, and boolean.",
-        "videoUrl": "KYrnTn9nXFI",
+        "content": "<div>\n  <p>In Java, variables are containers for storing data values. Java is a statically-typed language, meaning you must declare the type of a variable before using it.</p>\n\n  <h3>Basic Data Types in Java:</h3>\n  <ul>\n    <li><strong>byte</strong>: 8-bit integer value (-128 to 127)</li>\n    <li><strong>short</strong>: 16-bit integer value (-32,768 to 32,767)</li>\n    <li><strong>int</strong>: 32-bit integer value (-2^31 to 2^31-1)</li>\n    <li><strong>long</strong>: 64-bit integer value (-2^63 to 2^63-1)</li>\n    <li><strong>float</strong>: 32-bit floating-point value</li>\n    <li><strong>double</strong>: 64-bit floating-point value</li>\n    <li><strong>char</strong>: 16-bit Unicode character</li>\n    <li><strong>boolean</strong>: true or false</li>\n  </ul>\n\n  <img src=\"https://articles.geekster.in/wp-content/uploads/2024/03/image-40-1024x595-1.png\" alt=\"Java Data Types Hierarchy\">\n</div>",
+        "videoUrl": "so1iUWaLmKA",
         "quiz": {
           "id": "quiz1_2",
           "courseId": "course1",
@@ -60,38 +60,122 @@
             }
           ]
         }
+      },
+      {
+        "id": "lesson1_3",
+        "courseId": "course1",
+        "title": "Control Flow Statements",
+        "content": "<div>\n  <p>Control flow statements in Java determine the order in which statements are executed in a program. They allow you to make decisions, loop through code blocks, and branch to different parts of your program.</p>\n\n  <h3>Types of Control Flow Statements:</h3>\n  <ol>\n    <li><strong>Decision-making statements</strong>: if, if-else, switch</li>\n    <li><strong>Loop statements</strong>: for, while, do-while</li>\n    <li><strong>Branching statements</strong>: break, continue, return</li>\n  </ol>\n\n  <h4>Example of if-else statement:</h4>\n  <pre><code>\nif (age >= 18) {\n    System.out.println(\"You are eligible to vote.\");\n} else {\n    System.out.println(\"You are not eligible to vote yet.\");\n}\n  </code></pre>\n\n  <img src=\"https://miro.medium.com/v2/resize:fit:704/0*XPjplmmq0Fw5mqk-.png\" alt=\"Java Control Flow Statements\">\n</div>",
+        "videoUrl": "P6ivQ3QRq0I",
+        "quiz": {
+          "id": "quiz1_3",
+          "courseId": "course1",
+          "title": "Quiz: Control Flow",
+          "questions": [
+            {
+              "id": "q1_5",
+              "quizId": "quiz1_3",
+              "text": "Which statement is used to exit a loop in Java?",
+              "options": ["exit", "break", "continue", "return"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q1_6",
+              "quizId": "quiz1_3",
+              "text": "What is the correct syntax for an infinite loop in Java?",
+              "options": ["while(1) {}", "for(;;) {}", "loop {}", "do {} until(false)"],
+              "correctIndex": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson1_4",
+        "courseId": "course1",
+        "title": "Object-Oriented Programming",
+        "content": "<div>\n  <p>Object-Oriented Programming (OOP) is a programming paradigm that uses objects and classes. Java is an object-oriented language and follows the four main principles of OOP:</p>\n\n  <h3>Core OOP Concepts in Java:</h3>\n  <ul>\n    <li><strong>Encapsulation</strong>: Binding code and data together into a single unit</li>\n    <li><strong>Inheritance</strong>: Acquiring properties from one class to another</li>\n    <li><strong>Polymorphism</strong>: One interface, multiple implementations</li>\n    <li><strong>Abstraction</strong>: Hiding implementation details and showing only functionality</li>\n  </ul>\n\n  <p>Classes are blueprints for objects, and objects are instances of classes. A class defines attributes (fields) and behaviors (methods) that objects of that class will have.</p>\n\n  <img src=\"https://miro.medium.com/v2/resize:fit:1400/1*KRa8SkP7T646zokicYSqyQ.png\" alt=\"OOP Concepts\">\n</div>",
+        "videoUrl": "a199KZGMNxk",
+        "quiz": {
+          "id": "quiz1_4",
+          "courseId": "course1",
+          "title": "Quiz: OOP Concepts",
+          "questions": [
+            {
+              "id": "q1_7",
+              "quizId": "quiz1_4",
+              "text": "Which OOP concept represents 'IS-A' relationship?",
+              "options": ["Encapsulation", "Inheritance", "Polymorphism", "Abstraction"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q1_8",
+              "quizId": "quiz1_4",
+              "text": "What access modifier makes a class member accessible only within its own class?",
+              "options": ["public", "protected", "private", "default"],
+              "correctIndex": 2
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson1_5",
+        "courseId": "course1",
+        "title": "Exception Handling",
+        "content": "<div>\n  <p>Exception handling in Java is a mechanism to handle runtime errors to maintain the normal flow of application execution. Java provides a robust exception handling framework with try, catch, finally, throw, and throws keywords.</p>\n\n  <h3>Exception Handling Process:</h3>\n  <ol>\n    <li>A method catches an exception using a combination of the try and catch keywords.</li>\n    <li>If an exception occurs in the protected code, the exception is thrown to the catch block for handling.</li>\n    <li>The finally block, if present, is executed regardless of whether an exception occurs or not.</li>\n  </ol>\n\n  <h4>Example:</h4>\n  <pre><code>\ntry {\n    // Code that may throw an exception\n    int result = 10 / 0;\n} catch (ArithmeticException e) {\n    // Exception handler\n    System.out.println(\"Cannot divide by zero\");\n} finally {\n    // Code that always executes\n    System.out.println(\"This block always executes\");\n}\n  </code></pre>\n\n  <img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241218154434430661/Exception-Handling-768.png\" alt=\"Exception Handling Flow\">\n</div>",
+        "videoUrl": "W-N2ltgU-X4",
+        "quiz": {
+          "id": "quiz1_5",
+          "courseId": "course1",
+          "title": "Quiz: Exception Handling",
+          "questions": [
+            {
+              "id": "q1_9",
+              "quizId": "quiz1_5",
+              "text": "Which block executes regardless of whether an exception occurs?",
+              "options": ["try", "catch", "finally", "throw"],
+              "correctIndex": 2
+            },
+            {
+              "id": "q1_10",
+              "quizId": "quiz1_5",
+              "text": "Which of the following is a checked exception?",
+              "options": ["NullPointerException", "ArrayIndexOutOfBoundsException", "IOException", "ArithmeticException"],
+              "correctIndex": 2
+            }
+          ]
+        }
       }
     ]
   },
   {
     "id": "course2",
-    "title": "Kotlin Essentials",
-    "description": "Master Kotlin fundamentals for Android development.",
-    "imageResource": "course_design_coding",
+    "title": "Machine Learning Fundamentals",
+    "description": "Master the core concepts, algorithms, and practical applications of machine learning to solve real-world problems.",
+    "imageResource": "course_design_thinking",
     "lessons": [
       {
         "id": "lesson2_1",
         "courseId": "course2",
-        "title": "Kotlin Syntax Overview",
-        "content": "Kotlin is concise, safe, and fully interoperable with Java.",
-        "videoUrl": "KYrnTn9nXFI",
+        "title": "Introduction to Machine Learning",
+        "content": "<div>\n  <p><strong>Machine Learning (ML)</strong> is a subset of artificial intelligence that provides systems the ability to automatically learn and improve from experience without being explicitly programmed. The focus is on developing computer programs that can access data and use it to learn for themselves.</p>\n\n  <h3>Types of Machine Learning:</h3>\n  <ul>\n    <li><strong>Supervised Learning</strong>: Learning with labeled data</li>\n    <li><strong>Unsupervised Learning</strong>: Learning with unlabeled data</li>\n    <li><strong>Reinforcement Learning</strong>: Learning through trial and error</li>\n  </ul>\n\n  <p>Machine learning is transforming industries from healthcare to finance, enabling technologies like recommendation systems, fraud detection, and autonomous vehicles.</p>\n\n  <img src=\"https://www.researchgate.net/publication/354960266/figure/fig1/AS:11431281251915131@1718389091562/The-main-types-of-machine-learning-Main-approaches-include-classification-and-regression.tif\" alt=\"Types of Machine Learning\">\n</div>",
+        "videoUrl": "ukzFI9rgwfU",
         "quiz": {
           "id": "quiz2_1",
           "courseId": "course2",
-          "title": "Quiz: Syntax Basics",
+          "title": "Quiz: ML Basics",
           "questions": [
             {
               "id": "q2_1",
               "quizId": "quiz2_1",
-              "text": "What keyword is used to define a variable in Kotlin?",
-              "options": ["let", "var", "def", "val"],
-              "correctIndex": 1
+              "text": "Which type of ML uses labeled data?",
+              "options": ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Transfer Learning"],
+              "correctIndex": 0
             },
             {
               "id": "q2_2",
               "quizId": "quiz2_1",
-              "text": "Is Kotlin null-safe?",
-              "options": ["Yes", "No", "Partially", "Only for Int"],
+              "text": "In which year was the term 'Machine Learning' coined?",
+              "options": ["1959", "1969", "1979", "1989"],
               "correctIndex": 0
             }
           ]
@@ -100,27 +184,111 @@
       {
         "id": "lesson2_2",
         "courseId": "course2",
-        "title": "Functions and Lambdas",
-        "content": "Kotlin treats functions as first-class citizens.",
-        "videoUrl": "",
+        "title": "Linear Regression",
+        "content": "<div>\n  <p><strong>Linear Regression</strong> is one of the simplest and most widely used supervised machine learning algorithms for predicting a continuous target variable. It models the relationship between one or more input variables and a target variable by fitting a linear equation to the observed data.</p>\n\n  <h3>Key Concepts:</h3>\n  <ul>\n    <li><strong>Simple Linear Regression</strong>: One independent variable</li>\n    <li><strong>Multiple Linear Regression</strong>: Multiple independent variables</li>\n    <li><strong>Ordinary Least Squares (OLS)</strong>: Method to find the line that minimizes the sum of squared errors</li>\n  </ul>\n\n  <h4>The Linear Regression Equation:</h4>\n  <p>Y = β₀ + β₁X₁ + β₂X₂ + ... + βₙXₙ + ε</p>\n  <p>Where:</p>\n  <ul>\n    <li>Y is the dependent variable</li>\n    <li>X₁, X₂, ..., Xₙ are independent variables</li>\n    <li>β₀, β₁, β₂, ..., βₙ are coefficients</li>\n    <li>ε is the error term</li>\n  </ul>\n\n  <img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20231129130431/11111111.png\" alt=\"Linear Regression\">\n</div>",
+        "videoUrl": "zPG4NjIkCjc",
         "quiz": {
           "id": "quiz2_2",
           "courseId": "course2",
-          "title": "Quiz: Functions",
+          "title": "Quiz: Linear Regression",
           "questions": [
             {
               "id": "q2_3",
               "quizId": "quiz2_2",
-              "text": "What symbol is used for lambda in Kotlin?",
-              "options": ["->", "=>", "<-", "::"],
-              "correctIndex": 0
+              "text": "Which method is commonly used to estimate the parameters in linear regression?",
+              "options": ["Maximum Likelihood", "Ordinary Least Squares", "Gradient Ascent", "K-Means"],
+              "correctIndex": 1
             },
             {
               "id": "q2_4",
               "quizId": "quiz2_2",
-              "text": "How do you declare a function?",
-              "options": ["func", "function", "def", "fun"],
-              "correctIndex": 3
+              "text": "What does the R² (R-squared) value represent in linear regression?",
+              "options": ["Error rate", "Variance explained by the model", "Number of features", "Learning rate"],
+              "correctIndex": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson2_3",
+        "courseId": "course2",
+        "title": "Decision Trees",
+        "content": "<div>\n  <p><strong>Decision Trees</strong> are versatile machine learning algorithms used for both classification and regression tasks. They create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features.</p>\n\n  <h3>How Decision Trees Work:</h3>\n  <ol>\n    <li>Choose the best attribute/feature to split the data</li>\n    <li>Split the data into subsets containing possible values for the best attribute</li>\n    <li>Recursively build decision trees for each subset using the remaining attributes</li>\n  </ol>\n\n  <h3>Key Metrics for Splits:</h3>\n  <ul>\n    <li><strong>Gini Impurity</strong>: Measures the probability of incorrect classification</li>\n    <li><strong>Information Gain</strong>: Decrease in entropy after a dataset split</li>\n    <li><strong>Entropy</strong>: Measure of impurity in a dataset</li>\n  </ul>\n\n  <img src=\"https://365datascience.com/resources/blog/rr6cuudl59r-decision-trees-image1.png\" alt=\"Decision Tree Structure\">\n</div>",
+        "videoUrl": "7VeUPuFGJHk",
+        "quiz": {
+          "id": "quiz2_3",
+          "courseId": "course2",
+          "title": "Quiz: Decision Trees",
+          "questions": [
+            {
+              "id": "q2_5",
+              "quizId": "quiz2_3",
+              "text": "What problem do decision trees often face if not properly constrained?",
+              "options": ["Underfitting", "Overfitting", "Gradient explosion", "Vanishing gradient"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q2_6",
+              "quizId": "quiz2_3",
+              "text": "Which metric measures the amount of disorder in a decision tree node?",
+              "options": ["Accuracy", "Precision", "Entropy", "F1-score"],
+              "correctIndex": 2
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson2_4",
+        "courseId": "course2",
+        "title": "Neural Networks",
+        "content": "<div>\n  <p><strong>Neural Networks</strong> are computing systems inspired by the biological neural networks that constitute animal brains. They are the foundation of deep learning, a subset of machine learning that can solve complex problems like image and speech recognition.</p>\n\n  <h3>Components of Neural Networks:</h3>\n  <ul>\n    <li><strong>Input Layer</strong>: Receives the input data</li>\n    <li><strong>Hidden Layers</strong>: Process the inputs through weighted connections</li>\n    <li><strong>Output Layer</strong>: Produces the final prediction</li>\n    <li><strong>Activation Functions</strong>: Introduce non-linearity (ReLU, Sigmoid, Tanh)</li>\n    <li><strong>Weights & Biases</strong>: Parameters adjusted during training</li>\n  </ul>\n\n  <h3>Training Process:</h3>\n  <ol>\n    <li>Forward Propagation: Input data is passed through the network</li>\n    <li>Loss Calculation: Compare output with actual values</li>\n    <li>Backpropagation: Update weights based on error</li>\n    <li>Optimization: Adjust parameters to minimize loss (using algorithms like Gradient Descent)</li>\n  </ol>\n\n  <img src=\"https://miro.medium.com/max/1400/1*3fA77_mLNiJTSgZFhYnU0Q.png\" alt=\"Neural Network Architecture\">\n</div>",
+        "videoUrl": "aircAruvnKk",
+        "quiz": {
+          "id": "quiz2_4",
+          "courseId": "course2",
+          "title": "Quiz: Neural Networks",
+          "questions": [
+            {
+              "id": "q2_7",
+              "quizId": "quiz2_4",
+              "text": "Which algorithm is used to train neural networks?",
+              "options": ["Linear Regression", "K-Means", "Backpropagation", "Decision Tree"],
+              "correctIndex": 2
+            },
+            {
+              "id": "q2_8",
+              "quizId": "quiz2_4",
+              "text": "What activation function outputs values between 0 and 1?",
+              "options": ["ReLU", "Sigmoid", "Tanh", "Softmax"],
+              "correctIndex": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson2_5",
+        "courseId": "course2",
+        "title": "Model Evaluation",
+        "content": "<div>\n  <p><strong>Model Evaluation</strong> is the process of assessing the performance of a machine learning model. It helps us understand how well our model generalizes to unseen data and compare different models.</p>\n\n  <h3>Common Evaluation Techniques:</h3>\n  <ul>\n    <li><strong>Train-Test Split</strong>: Divide data into training and testing sets</li>\n    <li><strong>Cross-Validation</strong>: Split data into k-folds for multiple train-test iterations</li>\n    <li><strong>Holdout Validation</strong>: Set aside a validation set separate from training and testing</li>\n  </ul>\n\n  <h3>Evaluation Metrics:</h3>\n  <h4>For Classification:</h4>\n  <ul>\n    <li><strong>Accuracy</strong>: Proportion of correct predictions</li>\n    <li><strong>Precision</strong>: Proportion of positive identifications that were actually correct</li>\n    <li><strong>Recall</strong>: Proportion of actual positives that were identified correctly</li>\n    <li><strong>F1-Score</strong>: Harmonic mean of precision and recall</li>\n    <li><strong>ROC-AUC</strong>: Area under the ROC curve</li>\n  </ul>\n\n  <h4>For Regression:</h4>\n  <ul>\n    <li><strong>Mean Absolute Error (MAE)</strong></li>\n    <li><strong>Mean Squared Error (MSE)</strong></li>\n    <li><strong>Root Mean Squared Error (RMSE)</strong></li>\n    <li><strong>R-squared (R²)</strong></li>\n  </ul>\n\n  <img src=\"https://miro.medium.com/max/1400/1*Uu-t4pOotRQFoyrfqEvIEg.png\" alt=\"Confusion Matrix\">\n</div>",
+        "videoUrl": "Kdsp6soqA7o",
+        "quiz": {
+          "id": "quiz2_5",
+          "courseId": "course2",
+          "title": "Quiz: Model Evaluation",
+          "questions": [
+            {
+              "id": "q2_9",
+              "quizId": "quiz2_5",
+              "text": "What technique divides the dataset into k parts for evaluation?",
+              "options": ["Train-test split", "K-fold cross-validation", "Bootstrapping", "Bagging"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q2_10",
+              "quizId": "quiz2_5",
+              "text": "Which metric is best for evaluating imbalanced classification problems?",
+              "options": ["Accuracy", "F1-Score", "Mean Squared Error", "R-squared"],
+              "correctIndex": 1
             }
           ]
         }
@@ -129,34 +297,34 @@
   },
   {
     "id": "course3",
-    "title": "Android UI Design",
-    "description": "Design beautiful and responsive UI with XML and Jetpack Compose.",
-    "imageResource": "course_design_coding",
+    "title": "Digital Marketing Essentials",
+    "description": "Learn the fundamentals of digital marketing including SEO, social media, email marketing, and analytics to boost your online presence.",
+    "imageResource": "course_design_marketing",
     "lessons": [
       {
         "id": "lesson3_1",
         "courseId": "course3",
-        "title": "Introduction to XML Layouts",
-        "content": "XML is used to define UI in traditional Android development.",
-        "videoUrl": "KYrnTn9nXFI",
+        "title": "Digital Marketing Overview",
+        "content": "<div>\n  <p><strong>Digital marketing</strong> refers to advertising delivered through digital channels such as search engines, websites, social media, email, and mobile apps. It has become an essential part of business strategy as consumers increasingly use digital devices over traditional media.</p>\n\n  <h3>Key Components of Digital Marketing:</h3>\n  <ul>\n    <li><strong>Search Engine Optimization (SEO)</strong>: Improving website visibility in search results</li>\n    <li><strong>Content Marketing</strong>: Creating and distributing valuable content</li>\n    <li><strong>Social Media Marketing</strong>: Promoting on social platforms</li>\n    <li><strong>Pay-Per-Click (PPC)</strong>: Paid advertising on search engines</li>\n    <li><strong>Email Marketing</strong>: Direct communication with prospects and customers</li>\n    <li><strong>Affiliate Marketing</strong>: Partnership with affiliates for commission-based promotion</li>\n  </ul>\n\n  <p>Digital marketing allows businesses to target specific audiences, measure results in real-time, and adjust strategies accordingly.</p>\n\n  <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYXCphSozCfVMgyVnxjgB4Hw1CyNEyvL1X-A&s\" alt=\"Digital Marketing Channels\">\n</div>",
+        "videoUrl": "bixR-KIJKYM",
         "quiz": {
           "id": "quiz3_1",
           "courseId": "course3",
-          "title": "Quiz: XML Basics",
+          "title": "Quiz: Digital Marketing Basics",
           "questions": [
             {
               "id": "q3_1",
               "quizId": "quiz3_1",
-              "text": "Which layout arranges views in a vertical or horizontal row?",
-              "options": ["LinearLayout", "RelativeLayout", "ConstraintLayout", "FrameLayout"],
-              "correctIndex": 0
+              "text": "Which is NOT a component of digital marketing?",
+              "options": ["SEO", "Television ads", "Email marketing", "Social media marketing"],
+              "correctIndex": 1
             },
             {
               "id": "q3_2",
               "quizId": "quiz3_1",
-              "text": "Which attribute sets the view width?",
-              "options": ["layout_width", "view_width", "width", "wrap_width"],
-              "correctIndex": 0
+              "text": "What is the main advantage of digital marketing over traditional marketing?",
+              "options": ["Lower cost", "Wider reach", "Better targeting and measurement", "Faster implementation"],
+              "correctIndex": 2
             }
           ]
         }
@@ -164,26 +332,110 @@
       {
         "id": "lesson3_2",
         "courseId": "course3",
-        "title": "Jetpack Compose Basics",
-        "content": "Jetpack Compose is Android's modern UI toolkit.",
-        "videoUrl": "KYrnTn9nXFI",
+        "title": "Search Engine Optimization",
+        "content": "<div>\n  <p><strong>Search Engine Optimization (SEO)</strong> is the practice of increasing the quantity and quality of traffic to your website through organic search engine results. SEO involves optimizing your website to rank higher in search engine results pages (SERPs) for relevant keywords and phrases.</p>\n\n  <h3>Key SEO Components:</h3>\n  <h4>On-Page SEO:</h4>\n  <ul>\n    <li><strong>Keyword Research</strong>: Finding relevant search terms</li>\n    <li><strong>Content Optimization</strong>: Creating high-quality, relevant content</li>\n    <li><strong>Meta Tags</strong>: Optimizing title tags, meta descriptions, and headers</li>\n    <li><strong>URL Structure</strong>: Creating clean, descriptive URLs</li>\n    <li><strong>Image Optimization</strong>: Adding alt text and optimizing image sizes</li>\n  </ul>\n\n  <h4>Off-Page SEO:</h4>\n  <ul>\n    <li><strong>Backlink Building</strong>: Getting links from other reputable websites</li>\n    <li><strong>Social Signals</strong>: Shares and mentions on social media</li>\n    <li><strong>Brand Mentions</strong>: Online references to your brand</li>\n  </ul>\n\n  <h4>Technical SEO:</h4>\n  <ul>\n    <li><strong>Site Speed</strong>: Ensuring fast loading times</li>\n    <li><strong>Mobile-Friendliness</strong>: Responsive design for all devices</li>\n    <li><strong>Indexability</strong>: Making sure search engines can crawl your site</li>\n    <li><strong>Structured Data</strong>: Implementing schema markup</li>\n  </ul>\n\n  <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1ll-Vr78O7NNikGTqhTuxDWaWMAMvPxRuuA&s\" alt=\"SEO Components\">\n</div>",
+        "videoUrl": "wrsRefA8NKs",
         "quiz": {
           "id": "quiz3_2",
           "courseId": "course3",
-          "title": "Quiz: Compose",
+          "title": "Quiz: SEO Fundamentals",
           "questions": [
             {
               "id": "q3_3",
               "quizId": "quiz3_2",
-              "text": "Compose uses which language?",
-              "options": ["Kotlin", "Java", "Dart", "XML"],
-              "correctIndex": 0
+              "text": "What is NOT part of on-page SEO?",
+              "options": ["Title tags", "Content optimization", "Backlink building", "Image alt text"],
+              "correctIndex": 2
             },
             {
               "id": "q3_4",
               "quizId": "quiz3_2",
-              "text": "Which function sets content in Compose?",
-              "options": ["setView()", "setContent()", "createView()", "initUI()"],
+              "text": "Which factor has become increasingly important for SEO in recent years?",
+              "options": ["Keyword density", "Mobile optimization", "Flash animations", "Meta keywords"],
+              "correctIndex": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson3_3",
+        "courseId": "course3",
+        "title": "Social Media Marketing",
+        "content": "<div>\n  <p><strong>Social Media Marketing</strong> is the use of social media platforms to connect with your audience, build your brand, increase sales, and drive website traffic. This involves publishing great content, engaging with followers, analyzing results, and running social media advertisements.</p>\n\n  <h3>Major Social Media Platforms:</h3>\n  <ul>\n    <li><strong>Facebook</strong>: Largest platform with diverse demographics</li>\n    <li><strong>Instagram</strong>: Visual platform ideal for lifestyle, fashion, and food</li>\n    <li><strong>Twitter</strong>: Real-time platform for news and trending topics</li>\n    <li><strong>LinkedIn</strong>: Professional network for B2B marketing</li>\n    <li><strong>TikTok</strong>: Short-form video platform popular with younger audiences</li>\n    <li><strong>Pinterest</strong>: Visual discovery platform for inspiration</li>\n    <li><strong>YouTube</strong>: Video content platform with high engagement</li>\n  </ul>\n\n  <h3>Social Media Marketing Strategies:</h3>\n  <ol>\n    <li><strong>Define Goals</strong>: Increase brand awareness, generate leads, boost engagement</li>\n    <li><strong>Know Your Audience</strong>: Demographics, interests, behaviors</li>\n    <li><strong>Content Strategy</strong>: Types of content, posting frequency, voice and tone</li>\n    <li><strong>Community Management</strong>: Responding to comments and messages</li>\n    <li><strong>Paid Advertising</strong>: Targeted ads to reach specific audiences</li>\n    <li><strong>Analytics</strong>: Tracking performance and adjusting strategies</li>\n  </ol>\n\n  <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUGOr_yWyT9PF9TQlpvNAkfycRIuIjYBZiFA&s\" alt=\"Social Media Marketing\">\n</div>",
+        "videoUrl": "SgNcPhOoHj8",
+        "quiz": {
+          "id": "quiz3_3",
+          "courseId": "course3",
+          "title": "Quiz: Social Media Marketing",
+          "questions": [
+            {
+              "id": "q3_5",
+              "quizId": "quiz3_3",
+              "text": "Which platform is best suited for B2B marketing?",
+              "options": ["Instagram", "LinkedIn", "TikTok", "Snapchat"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q3_6",
+              "quizId": "quiz3_3",
+              "text": "What is a social media KPI?",
+              "options": ["Key Performance Indicator", "Knowledge Processing Interface", "Key Platform Integration", "Known Public Influencer"],
+              "correctIndex": 0
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson3_4",
+        "courseId": "course3",
+        "title": "Email Marketing",
+        "content": "<div>\n  <p><strong>Email Marketing</strong> is a digital marketing strategy that involves sending emails to prospects and customers. Effective email marketing converts prospects into customers and turns one-time buyers into loyal fans.</p>\n\n  <h3>Types of Marketing Emails:</h3>\n  <ul>\n    <li><strong>Welcome Emails</strong>: Sent after signing up</li>\n    <li><strong>Newsletters</strong>: Regular updates about your business</li>\n    <li><strong>Promotional Emails</strong>: Special offers and discounts</li>\n    <li><strong>Abandoned Cart Emails</strong>: Reminders about items left in shopping carts</li>\n    <li><strong>Re-engagement Emails</strong>: Attempts to reconnect with inactive subscribers</li>\n    <li><strong>Transactional Emails</strong>: Order confirmations, receipts, etc.</li>\n  </ul>\n\n  <h3>Email Marketing Best Practices:</h3>\n  <ol>\n    <li><strong>Build an Organic Email List</strong>: Never buy email lists</li>\n    <li><strong>Segment Your Audience</strong>: Group subscribers based on interests or behaviors</li>\n    <li><strong>Personalize Your Emails</strong>: Use recipient's name and tailored content</li>\n    <li><strong>Craft Compelling Subject Lines</strong>: Encourage opens without being clickbait</li>\n    <li><strong>Optimize for Mobile</strong>: Ensure emails look good on all devices</li>\n    <li><strong>Include Clear CTAs</strong>: Make the next step obvious</li>\n    <li><strong>Test and Optimize</strong>: A/B test different elements</li>\n    <li><strong>Respect Privacy Laws</strong>: Comply with GDPR, CAN-SPAM, etc.</li>\n  </ol>\n\n  <img src=\"https://www.superoffice.com/contentassets/79a360a9f6cb4fd187597d5479370ed5/email-marketing-sweet-spot.jpg\" alt=\"Email Marketing Strategies\">\n</div>",
+        "videoUrl": "u__RD-uEtvQ",
+        "quiz": {
+          "id": "quiz3_4",
+          "courseId": "course3",
+          "title": "Quiz: Email Marketing",
+          "questions": [
+            {
+              "id": "q3_7",
+              "quizId": "quiz3_4",
+              "text": "What is a good average email open rate?",
+              "options": ["5-10%", "15-25%", "40-50%", "70-80%"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q3_8",
+              "quizId": "quiz3_4",
+              "text": "Which regulation requires explicit consent for email marketing in Europe?",
+              "options": ["CAN-SPAM", "CCPA", "GDPR", "HIPAA"],
+              "correctIndex": 2
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson3_5",
+        "courseId": "course3",
+        "title": "Digital Marketing Analytics",
+        "content": "<div>\n  <p><strong>Digital Marketing Analytics</strong> involves measuring, analyzing, and interpreting data from your digital marketing campaigns to understand performance and make data-driven decisions. It helps marketers understand what works, what doesn't, and how to improve future campaigns.</p>\n\n  <h3>Key Metrics to Track:</h3>\n  <h4>Website Metrics:</h4>\n  <ul>\n    <li><strong>Traffic</strong>: Number of visitors</li>\n    <li><strong>Traffic Sources</strong>: Where visitors come from</li>\n    <li><strong>Bounce Rate</strong>: Percentage of single-page visits</li>\n    <li><strong>Average Session Duration</strong>: Time spent on site</li>\n    <li><strong>Conversion Rate</strong>: Percentage of visitors who complete a goal</li>\n  </ul>\n\n  <h4>SEO Metrics:</h4>\n  <ul>\n    <li><strong>Keyword Rankings</strong>: Position in search results</li>\n    <li><strong>Organic Traffic</strong>: Visitors from search engines</li>\n    <li><strong>Backlinks</strong>: Links from other websites</li>\n  </ul>\n\n  <h4>Social Media Metrics:</h4>\n  <ul>\n    <li><strong>Engagement</strong>: Likes, comments, shares</li>\n    <li><strong>Reach</strong>: Number of people who see your content</li>\n    <li><strong>Follower Growth</strong>: Increase in followers over time</li>\n  </ul>\n\n  <h4>Email Metrics:</h4>\n  <ul>\n    <li><strong>Open Rate</strong>: Percentage of recipients who open emails</li>\n    <li><strong>Click-Through Rate (CTR)</strong>: Percentage who click links</li>\n    <li><strong>Unsubscribe Rate</strong>: Percentage who unsubscribe</li>\n  </ul>\n\n  <h3>Popular Analytics Tools:</h3>\n  <ul>\n    <li><strong>Google Analytics</strong>: Comprehensive website analytics</li>\n    <li><strong>Google Search Console</strong>: SEO performance</li>\n    <li><strong>Social Media Insights</strong>: Platform-specific analytics</li>\n    <li><strong>Email Marketing Platforms</strong>: Email campaign performance</li>\n  </ul>\n\n  <img src=\"https://media.analyzify.com/4/8703/marketing-analytics-reports-shopify-bZFNXBwd.png\" alt=\"Marketing Analytics Dashboard\">\n</div>",
+        "videoUrl": "iP-wquIv9iE",
+        "quiz": {
+          "id": "quiz3_5",
+          "courseId": "course3",
+          "title": "Quiz: Digital Marketing Analytics",
+          "questions": [
+            {
+              "id": "q3_9",
+              "quizId": "quiz3_5",
+              "text": "What does CTR stand for in digital marketing?",
+              "options": ["Click-Through Rate", "Cost to Revenue", "Content Tracking Record", "Campaign Testing Result"],
+              "correctIndex": 0
+            },
+            {
+              "id": "q3_10",
+              "quizId": "quiz3_5",
+              "text": "Which metric measures the percentage of visitors who leave after viewing only one page?",
+              "options": ["Exit rate", "Bounce rate", "Abandonment rate", "Churn rate"],
               "correctIndex": 1
             }
           ]
@@ -193,34 +445,34 @@
   },
   {
     "id": "course4",
-    "title": "Data Structures in Java",
-    "description": "Explore arrays, lists, maps, and more in Java.",
-    "imageResource": "course_design_coding", 
+    "title": "Financial Literacy 101",
+    "description": "Build a strong foundation in personal finance, from budgeting and saving to investing and planning for retirement.",
+    "imageResource": "course_design_whatisthisshit",
     "lessons": [
       {
         "id": "lesson4_1",
         "courseId": "course4",
-        "title": "Arrays and Lists",
-        "content": "Lists are dynamic, arrays are fixed-size.",
-        "videoUrl": "KYrnTn9nXFI",
+        "title": "Budgeting Fundamentals",
+        "content": "<div>\n  <p><strong>Budgeting</strong> is the process of creating a plan to manage your money. It helps you track income and expenses, make informed financial decisions, and achieve your financial goals.</p>\n\n  <h3>Steps to Create a Budget:</h3>\n  <ol>\n    <li><strong>Calculate Your Income</strong>: List all sources of monthly income</li>\n    <li><strong>Track Your Expenses</strong>: Monitor where your money goes</li>\n    <li><strong>Categorize Expenses</strong>: Fixed expenses (rent, utilities) vs. variable expenses (entertainment, dining)</li>\n    <li><strong>Set Financial Goals</strong>: Short-term, medium-term, and long-term</li>\n    <li><strong>Create Your Budget Plan</strong>: Allocate money to different categories</li>\n    <li><strong>Adjust and Review</strong>: Regularly review and adjust your budget</li>\n  </ol>\n\n  <h3>Popular Budgeting Methods:</h3>\n  <ul>\n    <li><strong>50/30/20 Rule</strong>: 50% needs, 30% wants, 20% savings</li>\n    <li><strong>Zero-Based Budgeting</strong>: Every dollar is assigned a purpose</li>\n    <li><strong>Envelope System</strong>: Cash in envelopes for different categories</li>\n    <li><strong>Pay Yourself First</strong>: Set aside savings before other expenses</li>\n  </ul>\n\n  <h3>Budgeting Tools:</h3>\n  <ul>\n    <li><strong>Spreadsheets</strong>: Microsoft Excel, Google Sheets</li>\n    <li><strong>Apps</strong>: Mint, YNAB (You Need A Budget), PocketGuard</li>\n    <li><strong>Traditional Methods</strong>: Pen and paper</li>\n  </ul>\n\n  <img src=\"https://www.orbacloudcfo.com/wp-content/uploads/2023/10/7-budget-process-steps.jpg\" alt=\"Budgeting Process\">\n</div>",
+        "videoUrl": "sVKQn2I4HDM",
         "quiz": {
           "id": "quiz4_1",
           "courseId": "course4",
-          "title": "Quiz: Lists & Arrays",
+          "title": "Quiz: Budgeting Basics",
           "questions": [
             {
               "id": "q4_1",
               "quizId": "quiz4_1",
-              "text": "Which class represents a dynamic array?",
-              "options": ["Array", "List", "ArrayList", "Map"],
-              "correctIndex": 2
+              "text": "What is the 50/30/20 budgeting rule?",
+              "options": ["50% savings, 30% needs, 20% wants", "50% needs, 30% wants, 20% savings", "50% needs, 30% savings, 20% wants", "50% wants, 30% needs, 20% savings"],
+              "correctIndex": 1
             },
             {
               "id": "q4_2",
               "quizId": "quiz4_1",
-              "text": "What is the index of the first element in an array?",
-              "options": ["0", "1", "-1", "Depends"],
-              "correctIndex": 0
+              "text": "Which budgeting method assigns every dollar a specific purpose?",
+              "options": ["Envelope system", "Pay yourself first", "Zero-based budgeting", "50/30/20 rule"],
+              "correctIndex": 2
             }
           ]
         }
@@ -228,27 +480,157 @@
       {
         "id": "lesson4_2",
         "courseId": "course4",
-        "title": "HashMap and TreeMap",
-        "content": "Maps store key-value pairs and allow quick lookup.",
-        "videoUrl": "KYrnTn9nXFI",
+        "title": "Saving and Emergency Funds",
+        "content": "<div>\n  <p><strong>Saving money</strong> is one of the most important aspects of financial health. It provides security, allows you to handle emergencies, and helps you achieve your financial goals without going into debt.</p>\n\n  <h3>Types of Savings:</h3>\n  <ul>\n    <li><strong>Emergency Fund</strong>: 3-6 months of living expenses for unexpected events</li>\n    <li><strong>Short-Term Savings</strong>: For goals within 1-3 years (vacation, new car)</li>\n    <li><strong>Long-Term Savings</strong>: For major life events (buying a home, education)</li>\n    <li><strong>Retirement Savings</strong>: For your future after working years</li>\n  </ul>\n\n  <h3>Building an Emergency Fund:</h3>\n  <ol>\n    <li><strong>Set a Target</strong>: Typically 3-6 months of essential expenses</li>\n    <li><strong>Start Small</strong>: Begin with a goal of $1,000</li>\n    <li><strong>Automate Savings</strong>: Set up automatic transfers</li>\n    <li><strong>Use the Right Account</strong>: High-yield savings account with easy access</li>\n    <li><strong>Don't Touch It</strong>: Only use for genuine emergencies</li>\n  </ol>\n\n  <h3>Savings Strategies:</h3>\n  <ul>\n    <li><strong>Pay Yourself First</strong>: Save before spending on discretionary items</li>\n    <li><strong>Save Windfalls</strong>: Tax refunds, bonuses, gifts</li>\n    <li><strong>Cut Unnecessary Expenses</strong>: Review subscriptions and recurring costs</li>\n    <li><strong>Use the 24-Hour Rule</strong>: Wait before making non-essential purchases</li>\n    <li><strong>Save Automatically</strong>: Set up direct deposits to savings</li>\n  </ul>\n\n  <img src=\"https://media.licdn.com/dms/image/v2/D5612AQFpFe8TCJTeZA/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1720079487969?e=2147483647&v=beta&t=-51nnrm3a0lGp5IHOzWOnZCFTo28DtANWuK1ClBK-v0\" alt=\"Emergency Fund Savings\">\n</div>",
+        "videoUrl": "kUFdXe6zpOY",
         "quiz": {
           "id": "quiz4_2",
           "courseId": "course4",
-          "title": "Quiz: Maps",
+          "title": "Quiz: Saving Strategies",
           "questions": [
             {
               "id": "q4_3",
               "quizId": "quiz4_2",
-              "text": "Which class maintains order of keys?",
-              "options": ["HashMap", "TreeMap", "Map", "LinkedList"],
+              "text": "How many months of expenses should an emergency fund ideally cover?",
+              "options": ["1-2 months", "3-6 months", "12 months", "24 months"],
               "correctIndex": 1
             },
             {
               "id": "q4_4",
               "quizId": "quiz4_2",
-              "text": "Which method retrieves a value by key?",
-              "options": ["getValue()", "value()", "get()", "find()"],
+              "text": "Which account is typically best for an emergency fund?",
+              "options": ["401(k)", "High-yield savings account", "CD (Certificate of Deposit)", "Investment account"],
+              "correctIndex": 1
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson4_3",
+        "courseId": "course4",
+        "title": "Debt Management",
+        "content": "<div>\n  <p><strong>Debt management</strong> is the process of developing and following a strategy to reduce and eventually eliminate debt. Understanding how to manage debt is crucial for financial health and achieving long-term financial goals.</p>\n\n  <h3>Types of Debt:</h3>\n  <h4>Good Debt:</h4>\n  <ul>\n    <li><strong>Mortgage</strong>: Helps build equity in a home</li>\n    <li><strong>Student Loans</strong>: Can increase earning potential</li>\n    <li><strong>Business Loans</strong>: Can generate income</li>\n  </ul>\n\n  <h4>Bad Debt:</h4>\n  <ul>\n    <li><strong>High-Interest Credit Cards</strong>: Expensive way to borrow</li>\n    <li><strong>Payday Loans</strong>: Very high interest rates</li>\n    <li><strong>Auto Loans</strong> (for depreciating assets)</li>\n  </ul>\n\n  <h3>Debt Repayment Strategies:</h3>\n  <ul>\n    <li><strong>Debt Avalanche</strong>: Pay off highest interest debt first</li>\n    <li><strong>Debt Snowball</strong>: Pay off smallest balances first</li>\n    <li><strong>Debt Consolidation</strong>: Combine multiple debts into one</li>\n    <li><strong>Balance Transfers</strong>: Move high-interest debt to lower-interest options</li>\n    <li><strong>Debt Management Plans</strong>: Structured repayment through credit counseling</li>\n  </ul>\n\n  <h3>Tips for Managing Debt:</h3>\n  <ol>\n    <li><strong>Create a Debt Inventory</strong>: List all debts with balances, interest rates, minimum payments</li>\n    <li><strong>Stop Creating New Debt</strong>: Avoid taking on additional obligations</li>\n    <li><strong>Pay More Than Minimum</strong>: Accelerate debt repayment</li>\n    <li><strong>Negotiate Lower Rates</strong>: Ask creditors for interest rate reductions</li>\n    <li><strong>Consider Refinancing</strong>: May lower interest rates and payments</li>\n    <li><strong>Track Progress</strong>: Monitor debt reduction over time</li>\n  </ol>\n\n  <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiCQDt_CtLbpLhcEWtjHNPv-d3hIkrgotKtA&s\" alt=\"Debt Management Strategies\">\n</div>",
+        "videoUrl": "PBzLjY_SdkU",
+        "quiz": {
+          "id": "quiz4_3",
+          "courseId": "course4",
+          "title": "Quiz: Debt Management",
+          "questions": [
+            {
+              "id": "q4_5",
+              "quizId": "quiz4_3",
+              "text": "Which debt repayment strategy focuses on paying off the smallest debts first?",
+              "options": ["Debt avalanche", "Debt snowball", "Debt consolidation", "Debt settlement"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q4_6",
+              "quizId": "quiz4_3",
+              "text": "Which type of debt is typically considered 'good debt'?",
+              "options": ["Credit card debt", "Payday loans", "Mortgage", "Auto loans for luxury vehicles"],
               "correctIndex": 2
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson4_4",
+        "courseId": "course4",
+        "title": "Investing Basics",
+        "content": "<div>\n  <p><strong>Investing</strong> is the process of allocating money with the expectation of generating income or profit over time. While saving helps you meet short-term goals, investing is crucial for building wealth and achieving long-term financial objectives.</p>\n\n  <h3>Common Investment Vehicles:</h3>\n  <ul>\n    <li><strong>Stocks</strong>: Ownership shares in a company</li>\n    <li><strong>Bonds</strong>: Loans to governments or corporations</li>\n    <li><strong>Mutual Funds</strong>: Professionally managed portfolios of stocks, bonds, or other securities</li>\n    <li><strong>ETFs (Exchange-Traded Funds)</strong>: Funds that trade like stocks</li>\n    <li><strong>Real Estate</strong>: Property investments</li>\n    <li><strong>Retirement Accounts</strong>: 401(k)s, IRAs, etc.</li>\n  </ul>\n\n  <h3>Investment Principles:</h3>\n  <ol>\n    <li><strong>Start Early</strong>: Take advantage of compound interest</li>\n    <li><strong>Diversify</strong>: Don't put all your eggs in one basket</li>\n    <li><strong>Invest Regularly</strong>: Practice dollar-cost averaging</li>\n    <li><strong>Think Long-Term</strong>: Ride out market fluctuations</li>\n    <li><strong>Know Your Risk Tolerance</strong>: Balance risk and potential reward</li>\n    <li><strong>Keep Costs Low</strong>: Minimize fees and expenses</li>\n  </ol>\n\n  <h3>Asset Allocation:</h3>\n  <p>Your investment mix should typically be based on:</p>\n  <ul>\n    <li><strong>Age</strong>: Younger investors can take more risk</li>\n    <li><strong>Time Horizon</strong>: When you'll need the money</li>\n    <li><strong>Risk Tolerance</strong>: Comfort with market volatility</li>\n    <li><strong>Financial Goals</strong>: What you're investing for</li>\n  </ul>\n\n  <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdHhawZl2_phPo_kt9UZSgCNKsqyMDDVIPzg&s\" alt=\"Investment Vehicles\">\n</div>",
+        "videoUrl": "gtF2nHVmO5E",
+        "quiz": {
+          "id": "quiz4_4",
+          "courseId": "course4",
+          "title": "Quiz: Investing Fundamentals",
+          "questions": [
+            {
+              "id": "q4_7",
+              "quizId": "quiz4_4",
+              "text": "What is the practice of regularly investing a fixed amount regardless of market conditions?",
+              "options": ["Market timing", "Day trading", "Dollar-cost averaging", "Value investing"],
+              "correctIndex": 2
+            },
+            {
+              "id": "q4_8",
+              "quizId": "quiz4_4",
+              "text": "Which investment typically has the highest potential return over the long term?",
+              "options": ["Savings accounts", "Bonds", "Stocks", "Certificates of deposit"],
+              "correctIndex": 2
+            }
+          ]
+        }
+      },
+      {
+        "id": "lesson4_5",
+        "courseId": "course4",
+        "title": "Retirement Planning",
+        "content": "<div>\n  <p><strong>Retirement planning</strong> is the process of determining retirement income goals and the actions necessary to achieve those goals. It includes identifying income sources, estimating expenses, implementing a savings program, and managing assets and risk.</p>\n\n  <h3>Common Retirement Accounts:</h3>\n  <h4>Employer-Sponsored Plans:</h4>\n  <ul>\n    <li><strong>401(k)</strong>: Tax-advantaged retirement account offered by employers</li>\n    <li><strong>403(b)</strong>: Similar to 401(k) but for public education and non-profit employees</li>\n    <li><strong>457 Plan</strong>: For government employees</li>\n    <li><strong>Pension</strong>: Defined benefit plan funded by employers</li>\n  </ul>\n\n  <h4>Individual Retirement Accounts (IRAs):</h4>\n  <ul>\n    <li><strong>Traditional IRA</strong>: Tax-deductible contributions, taxed withdrawals</li>\n    <li><strong>Roth IRA</strong>: After-tax contributions, tax-free withdrawals</li>\n    <li><strong>SEP IRA</strong>: For self-employed individuals</li>\n    <li><strong>SIMPLE IRA</strong>: For small businesses</li>\n  </ul>\n\n  <h3>Retirement Planning Steps:</h3>\n  <ol>\n    <li><strong>Estimate Retirement Needs</strong>: Typically 70-80% of pre-retirement income</li>\n    <li><strong>Calculate the Gap</strong>: Between expected income and expenses</li>\n    <li><strong>Create a Savings Plan</strong>: Determine how much to save monthly</li>\n    <li><strong>Choose Retirement Accounts</strong>: Based on tax advantages and circumstances</li>\n    <li><strong>Select Investments</strong>: Based on time horizon and risk tolerance</li>\n    <li><strong>Monitor and Adjust</strong>: Regularly review and update your plan</li>\n  </ol>\n\n  <h3>The Power of Compound Interest:</h3>\n  <p>Starting early gives your money more time to grow. Even small contributions can grow significantly over decades.</p>\n\n  <img src=\"https://www.investopedia.com/thmb/ymmKuNZnY_tNjepQTMxJC8-rje4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/retirement-planning.asp-FINAL-ed21279a08874c54a3a0f4858866e0b6.png\" alt=\"Retirement Planning\">\n</div>",
+        "videoUrl": "DjYxkPvDYG8",
+        "quiz": {
+          "id": "quiz4_5",
+          "courseId": "course4",
+          "title": "Quiz: Retirement Planning",
+          "questions": [
+            {
+              "id": "q4_9",
+              "quizId": "quiz4_5",
+              "text": "Which retirement account offers tax-free withdrawals in retirement?",
+              "options": ["Traditional IRA", "Roth IRA", "401(k)", "Pension plan"],
+              "correctIndex": 1
+            },
+            {
+              "id": "q4_10",
+              "quizId": "quiz4_5",
+              "text": "What percentage of pre-retirement income do financial experts typically recommend having in retirement?",
+              "options": ["30-50%", "50-60%", "70-80%", "100-120%"],
+              "correctIndex": 2
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "course5",
+    "title": "Photography Masterclass",
+    "description": "Learn the art and science of photography, from camera basics to advanced composition and editing techniques.",
+    "imageResource": "course_design_securityexpert",
+    "lessons": [
+      {
+        "id": "lesson5_1",
+        "courseId": "course5",
+        "title": "Camera Basics",
+        "content": "<div>\n  <p><strong>Understanding your camera</strong> is the first step to becoming a proficient photographer. Modern digital cameras come with various features and settings that allow for creative control over your images.</p>\n\n  <h3>Camera Types:</h3>\n  <ul>\n    <li><strong>DSLR (Digital Single-Lens Reflex)</strong>: Uses a mirror mechanism to reflect light from the lens to the optical viewfinder</li>\n    <li><strong>Mirrorless</strong>: No mirror mechanism; light passes directly to the digital sensor</li>\n    <li><strong>Point-and-Shoot</strong>: Compact cameras with fixed lenses</li>\n    <li><strong>Smartphone Cameras</strong>: Increasingly capable cameras built into phones</li>\n  </ul>\n\n  <h3>Key Camera Parts:</h3>\n  <ul>\n    <li><strong>Sensor</strong>: Captures light and converts it to digital data</li>\n    <li><strong>Lens</strong>: Focuses light onto the sensor</li>\n    <li><strong>Aperture</strong>: Opening in the lens that controls light amount</li>\n    <li><strong>Shutter</strong>: Controls how long light hits the sensor</li>\n    <li><strong>ISO</strong>: Controls the sensor's sensitivity to light</li>\n    <li><strong>Viewfinder/LCD Screen</strong>: For composing and reviewing images</li>\n  </ul>\n\n  <h3>Camera Modes:</h3>\n  <ul>\n    <li><strong>Auto</strong>: Camera selects all settings</li>\n    <li><strong>Program (P)</strong>: Auto exposure with some manual controls</li>\n    <li><strong>Aperture Priority (A/Av)</strong>: Set aperture, camera selects shutter speed</li>\n    <li><strong>Shutter Priority (S/Tv)</strong>: Set shutter speed, camera selects aperture</li>\n    <li><strong>Manual (M)</strong>: Full control over all settings</li>\n  </ul>\n\n  <img src=\"https://www.adorama.com/alc/wp-content/uploads/2020/01/PARTS-OF-A-CAMERA-2-825x465.png\" alt=\"Camera Parts Diagram\">\n</div>",
+        "videoUrl": "LFuCJ0vSy-E",
+        "quiz": {
+          "id": "quiz5_1",
+          "courseId": "course5",
+          "title": "Quiz: Camera Basics",
+          "questions": [
+            {
+              "id": "q5_1",
+              "quizId": "quiz5_1",
+              "text": "What does ISO control?",
+              "options": [
+                "Shutter speed",
+                "Aperture size",
+                "Light sensitivity",
+                "White balance"
+              ],
+              "correctIndex": 2
+            },
+            {
+              "id": "q5_2",
+              "quizId": "quiz5_1",
+              "text": "Which camera mode gives you complete manual control?",
+              "options": [
+                "Auto",
+                "Program (P)",
+                "Aperture Priority (A/Av)",
+                "Manual (M)"
+              ],
+              "correctIndex": 3
             }
           ]
         }
