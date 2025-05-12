@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020. rogergcc
+ */
+
 package com.appsnipp.education.data.dao;
 
 import androidx.lifecycle.LiveData;
@@ -7,8 +11,11 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
 import com.appsnipp.education.ui.model.UserProgress;
+
 import java.util.List;
+
 @Dao
 public interface UserProgressDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

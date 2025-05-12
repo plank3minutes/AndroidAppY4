@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2020. rogergcc
+ */
+
 package com.appsnipp.education.data.repository;
 
 import android.content.Context;

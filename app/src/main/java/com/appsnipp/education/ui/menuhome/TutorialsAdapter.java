@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2023. rogergcc
+ */
+
 package com.appsnipp.education.ui.menuhome;
 
 import android.view.LayoutInflater;

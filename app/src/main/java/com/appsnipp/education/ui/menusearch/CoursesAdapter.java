@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024. rogergcc
+ */
+
 package com.appsnipp.education.ui.menusearch;
 
 import android.view.LayoutInflater;

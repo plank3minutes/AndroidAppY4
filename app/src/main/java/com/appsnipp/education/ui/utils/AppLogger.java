@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. rogergcc
+ */
+
 package com.appsnipp.education.ui.utils;
 
 import com.appsnipp.education.BuildConfig;

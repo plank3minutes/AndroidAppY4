@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. rogergcc
+ */
+
 package com.appsnipp.education.ui.menucourses;
 
 import android.content.Context;
