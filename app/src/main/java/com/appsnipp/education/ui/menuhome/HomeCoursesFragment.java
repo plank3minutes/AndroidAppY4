@@ -107,7 +107,7 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
     private void updateProgressUI(UserProgress progress, Course currentCourse) {
         int completionPercentage = 0;
         if (currentCourse != null && currentCourse.getLessons().size() > 0) {
-            completionPercentage = (progress.getLessonIndex() * 100) / currentCourse.getLessons().size();
+            completionPercentage = (progress.getCompletedLessons() * 100) / currentCourse.getLessons().size();
         }
 
         binding.tvHomeCourse.setText("Continue to " + currentCourse.getCourseTitle());

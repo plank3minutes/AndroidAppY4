@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,7 +49,6 @@ public class CourseDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Get course ID from arguments
         if (getArguments() != null) {
             courseId = getArguments().getString("courseId");
         }
@@ -58,15 +56,13 @@ public class CourseDetailFragment extends Fragment {
         setupToolbar();
         setupViewModels();
         setupRecyclerView();
-        observeCourseData();
         setupButtonListeners();
+        observeCourseData();
     }
 
     private void setupToolbar() {
-        // Thiết lập toolbar
-        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back);
         binding.toolbar.setNavigationOnClickListener(v -> {
-            // Xử lý sự kiện khi nhấn nút back
             NavHostFragment.findNavController(this).navigateUp();
         });
     }
@@ -82,9 +78,54 @@ public class CourseDetailFragment extends Fragment {
         binding.recyclerViewLessons.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
+    private void setupButtonListeners() {
+        binding.buttonContinue.setOnClickListener(v -> {
+            // Xử lý sự kiện khi nhấn nút Continue
+            if (currentCourse != null && !currentCourse.getLessons().isEmpty()) {
+                Lesson nextLesson = findNextIncompleteLesson();
+                if (nextLesson != null) {
+                    navigateToLesson(nextLesson);
+                }
+            }
+        });
+
+        binding.fabBookmarkCourse.setOnClickListener(v -> {
+            // Xử lý sự kiện khi nhấn nút Bookmark
+            toggleBookmark();
+        });
+    }
+
+    private Lesson findNextIncompleteLesson() {
+        if (currentCourse == null) return null;
+        
+        for (Lesson lesson : currentCourse.getLessons()) {
+            // Kiểm tra trạng thái hoàn thành của bài học
+            if (!isLessonCompleted(lesson.getId())) {
+                return lesson;
+            }
+        }
+        return null;
+    }
+
+    private boolean isLessonCompleted(String lessonId) {
+        // TODO: Implement kiểm tra trạng thái hoàn thành của bài học
+        return false;
+    }
+
+    private void navigateToLesson(Lesson lesson) {
+        Bundle args = new Bundle();
+        args.putString("lessonId", lesson.getId());
+        args.putString("courseId", courseId);
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_courseDetailFragment_to_lessonDetailFragment, args);
+    }
+
+    private void toggleBookmark() {
+        // TODO: Implement chức năng bookmark
+    }
+
     private void observeCourseData() {
         if (courseId != null) {
-            // Observe course data
             courseViewModel.getCourseById(courseId).observe(getViewLifecycleOwner(), course -> {
                 if (course != null) {
                     currentCourse = course;
@@ -92,12 +133,10 @@ public class CourseDetailFragment extends Fragment {
                 }
             });
 
-            // Observe progress data
             progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
                 if (progress != null) {
                     updateProgressUI(progress);
                 } else {
-                    // Create new progress if none exists
                     UserProgress newProgress = new UserProgress(courseId, currentCourse.getLessonCount(), 0, false, new Date());
                     progressViewModel.insert(newProgress);
                 }
@@ -109,10 +148,10 @@ public class CourseDetailFragment extends Fragment {
         binding.textCourseTitle.setText(course.getTitle());
         binding.textCourseDescription.setText(course.getDescription());
         binding.imageCourse.setImageResource(course.getImageResource());
+        binding.textInstructor.setText(course.getLessonCount() + " lessons");
+        binding.textLessonCount.setText(course.getLessonCount() + " lessons");
         
         lessonAdapter.updateLessons(course.getLessons());
-
-        // Set up collapsing toolbar title
         binding.collapsingToolbar.setTitle(course.getTitle());
     }
 
@@ -123,35 +162,13 @@ public class CourseDetailFragment extends Fragment {
         }
         
         binding.progressBarCourse.setProgress(completionPercentage);
-        binding.textProgress.setText(completionPercentage + "% " + getString(R.string.completed));
-    }
-
-    private void setupButtonListeners() {
-        binding.buttonStartQuiz.setOnClickListener(v -> {
-            if (courseId != null) {
-                Bundle args = new Bundle();
-                args.putString("courseId", courseId);
-                // Sử dụng Navigation Component để điều hướng đến màn hình quiz
-                NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_courseDetailFragment_to_quizFragment, args);
-            }
-        });
-
-        binding.fabBookmarkCourse.setOnClickListener(v -> {
-            // TODO: Implement bookmark functionality
-            Toast.makeText(requireContext(), "Bookmark feature coming soon", Toast.LENGTH_SHORT).show();
-        });
+        binding.textProgress.setText(completionPercentage + "% completed");
     }
 
     private final LessonAdapter.LessonListener lessonListener = new LessonAdapter.LessonListener() {
         @Override
         public void onLessonClicked(Lesson lesson, int position) {
-            Bundle args = new Bundle();
-            args.putString("lessonId", lesson.getId());
-            args.putString("courseId", courseId);
-            // Sử dụng Navigation Component để điều hướng đến màn hình chi tiết bài học
-            NavHostFragment.findNavController(CourseDetailFragment.this)
-                .navigate(R.id.action_courseDetailFragment_to_lessonDetailFragment, args);
+            navigateToLesson(lesson);
         }
     };
 

@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity
     public void navigateToQuiz(String courseId) {
         Bundle args = new Bundle();
         args.putString("courseId", courseId);
-        navController.navigate(R.id.action_courseDetailFragment_to_quizFragment, args);
+        navController.navigate(R.id.action_lessonDetailFragment_to_quizFragment, args);
     }
 
     // Método para cambiar el estado del modo oscuro
