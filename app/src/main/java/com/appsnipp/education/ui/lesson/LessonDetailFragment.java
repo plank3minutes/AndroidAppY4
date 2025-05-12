@@ -48,7 +48,7 @@ public class LessonDetailFragment extends Fragment {
     private int lessonIndex = 0;
     private boolean isVideoWatched = false;
     private boolean isQuizCompleted = false;
-    private WebView webView;
+    private WebView videoWebView;
     private View customView; // Lưu view toàn màn hình
     private WebChromeClient.CustomViewCallback customViewCallback;
 
@@ -114,15 +114,31 @@ public class LessonDetailFragment extends Fragment {
 
     private void setupLessonContent(Lesson lesson) {
         binding.textLessonTitle.setText(lesson.getTitle());
-        
+
         // Setup WebView to display content
-        binding.webViewLessonContent.setWebViewClient(new WebViewClient());
-        binding.webViewLessonContent.getSettings().setJavaScriptEnabled(true);
-        binding.webViewLessonContent.setBackgroundColor(getResources().getColor(R.color.card_background));
-        String htmlContent = "<html><body style='text-align:justify;'>"
-                + lesson.getContent() +
-                "</body></html>";
-        binding.webViewLessonContent.loadData(htmlContent, "text/html", "UTF-8");
+        WebSettings webSettings = binding.webViewLessonContent.getSettings();
+        webSettings.setJavaScriptEnabled(true); // Bật JavaScript nếu cần
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setBuiltInZoomControls(false); // Cho phép zoom nếu cần
+        webSettings.setDisplayZoomControls(false); // Ẩn nút zoom
+
+        String htmlContent = "<!DOCTYPE html>" +
+                "<html>" +
+                "<head>" +
+                "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+                "<style>" +
+                "body { background-color: #2A2E45; color: #FFFFFF; font-family: Arial, sans-serif; margin: 20px; text-align:justify;}" +
+                "img { max-width: 100%; height: auto; }" +
+                "</style>" +
+                "</head>" +
+                "<body>" +
+                "<div>" + lesson.getContent() + "</div>" +
+                "</body>" +
+                "</html>";
+
+        binding.webViewLessonContent.loadDataWithBaseURL(null, htmlContent, "text/html", "UTF-8", null);
         
         // Setup video if available
         if (lesson.getVideoUrl() != null && !lesson.getVideoUrl().isEmpty()) {
@@ -140,15 +156,16 @@ public class LessonDetailFragment extends Fragment {
     private void setupVideoPlayer(String videoUrl) {
         binding.videoViewLesson.setVisibility(View.VISIBLE);
         WebSettings webSettings = binding.videoViewLesson.getSettings();
+
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
-        webView = binding.videoViewLesson;
+        videoWebView = binding.videoViewLesson;
 
         // Thêm interface để giao tiếp từ JavaScript sang Android
-        webView.addJavascriptInterface(new WebAppInterface(), "Android");
+        videoWebView.addJavascriptInterface(new WebAppInterface(), "Android");
 
-        webView.setWebViewClient(new WebViewClient() {
+        videoWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -158,10 +175,10 @@ public class LessonDetailFragment extends Fragment {
         });
 
         // Tải file HTML từ assets
-        webView.loadUrl("file:///android_asset/youtube_player.html");
+        videoWebView.loadUrl("file:///android_asset/youtube_player.html");
 
         // Cấu hình WebChromeClient để hỗ trợ toàn màn hình
-        webView.setWebChromeClient(new WebChromeClient() {
+        videoWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onShowCustomView(View view, CustomViewCallback callback) {
                 // Khi vào chế độ toàn màn hình
@@ -173,7 +190,7 @@ public class LessonDetailFragment extends Fragment {
                 customViewCallback = callback;
 
                 // Ẩn WebView và hiển thị customView toàn màn hình
-                webView.setVisibility(View.GONE);
+                videoWebView.setVisibility(View.GONE);
                 ViewGroup rootView = binding.getRoot();
                 rootView.addView(customView, new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -192,7 +209,7 @@ public class LessonDetailFragment extends Fragment {
                 customViewCallback = null;
 
                 // Hiển thị lại WebView
-                webView.setVisibility(View.VISIBLE);
+                videoWebView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -209,20 +226,20 @@ public class LessonDetailFragment extends Fragment {
 
     public void setVideoId(String videoId) {
         // Gọi hàm JavaScript để thiết lập video ID
-        webView.evaluateJavascript("player.loadVideoById('" + videoId +"');", null);
+        videoWebView.evaluateJavascript("player.loadVideoById('" + videoId +"');", null);
     }
 
     // Gọi hàm JavaScript từ Android
     public void playVideo() {
-        webView.evaluateJavascript("playVideo();", null);
+        videoWebView.evaluateJavascript("playVideo();", null);
     }
 
     public void pauseVideo() {
-        webView.evaluateJavascript("pauseVideo();", null);
+        videoWebView.evaluateJavascript("pauseVideo();", null);
     }
 
     public void stopVideo() {
-        webView.evaluateJavascript("stopVideo();", null);
+        videoWebView.evaluateJavascript("stopVideo();", null);
     }
 
 //    private void setupVideoPlayer(String videoUrl) {
@@ -323,6 +340,6 @@ public class LessonDetailFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        webView.destroy();
+        videoWebView.destroy();
     }
 } 
