@@ -81,42 +81,25 @@ public class JsonDataRepository {
         return new Quiz(quizId, lessonId, questions, title);
     }
 
-    public List<String> getCourseIds() {
-        List<String> courseIds = new ArrayList<>();
-        try {
-            JSONArray jsonArray = JsonUtil.loadJSONArrayFromAsset(context, "courses.json");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject courseJson = jsonArray.getJSONObject(i);
-                courseIds.add(courseJson.getString("id"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return courseIds;
-    }
-
-    public Course getCourseById(String courseId) {
+    public List<Course> getAllCourses() {
+        List<Course> courses = new ArrayList<>();
         try {
             JSONArray coursesArray = JsonUtil.loadJSONArrayFromAsset(context, "courses.json");
             for (int i = 0; i < coursesArray.length(); i++) {
                 JSONObject courseJson = coursesArray.getJSONObject(i);
                 String id = courseJson.getString("id");
-                if (id.equals(courseId)) {
-                    String title = courseJson.getString("title");
-                    String description = courseJson.getString("description");
-                    String imageName = courseJson.getString("imageResource");
-                    int imageResource = context.getResources().getIdentifier(
-                            imageName, "drawable", context.getPackageName());
-                    
-                    List<Lesson> lessons = getLessonsFromCourseJson(courseJson);
-                    
-                    Course course = new Course(id, title, description, lessons, imageResource);
-                    return course;
-                }
+                String title = courseJson.getString("title");
+                String description = courseJson.getString("description");
+                String imageName = courseJson.getString("imageResource");
+                int imageResource = context.getResources().getIdentifier(
+                        imageName, "drawable", context.getPackageName());
+                
+                List<Lesson> lessons = getLessonsFromCourseJson(courseJson);
+                courses.add(new Course(id, title, description, lessons, imageResource));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return courses;
     }
 } 
