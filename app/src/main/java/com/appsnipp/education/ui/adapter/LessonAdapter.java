@@ -71,7 +71,6 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         private final TextView textLessonTitle;
         private final TextView textLessonDescription;
         private final ImageView imageVideoIndicator;
-        private final ImageView imageBookmark;
         private final ImageView imageCompleted;
 
         public LessonViewHolder(@NonNull View itemView) {
@@ -79,7 +78,6 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
             textLessonTitle = itemView.findViewById(R.id.textLessonTitle);
             textLessonDescription = itemView.findViewById(R.id.textLessonDescription);
             imageVideoIndicator = itemView.findViewById(R.id.imageVideoIndicator);
-            imageBookmark = itemView.findViewById(R.id.imageBookmark);
             imageCompleted = itemView.findViewById(R.id.imageCompleted);
         }
 

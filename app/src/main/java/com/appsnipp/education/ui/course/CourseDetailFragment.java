@@ -159,6 +159,7 @@ public class CourseDetailFragment extends Fragment {
             lessonStatusViewModel.getLessonStatusByCourseId(courseId).observe(getViewLifecycleOwner(), lessonStatuses -> {
                 if (lessonStatuses != null) {
                     this.lessonStatuses = lessonStatuses;
+                    lessonAdapter.updateLessonStatuses(lessonStatuses);
                 }
             });
         }
