@@ -60,12 +60,23 @@ public class LessonDetailFragment extends Fragment {
         if (getArguments() != null) {
             lessonId = getArguments().getString("lessonId");
             courseId = getArguments().getString("courseId");
+            int quizScore = getArguments().getInt("quizScore", 0);
+            if (quizScore > 0) {
+                onQuizCompleted(quizScore);
+            }
         }
 
+        setupToolbar();
         setupViewModels();
         observeData();
         setupButtonListeners();
         checkLessonStatus();
+    }
+
+    private void setupToolbar() {
+        binding.lessonToolbar.setNavigationOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigateUp();
+        });
     }
 
     private void setupViewModels() {
@@ -116,8 +127,8 @@ public class LessonDetailFragment extends Fragment {
             isVideoWatched = true; // No video means no need to watch
         }
 
-        // Disable complete button initially
-        binding.buttonCompleteLesson.setEnabled(false);
+//        // Disable complete button initially
+//        binding.buttonCompleteLesson.setEnabled(false);
     }
 
     private void setupVideoPlayer(String videoUrl) {
@@ -164,7 +175,7 @@ public class LessonDetailFragment extends Fragment {
                         if (status != null && status.isCompleted()) {
                             isVideoWatched = true;
                             isQuizCompleted = true;
-                            binding.buttonCompleteLesson.setEnabled(true);
+                            binding.buttonCompleteLesson.setEnabled(false);
                             binding.buttonTakeQuiz.setEnabled(false);
                         }
                     });
@@ -172,7 +183,8 @@ public class LessonDetailFragment extends Fragment {
     }
 
     private void checkCompletionStatus() {
-        boolean canComplete = isVideoWatched && isQuizCompleted;
+//        boolean canComplete = isVideoWatched && isQuizCompleted;
+        boolean canComplete = isQuizCompleted; // Assuming video is not mandatory
         binding.buttonCompleteLesson.setEnabled(canComplete);
     }
 
@@ -184,7 +196,7 @@ public class LessonDetailFragment extends Fragment {
     private void markLessonAsComplete() {
         if (currentCourse != null && currentLesson != null) {
             // Update LessonStatus
-            lessonStatusViewModel.completeLesson(courseId, lessonId, 0); // Score will be updated after quiz
+            lessonStatusViewModel.completeLessonWithoutQuiz(courseId, lessonId); // Score will be updated after quiz
 
             // Update UserProgress
             progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {

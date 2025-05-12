@@ -64,6 +64,72 @@ public class LessonStatusRepository {
         new DeleteAllLessonStatusAsyncTask(lessonStatusDao).execute();
     }
 
+    public void completeQuiz(String courseId, String lessonId, int quizScore) {
+        new CompleteQuizAsyncTask(lessonStatusDao).execute(
+                new LessonCompletion(courseId, lessonId, quizScore));
+    }
+
+    private static class CompleteQuizAsyncTask extends AsyncTask<LessonCompletion, Void, Void> {
+        private final LessonStatusDao lessonStatusDao;
+
+        private CompleteQuizAsyncTask(LessonStatusDao lessonStatusDao) {
+            this.lessonStatusDao = lessonStatusDao;
+        }
+
+        @Override
+        protected Void doInBackground(LessonCompletion... completions) {
+            LessonCompletion completion = completions[0];
+            LessonStatus status = lessonStatusDao.getLessonStatusSync(completion.courseId, completion.lessonId);
+            if (status != null) {
+                status.setQuizScore(completion.quizScore);
+                lessonStatusDao.update(status);
+            } else {
+                status = new LessonStatus();
+                status.setCourseId(completion.courseId);
+                status.setLessonId(completion.lessonId);
+                status.setCompleted(false);
+                status.setQuizScore(completion.quizScore);
+                lessonStatusDao.insert(status);
+            }
+            return null;
+        }
+    }
+
+    public void completeLessonWithoutQuiz(String courseId, String lessonId) {
+        new CompleteLessonWithoutQuizzAsyncTask(lessonStatusDao).execute(
+                new LessonCompletion(courseId, lessonId, -1));
+    }
+
+    private static class CompleteLessonWithoutQuizzAsyncTask extends AsyncTask<LessonCompletion, Void, Void> {
+        private final LessonStatusDao lessonStatusDao;
+
+        private CompleteLessonWithoutQuizzAsyncTask(LessonStatusDao lessonStatusDao) {
+            this.lessonStatusDao = lessonStatusDao;
+        }
+
+        @Override
+        protected Void doInBackground(LessonCompletion... completions) {
+            LessonCompletion completion = completions[0];
+            LessonStatus status = lessonStatusDao.getLessonStatusSync(completion.courseId, completion.lessonId);
+            if (status != null) {
+                status.setCompleted(true);
+                status.setCompletedAt(System.currentTimeMillis());
+                lessonStatusDao.update(status);
+            } else {
+                status = new LessonStatus(
+                        completion.courseId,
+                        completion.lessonId,
+                        -1, // No quiz score
+                        true,
+                        System.currentTimeMillis()
+                );
+                lessonStatusDao.insert(status);
+            }
+            return null;
+        }
+    }
+
+
     private static class InsertLessonStatusAsyncTask extends AsyncTask<LessonStatus, Void, Void> {
         private final LessonStatusDao lessonStatusDao;
 

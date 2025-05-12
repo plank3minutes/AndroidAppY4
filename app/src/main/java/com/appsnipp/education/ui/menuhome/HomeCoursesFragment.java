@@ -118,7 +118,6 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
 
     @Override
     public void onItemClick(Course course, ImageView imageView) {
-        MyUtilsApp.showToast(requireContext(), course.getCourseTitle());
         Bundle args = new Bundle();
         args.putString("courseId", course.getId());
         NavHostFragment.findNavController(this)

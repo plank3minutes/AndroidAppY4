@@ -5,6 +5,7 @@
 package com.appsnipp.education.ui.quiz;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,9 @@ import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 import com.appsnipp.education.ui.viewmodel.LessonStatusViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
+import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +46,10 @@ public class QuizFragment extends Fragment {
     private int currentQuestionIndex = 0;
     private int score = 0;
     private int[] userAnswers;
+
+    // Danh sách RadioButton và CardView để quản lý dễ dàng
+    private List<RadioButton> radioButtons;
+    private List<MaterialCardView> cardViews;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -61,9 +68,38 @@ public class QuizFragment extends Fragment {
             lessonId = getArguments().getString("lessonId");
         }
 
+        // Khởi tạo danh sách RadioButton và CardView
+        initRadioButtonsAndCards();
+
+        setupToolbar();
         setupViewModels();
         observeQuizData();
         setupButtonListeners();
+    }
+
+    private void initRadioButtonsAndCards() {
+        radioButtons = new ArrayList<>();
+        cardViews = new ArrayList<>();
+
+        // Thêm RadioButton vào danh sách
+        radioButtons.add(binding.radioOption1);
+        radioButtons.add(binding.radioOption2);
+        radioButtons.add(binding.radioOption3);
+        radioButtons.add(binding.radioOption4);
+
+        // Lấy các MaterialCardView từ RadioGroup
+        for (int i = 0; i < binding.radioGroupOptions.getChildCount(); i++) {
+            View child = binding.radioGroupOptions.getChildAt(i);
+            if (child instanceof MaterialCardView) {
+                cardViews.add((MaterialCardView) child);
+            }
+        }
+    }
+
+    private void setupToolbar() {
+        binding.quizToolbar.setNavigationOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigateUp();
+        });
     }
 
     private void setupViewModels() {
@@ -94,34 +130,35 @@ public class QuizFragment extends Fragment {
             Question question = questions.get(currentQuestionIndex);
             binding.textQuestion.setText(question.getText());
 
-            // Set up radio buttons for options
-            binding.radioGroupOptions.clearCheck();
+            // Reset all radio buttons
+            for (RadioButton radioButton : radioButtons) {
+                radioButton.setChecked(false);
+            }
+
+            // Reset all card backgrounds
+            resetCardBackgrounds();
+
             List<String> options = question.getOptions();
             int optionCount = Math.min(options.size(), 4); // Maximum 4 options
 
             // Set options to radio buttons
             for (int i = 0; i < optionCount; i++) {
-                RadioButton radioButton = getRadioButton(i);
-                if (radioButton != null) {
-                    radioButton.setText(options.get(i));
-                    radioButton.setVisibility(View.VISIBLE);
-                }
+                RadioButton radioButton = radioButtons.get(i);
+                radioButton.setText(options.get(i));
+                radioButton.setVisibility(View.VISIBLE);
+                cardViews.get(i).setVisibility(View.VISIBLE);
             }
 
-            // Hide unused radio buttons
+            // Hide unused radio buttons and cards
             for (int i = optionCount; i < 4; i++) {
-                RadioButton radioButton = getRadioButton(i);
-                if (radioButton != null) {
-                    radioButton.setVisibility(View.GONE);
-                }
+                radioButtons.get(i).setVisibility(View.GONE);
+                cardViews.get(i).setVisibility(View.GONE);
             }
 
             // Check the previously selected answer if any
-            if (userAnswers[currentQuestionIndex] >= 0) {
-                RadioButton radioButton = getRadioButton(userAnswers[currentQuestionIndex]);
-                if (radioButton != null) {
-                    radioButton.setChecked(true);
-                }
+            if (userAnswers[currentQuestionIndex] >= 0 && userAnswers[currentQuestionIndex] < radioButtons.size()) {
+                radioButtons.get(userAnswers[currentQuestionIndex]).setChecked(true);
+                highlightSelectedCard(userAnswers[currentQuestionIndex]);
             }
 
             // Update progress text and progress indicator
@@ -130,24 +167,23 @@ public class QuizFragment extends Fragment {
         }
     }
 
-    private RadioButton getRadioButton(int index) {
-        switch (index) {
-            case 0:
-                return binding.radioOption1;
-            case 1:
-                return binding.radioOption2;
-            case 2:
-                return binding.radioOption3;
-            case 3:
-                return binding.radioOption4;
-            default:
-                return null;
+    private void resetCardBackgrounds() {
+        for (MaterialCardView cardView : cardViews) {
+            cardView.setCardBackgroundColor(Color.parseColor("#33FFFFFF"));
+            cardView.setStrokeColor(Color.parseColor("#4DFFFFFF"));
+        }
+    }
+
+    private void highlightSelectedCard(int index) {
+        if (index >= 0 && index < cardViews.size()) {
+            cardViews.get(index).setCardBackgroundColor(Color.parseColor("#4DFF5733"));
+            cardViews.get(index).setStrokeColor(requireContext().getResources().getColor(R.color.bright_orange, null));
         }
     }
 
     private void updateProgressText() {
-        binding.textProgress.setText(getString(R.string.question_progress, 
-            currentQuestionIndex + 1, questions.size()));
+        binding.textProgress.setText(getString(R.string.question_progress,
+                currentQuestionIndex + 1, questions.size()));
     }
 
     private void updateProgressIndicator() {
@@ -173,40 +209,45 @@ public class QuizFragment extends Fragment {
                 displayCurrentQuestion();
             } else {
                 new AlertDialog.Builder(requireContext())
-                    .setTitle("Complete Quiz")
-                    .setMessage("Are you sure you want to submit your answers?")
-                    .setPositiveButton("Submit", (dialog, which) -> {
-                        calculateScore();
-                    })
-                    .setNegativeButton("Review", null)
-                    .show();
+                        .setTitle("Complete Quiz")
+                        .setMessage("Are you sure you want to submit your answers?")
+                        .setPositiveButton("Submit", (dialog, which) -> {
+                            calculateScore();
+                        })
+                        .setNegativeButton("Review", null)
+                        .show();
             }
         });
 
-        binding.radioGroupOptions.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.radioOption1) {
-                userAnswers[currentQuestionIndex] = 0;
-            } else if (checkedId == R.id.radioOption2) {
-                userAnswers[currentQuestionIndex] = 1;
-            } else if (checkedId == R.id.radioOption3) {
-                userAnswers[currentQuestionIndex] = 2;
-            } else if (checkedId == R.id.radioOption4) {
-                userAnswers[currentQuestionIndex] = 3;
-            }
-        });
+        // Thiết lập sự kiện click cho từng RadioButton
+        for (int i = 0; i < radioButtons.size(); i++) {
+            final int index = i;
+            radioButtons.get(i).setOnClickListener(v -> {
+                // Bỏ chọn tất cả các RadioButton khác
+                for (int j = 0; j < radioButtons.size(); j++) {
+                    if (j != index) {
+                        radioButtons.get(j).setChecked(false);
+                    }
+                }
+
+                // Reset tất cả card backgrounds
+                resetCardBackgrounds();
+
+                // Highlight card được chọn
+                highlightSelectedCard(index);
+
+                // Lưu lựa chọn của người dùng
+                userAnswers[currentQuestionIndex] = index;
+            });
+        }
     }
 
     private void saveCurrentAnswer() {
-        int selectedRadioButtonId = binding.radioGroupOptions.getCheckedRadioButtonId();
-        if (selectedRadioButtonId != -1) {
-            if (selectedRadioButtonId == R.id.radioOption1) {
-                userAnswers[currentQuestionIndex] = 0;
-            } else if (selectedRadioButtonId == R.id.radioOption2) {
-                userAnswers[currentQuestionIndex] = 1;
-            } else if (selectedRadioButtonId == R.id.radioOption3) {
-                userAnswers[currentQuestionIndex] = 2;
-            } else if (selectedRadioButtonId == R.id.radioOption4) {
-                userAnswers[currentQuestionIndex] = 3;
+        // Kiểm tra RadioButton nào được chọn
+        for (int i = 0; i < radioButtons.size(); i++) {
+            if (radioButtons.get(i).isChecked()) {
+                userAnswers[currentQuestionIndex] = i;
+                return;
             }
         }
     }
@@ -224,25 +265,19 @@ public class QuizFragment extends Fragment {
 
         // Update LessonStatus with quiz score
         if (courseId != null && lessonId != null) {
-            lessonStatusViewModel.completeLesson(courseId, lessonId, percentage);
+            lessonStatusViewModel.completeQuiz(courseId, lessonId, percentage);
         }
-
-//        // Update UserProgress
-//        progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
-//            if (progress != null) {
-//                progress.setLastAccess(new Date());
-//                progressViewModel.update(progress);
-//            } else {
-//                UserProgress newProgress = new UserProgress(courseId, 0, percentage, new Date());
-//                progressViewModel.insert(newProgress);
-//            }
-//        });
 
         // Show result in a toast and navigate back
         Toast.makeText(requireContext(), getString(R.string.quiz_score, score, questions.size(), percentage), Toast.LENGTH_LONG).show();
-        
-        // Quay lại màn hình trước đó sau khi hoàn thành quiz
-        NavHostFragment.findNavController(this).popBackStack();
+
+        // Navigate to quiz fragment
+        Bundle args = new Bundle();
+        args.putString("lessonId", lessonId);
+        args.putString("courseId", courseId);
+        args.putInt("quizScore", percentage);
+        NavHostFragment.findNavController(this)
+                .navigate(R.id.action_quizFragment_to_lessonDetailFragment, args);
     }
 
     @Override
@@ -250,4 +285,4 @@ public class QuizFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-} 
+}

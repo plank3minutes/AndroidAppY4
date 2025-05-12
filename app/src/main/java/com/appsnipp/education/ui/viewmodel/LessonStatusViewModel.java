@@ -43,6 +43,14 @@ public class LessonStatusViewModel extends AndroidViewModel {
         repository.completeLesson(courseId, lessonId, quizScore);
     }
 
+    public void completeLessonWithoutQuiz(String courseId, String lessonId) {
+        repository.completeLessonWithoutQuiz(courseId, lessonId);
+    }
+
+    public void completeQuiz(String courseId, String lessonId, int quizScore) {
+        repository.completeQuiz(courseId, lessonId, quizScore);
+    }
+
     public void delete(LessonStatus lessonStatus) {
         repository.delete(lessonStatus);
     }
