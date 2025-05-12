@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.data.dao;
 
 import androidx.lifecycle.LiveData;
@@ -38,4 +34,4 @@ public interface UserProgressDao {
 
     @Query("SELECT * FROM user_progress ORDER BY lastAccess DESC LIMIT 1")
     LiveData<UserProgress> getLatestUserProgress();
-} 
+}
