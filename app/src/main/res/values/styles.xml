@@ -123,4 +123,11 @@
 
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="card_elevation">1dp</dimen>
+
+    <style name="TextAppearance.ExpandedTitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
 </resources>
