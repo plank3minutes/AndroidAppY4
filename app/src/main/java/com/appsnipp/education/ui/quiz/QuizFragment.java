@@ -24,6 +24,7 @@ import com.appsnipp.education.ui.model.Question;
 import com.appsnipp.education.ui.model.Quiz;
 import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
+import com.appsnipp.education.ui.viewmodel.LessonStatusViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 
 import java.util.Date;
@@ -34,7 +35,9 @@ public class QuizFragment extends Fragment {
     private FragmentQuizBinding binding;
     private CourseViewModel courseViewModel;
     private ProgressViewModel progressViewModel;
+    private LessonStatusViewModel lessonStatusViewModel;
     private String courseId;
+    private String lessonId;
     private List<Quiz> quizzes;
     private List<Question> questions;
     private int currentQuestionIndex = 0;
@@ -52,9 +55,10 @@ public class QuizFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Get courseId from arguments
+        // Get courseId and lessonId from arguments
         if (getArguments() != null) {
             courseId = getArguments().getString("courseId");
+            lessonId = getArguments().getString("lessonId");
         }
 
         setupViewModels();
@@ -65,6 +69,7 @@ public class QuizFragment extends Fragment {
     private void setupViewModels() {
         courseViewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
         progressViewModel = new ViewModelProvider(requireActivity()).get(ProgressViewModel.class);
+        lessonStatusViewModel = new ViewModelProvider(requireActivity()).get(LessonStatusViewModel.class);
     }
 
     private void observeQuizData() {
@@ -119,8 +124,9 @@ public class QuizFragment extends Fragment {
                 }
             }
 
-            // Update progress text
+            // Update progress text and progress indicator
             updateProgressText();
+            updateProgressIndicator();
         }
     }
 
@@ -144,6 +150,11 @@ public class QuizFragment extends Fragment {
             currentQuestionIndex + 1, questions.size()));
     }
 
+    private void updateProgressIndicator() {
+        int progress = ((currentQuestionIndex + 1) * 100) / questions.size();
+        binding.progressIndicator.setProgress(progress);
+    }
+
     private void setupButtonListeners() {
         binding.buttonPrevious.setOnClickListener(v -> {
             saveCurrentAnswer();
@@ -151,7 +162,6 @@ public class QuizFragment extends Fragment {
                 currentQuestionIndex--;
                 displayCurrentQuestion();
             } else {
-                // Nếu đang ở câu hỏi đầu tiên, hiển thị thông báo
                 Toast.makeText(requireContext(), "This is the first question", Toast.LENGTH_SHORT).show();
             }
         });
@@ -162,7 +172,6 @@ public class QuizFragment extends Fragment {
                 currentQuestionIndex++;
                 displayCurrentQuestion();
             } else {
-                // Nếu đang ở câu hỏi cuối cùng, hiển thị hộp thoại xác nhận hoàn thành
                 new AlertDialog.Builder(requireContext())
                     .setTitle("Complete Quiz")
                     .setMessage("Are you sure you want to submit your answers?")
@@ -175,7 +184,6 @@ public class QuizFragment extends Fragment {
         });
 
         binding.radioGroupOptions.setOnCheckedChangeListener((group, checkedId) -> {
-            // Update the userAnswers array when a radio button is checked
             if (checkedId == R.id.radioOption1) {
                 userAnswers[currentQuestionIndex] = 0;
             } else if (checkedId == R.id.radioOption2) {
@@ -214,17 +222,21 @@ public class QuizFragment extends Fragment {
         // Calculate percentage
         int percentage = (score * 100) / questions.size();
 
-        // Update user progress
-        progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
-            if (progress != null) {
-                progress.setQuizScore(percentage);
-                progress.setLastAccess(new Date());
-                progressViewModel.update(progress);
-            } else {
-                UserProgress newProgress = new UserProgress(courseId, 0, percentage, new Date());
-                progressViewModel.insert(newProgress);
-            }
-        });
+        // Update LessonStatus with quiz score
+        if (courseId != null && lessonId != null) {
+            lessonStatusViewModel.completeLesson(courseId, lessonId, percentage);
+        }
+
+//        // Update UserProgress
+//        progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
+//            if (progress != null) {
+//                progress.setLastAccess(new Date());
+//                progressViewModel.update(progress);
+//            } else {
+//                UserProgress newProgress = new UserProgress(courseId, 0, percentage, new Date());
+//                progressViewModel.insert(newProgress);
+//            }
+//        });
 
         // Show result in a toast and navigate back
         Toast.makeText(requireContext(), getString(R.string.quiz_score, score, questions.size(), percentage), Toast.LENGTH_LONG).show();
