@@ -73,6 +73,7 @@ public class LessonDetailFragment extends Fragment {
         observeData();
         setupButtonListeners();
         checkLessonStatus();
+        updateUserProcessLastAccess();
     }
 
     private void setupToolbar() {
@@ -113,6 +114,7 @@ public class LessonDetailFragment extends Fragment {
     }
 
     private void setupLessonContent(Lesson lesson) {
+        binding.lessonToolbar.setTitle(lesson.getTitle());
         binding.textLessonTitle.setText(lesson.getTitle());
 
         // Setup WebView to display content
@@ -309,6 +311,21 @@ public class LessonDetailFragment extends Fragment {
         isQuizCompleted = true;
         checkCompletionStatus();
     }
+
+    private void updateUserProcessLastAccess() {
+        // Update UserProgress
+        progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
+            if (progress != null) {
+                progress.setLastAccess(new Date());
+                progressViewModel.update(progress);
+
+            } else {
+                UserProgress newProgress = new UserProgress(courseId, currentCourse.getLessonCount(), 0, false, new Date());
+                progressViewModel.insert(newProgress);
+            }
+        });
+    }
+
 
     private void markLessonAsComplete() {
         if (currentCourse != null && currentLesson != null) {
