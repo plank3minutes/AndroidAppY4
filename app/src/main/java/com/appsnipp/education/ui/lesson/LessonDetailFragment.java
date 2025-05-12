@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.MediaController;
@@ -45,6 +48,9 @@ public class LessonDetailFragment extends Fragment {
     private int lessonIndex = 0;
     private boolean isVideoWatched = false;
     private boolean isQuizCompleted = false;
+    private WebView webView;
+    private View customView; // Lưu view toàn màn hình
+    private WebChromeClient.CustomViewCallback customViewCallback;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -132,26 +138,114 @@ public class LessonDetailFragment extends Fragment {
     }
 
     private void setupVideoPlayer(String videoUrl) {
-        try {
-            MediaController mediaController = new MediaController(requireContext());
-            mediaController.setAnchorView(binding.videoViewLesson);
-            
-            Uri videoUri = Uri.parse(videoUrl);
-            binding.videoViewLesson.setMediaController(mediaController);
-            binding.videoViewLesson.setVideoURI(videoUri);
-            binding.videoViewLesson.requestFocus();
-            
-            // Add completion listener
-            binding.videoViewLesson.setOnCompletionListener(mp -> {
-                isVideoWatched = true;
-                checkCompletionStatus();
-            });
-        } catch (Exception e) {
-            Toast.makeText(requireContext(), getString(R.string.video_error), Toast.LENGTH_SHORT).show();
-            binding.videoViewLesson.setVisibility(View.GONE);
-            isVideoWatched = true; // If video fails, consider it watched
+        binding.videoViewLesson.setVisibility(View.VISIBLE);
+        WebSettings webSettings = binding.videoViewLesson.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+
+        webView = binding.videoViewLesson;
+
+        // Thêm interface để giao tiếp từ JavaScript sang Android
+        webView.addJavascriptInterface(new WebAppInterface(), "Android");
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                // Gọi hàm JavaScript để thiết lập video ID
+                setVideoId(videoUrl);
+            }
+        });
+
+        // Tải file HTML từ assets
+        webView.loadUrl("file:///android_asset/youtube_player.html");
+
+        // Cấu hình WebChromeClient để hỗ trợ toàn màn hình
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onShowCustomView(View view, CustomViewCallback callback) {
+                // Khi vào chế độ toàn màn hình
+                if (customView != null) {
+                    onHideCustomView();
+                    return;
+                }
+                customView = view;
+                customViewCallback = callback;
+
+                // Ẩn WebView và hiển thị customView toàn màn hình
+                webView.setVisibility(View.GONE);
+                ViewGroup rootView = binding.getRoot();
+                rootView.addView(customView, new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+            }
+
+            @Override
+            public void onHideCustomView() {
+                // Thoát chế độ toàn màn hình
+                if (customView == null) return;
+
+                ViewGroup rootView = binding.getRoot();
+                rootView.removeView(customView);
+                customView = null;
+                customViewCallback.onCustomViewHidden();
+                customViewCallback = null;
+
+                // Hiển thị lại WebView
+                webView.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
+
+    // Interface để nhận thông tin từ JavaScript
+    public static class WebAppInterface {
+        @JavascriptInterface
+        public void onVideoStateChange(String state) {
+            // Xử lý trạng thái video (nếu cần)
+            System.out.println("Video state: " + state);
         }
     }
+
+    public void setVideoId(String videoId) {
+        // Gọi hàm JavaScript để thiết lập video ID
+        webView.evaluateJavascript("player.loadVideoById('" + videoId +"');", null);
+    }
+
+    // Gọi hàm JavaScript từ Android
+    public void playVideo() {
+        webView.evaluateJavascript("playVideo();", null);
+    }
+
+    public void pauseVideo() {
+        webView.evaluateJavascript("pauseVideo();", null);
+    }
+
+    public void stopVideo() {
+        webView.evaluateJavascript("stopVideo();", null);
+    }
+
+//    private void setupVideoPlayer(String videoUrl) {
+//        try {
+//            MediaController mediaController = new MediaController(requireContext());
+//            mediaController.setAnchorView(binding.videoViewLesson);
+//
+//            Uri videoUri = Uri.parse(videoUrl);
+//            binding.videoViewLesson.setMediaController(mediaController);
+//            binding.videoViewLesson.setVideoURI(videoUri);
+//            binding.videoViewLesson.requestFocus();
+//
+//            // Add completion listener
+//            binding.videoViewLesson.setOnCompletionListener(mp -> {
+//                isVideoWatched = true;
+//                checkCompletionStatus();
+//            });
+//        } catch (Exception e) {
+//            Toast.makeText(requireContext(), getString(R.string.video_error), Toast.LENGTH_SHORT).show();
+//            binding.videoViewLesson.setVisibility(View.GONE);
+//            isVideoWatched = true; // If video fails, consider it watched
+//        }
+//    }
 
     private void setupButtonListeners() {
         binding.buttonTakeQuiz.setOnClickListener(v -> {
@@ -229,5 +323,6 @@ public class LessonDetailFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        webView.destroy();
     }
 } 
