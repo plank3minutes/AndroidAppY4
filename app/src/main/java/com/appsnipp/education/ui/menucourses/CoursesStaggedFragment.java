@@ -71,7 +71,7 @@ public class CoursesStaggedFragment extends Fragment implements ItemClickListene
     private void setupSearchView() {
         binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                String query = v.getText().toString().trim();
+                String query = v.getText().toString();
                 if (!query.isEmpty()) {
                     performSearch(query);
                 }
@@ -83,8 +83,15 @@ public class CoursesStaggedFragment extends Fragment implements ItemClickListene
     }
 
     private void performSearch(String query) {
-        // TODO: Implement search functionality
-        Toast.makeText(requireContext(), "Searching: " + query, Toast.LENGTH_SHORT).show();
+        if(!query.isEmpty()){
+            viewModel.getCoursesByName(query).observe(getViewLifecycleOwner(), courses -> {
+                adapter.setCourseCards(courses);
+            });
+        } else {
+            viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+                adapter.setCourseCards(courses);
+            });
+        }
     }
 
     private void hideKeyboard() {
