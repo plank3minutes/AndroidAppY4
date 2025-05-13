@@ -5,7 +5,9 @@
 package com.appsnipp.education.ui.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -30,6 +32,7 @@ public class ProgressViewModel extends AndroidViewModel {
     }
 
     public LiveData<UserProgress> getUserProgressByCourseId(String courseId) {
+        Log.w("ProgressViewModel", "getUserProgressByCourseId: courseId: " + courseId);
         return repository.getUserProgressByCourseId(courseId);
     }
 
@@ -42,6 +45,15 @@ public class ProgressViewModel extends AndroidViewModel {
         update(progress);
     }
 
+    public void updateProgress(String courseId, int totalLessons, int completedLessons) {
+        repository.updateProgress(courseId, totalLessons, completedLessons);
+        Log.w("ProgressViewModel", "updateProgress: courseId: " + courseId + ", totalLessons: " + totalLessons + ", completedLessons: " + completedLessons);
+    }
+
+    public void updateLastAccess(String courseId) {
+        repository.updateLastAccess(courseId);
+        Log.w("ProgressViewModel", "updateLastAccess: courseId: " + courseId);
+    }
 
     public void insert(UserProgress userProgress) {
         repository.insert(userProgress);

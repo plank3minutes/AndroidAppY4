@@ -1,9 +1,13 @@
 package com.appsnipp.education.ui.model;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "lesson_status")
+@Entity(
+    tableName = "lesson_status",
+    indices = {@Index(value = {"courseId", "lessonId"}, unique = true)}
+)
 public class LessonStatus {
     @PrimaryKey(autoGenerate = true)
     private int uid;

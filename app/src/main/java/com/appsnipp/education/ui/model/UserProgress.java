@@ -1,15 +1,16 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.ui.model;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(tableName = "user_progress")
+
+@Entity(
+    tableName = "user_progress",
+    indices = {@Index(value = {"courseId"}, unique = true)}
+)
 public class UserProgress {
     @PrimaryKey(autoGenerate = true)
     private int uid;

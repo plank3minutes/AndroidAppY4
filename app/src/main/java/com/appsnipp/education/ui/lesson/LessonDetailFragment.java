@@ -22,12 +22,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.room.Transaction;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentLessonDetailBinding;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.UserProgress;
+import com.appsnipp.education.ui.utils.LiveDataUtils;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 import com.appsnipp.education.ui.viewmodel.LessonStatusViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
@@ -45,6 +47,7 @@ public class LessonDetailFragment extends Fragment {
     private String courseId;
     private Lesson currentLesson;
     private Course currentCourse;
+    private UserProgress userProgress;
     private int lessonIndex = 0;
     private boolean isVideoWatched = false;
     private boolean isQuizCompleted = false;
@@ -72,8 +75,7 @@ public class LessonDetailFragment extends Fragment {
         setupViewModels();
         observeData();
         setupButtonListeners();
-        checkLessonStatus();
-        updateUserProcessLastAccess();
+        updateLastAccessed(courseId);
     }
 
     private void setupToolbar() {
@@ -96,6 +98,30 @@ public class LessonDetailFragment extends Fragment {
                     findCurrentLesson(course.getLessons());
                 }
             });
+
+            progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
+                if (progress != null) {
+                    userProgress = progress;
+                }
+            });
+
+            if (lessonId != null) {
+                lessonStatusViewModel.getLessonStatus(courseId, lessonId)
+                        .observe(getViewLifecycleOwner(), status -> {
+                            if (status != null && status.isCompleted()) {
+                                isVideoWatched = true;
+                                isQuizCompleted = true;
+                                binding.buttonCompleteLesson.setEnabled(false);
+                                binding.buttonTakeQuiz.setEnabled(false);
+                            }
+                            else if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
+                                onQuizCompleted();
+                            }
+                            else {
+                                binding.buttonCompleteLesson.setEnabled(false);
+                            }
+                        });
+            }
         }
     }
 
@@ -255,10 +281,9 @@ public class LessonDetailFragment extends Fragment {
                     default:
                         errorMessage = "Lỗi video không xác định: " + errorCode;
                 }
-                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), errorMessage + " Lỗi thì nghe nhạc Jack tạm nhé, hoặc tắt player đi thì vào code bỏ comment =))", Toast.LENGTH_SHORT).show();
                 // Lỗi thì nghe nhạc Jack tạm nhé =))
                 setVideoId("KYrnTn9nXFI");
-                Toast.makeText(requireContext(), "Lỗi thì nghe nhạc Jack tạm nhé, hoặc tắt player đi thì vào code bỏ comment =))", Toast.LENGTH_SHORT).show();
                 // Hoặc có thể ẩn video
 //                binding.videoWebViewContainer.setVisibility(View.GONE);
 //                binding.videoViewLesson.setVisibility(View.GONE);
@@ -300,29 +325,8 @@ public class LessonDetailFragment extends Fragment {
         });
     }
 
-    private void checkLessonStatus() {
-        if (courseId != null && lessonId != null) {
-            lessonStatusViewModel.getLessonStatus(courseId, lessonId)
-                    .observe(getViewLifecycleOwner(), status -> {
-                        if (status != null && status.isCompleted()) {
-                            isVideoWatched = true;
-                            isQuizCompleted = true;
-                            binding.buttonCompleteLesson.setEnabled(false);
-                            binding.buttonTakeQuiz.setEnabled(false);
-                        }
-                        else if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
-                            onQuizCompleted();
-                        }
-                        else {
-                            binding.buttonCompleteLesson.setEnabled(false);
-                        }
-                    });
-        }
-    }
-
     private void checkCompletionStatus() {
         boolean canComplete = isVideoWatched && isQuizCompleted;
-//        boolean canComplete = isQuizCompleted; // Assuming video is not mandatory
         binding.buttonCompleteLesson.setEnabled(canComplete);
     }
 
@@ -331,46 +335,26 @@ public class LessonDetailFragment extends Fragment {
         checkCompletionStatus();
     }
 
-    private void updateUserProcessLastAccess() {
-        // Update UserProgress
-        progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
-            if (progress != null) {
-                progress.setLastAccess(new Date());
-                progressViewModel.update(progress);
-
-            } else {
-                UserProgress newProgress = new UserProgress(courseId, currentCourse.getLessonCount(), 0, false, new Date());
-                progressViewModel.insert(newProgress);
-            }
-        });
+    public void updateLastAccessed(String courseId) {
+        progressViewModel.updateLastAccess(courseId);
     }
 
 
+    @Transaction
     private void markLessonAsComplete() {
-        if (currentCourse != null && currentLesson != null) {
-            // Update LessonStatus
-            lessonStatusViewModel.completeLessonWithoutQuiz(courseId, lessonId); // Score will be updated after quiz
+        if (currentCourse != null && currentLesson != null && userProgress != null) {
+            // Update LessonStatus, and auto increment completed lessons in user progress
+            lessonStatusViewModel.completeLessonWithoutQuiz(courseId, lessonId);
 
             // Update UserProgress
-            progressViewModel.getUserProgressByCourseId(courseId).observe(getViewLifecycleOwner(), progress -> {
-                if (progress != null) {
-                    progress.setCompletedLessons(progress.getCompletedLessons() + 1);
-                    progress.setLastAccess(new Date());
-                    progressViewModel.update(progress);
-                    Toast.makeText(requireContext(), getString(R.string.lesson_completed), Toast.LENGTH_SHORT).show();
+            progressViewModel.updateProgress(courseId, currentCourse.getLessonCount(), userProgress.getCompletedLessons() + 1);
 
-                    NavHostFragment.findNavController(this).popBackStack();
-
-                } else {
-                    UserProgress newProgress = new UserProgress(courseId, currentCourse.getLessonCount(), 1, false, new Date());
-                    progressViewModel.insert(newProgress);
-                    Toast.makeText(requireContext(), getString(R.string.lesson_completed), Toast.LENGTH_SHORT).show();
-                    
-                    NavHostFragment.findNavController(this).popBackStack();
-                }
-            });
+            // Hiển thị Toast và điều hướng
+            Toast.makeText(requireContext(), getString(R.string.lesson_completed), Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(this).popBackStack(R.id.courseDetailFragment, false);
         }
     }
+
 
     @Override
     public void onDestroyView() {

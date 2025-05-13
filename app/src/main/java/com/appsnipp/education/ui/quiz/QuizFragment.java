@@ -270,7 +270,7 @@ public class QuizFragment extends Fragment {
         // Show result in a toast and navigate back
         Toast.makeText(requireContext(), getString(R.string.quiz_score, score, questions.size(), percentage), Toast.LENGTH_LONG).show();
 
-        NavHostFragment.findNavController(this).navigateUp();
+        NavHostFragment.findNavController(this).popBackStack(R.id.lessonDetailFragment, false);
     }
 
     @Override

@@ -6,6 +6,7 @@ package com.appsnipp.education.data.repository;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -70,6 +71,29 @@ public class ProgressRepository {
 
     public void deleteAll() {
         new DeleteAllUserProgressAsyncTask(userProgressDao).execute();
+    }
+
+    public void updateLastAccess(String courseId) {
+        new UpdateLastAccessAsyncTask(userProgressDao).execute(courseId);
+    }
+
+    private static class UpdateLastAccessAsyncTask extends AsyncTask<String, Void, Void> {
+        private final UserProgressDao userProgressDao;
+
+        private UpdateLastAccessAsyncTask(UserProgressDao userProgressDao) {
+            this.userProgressDao = userProgressDao;
+        }
+
+        @Override
+        protected Void doInBackground(String... courseIds) {
+            String courseId = courseIds[0];
+            UserProgress progress = userProgressDao.getUserProgressByCourseIdSync(courseId);
+            if (progress != null) {
+                progress.setLastAccess(new Date());
+                userProgressDao.update(progress);
+            }
+            return null;
+        }
     }
 
     private static class InsertUserProgressAsyncTask extends AsyncTask<UserProgress, Void, Void> {

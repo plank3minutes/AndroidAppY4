@@ -30,6 +30,9 @@ public interface LessonStatusDao {
     @Query("SELECT * FROM lesson_status WHERE courseId = :courseId")
     LiveData<List<LessonStatus>> getLessonStatusByCourseId(String courseId);
 
+    @Query("SELECT COUNT(*) FROM lesson_status WHERE courseId = :courseId AND isCompleted = 1")
+    int countCompletedLessons(String courseId);
+
     @Query("SELECT * FROM lesson_status WHERE courseId = :courseId AND lessonId = :lessonId")
     LiveData<LessonStatus> getLessonStatus(String courseId, String lessonId);
 

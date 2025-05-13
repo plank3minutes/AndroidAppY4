@@ -52,6 +52,10 @@ public class LessonStatusRepository {
                 new LessonCompletion(courseId, lessonId, quizScore));
     }
 
+    public int countCompletedLessonsSync(String courseId) {
+        return lessonStatusDao.countCompletedLessons(courseId);
+    }
+
     public void delete(LessonStatus lessonStatus) {
         new DeleteLessonStatusAsyncTask(lessonStatusDao).execute(lessonStatus);
     }

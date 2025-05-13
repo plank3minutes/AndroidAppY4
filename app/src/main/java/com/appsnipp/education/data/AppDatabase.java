@@ -17,7 +17,7 @@ import com.appsnipp.education.data.converter.DateConverter;
 import com.appsnipp.education.ui.model.LessonStatus;
 import com.appsnipp.education.ui.model.UserProgress;
 
-@Database(entities = {UserProgress.class, LessonStatus.class}, version = 2, exportSchema = false)
+@Database(entities = {UserProgress.class, LessonStatus.class}, version = 3, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "education_db";

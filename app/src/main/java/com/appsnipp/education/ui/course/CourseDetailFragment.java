@@ -183,7 +183,6 @@ public class CourseDetailFragment extends Fragment {
         if (currentCourse != null && currentCourse.getLessonCount() > 0) {
             completionPercentage = (progress.getCompletedLessons() * 100) / currentCourse.getLessonCount();
         }
-        
         binding.progressBarCourse.setProgress(completionPercentage);
         binding.textProgress.setText(getString(R.string.percentage_course, completionPercentage));
     }

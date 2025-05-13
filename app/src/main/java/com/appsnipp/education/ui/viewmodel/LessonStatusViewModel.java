@@ -23,6 +23,10 @@ public class LessonStatusViewModel extends AndroidViewModel {
         return repository.getLessonStatusByCourseId(courseId);
     }
 
+    public int countCompletedLessonsSync(String courseId) {
+        return repository.countCompletedLessonsSync(courseId);
+    }
+
     public LiveData<LessonStatus> getLessonStatus(String courseId, String lessonId) {
         return repository.getLessonStatus(courseId, lessonId);
     }
