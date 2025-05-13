@@ -2,10 +2,13 @@ package com.appsnipp.education;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.homeCoursesFragment,
                     R.id.coursesStaggedFragment,
-                    R.id.matchesCoursesFragment)
+                    R.id.profileFragment)
                     .setOpenableLayout(binding.drawerLayout)
                     .build();
 
