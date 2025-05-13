@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.res.Resources;
 
 import com.appsnipp.education.ui.utils.AppLogger;
+import com.appsnipp.education.ui.utils.TimeTrackerApp;
 
 
 public class BaseApplication extends Application {
@@ -24,5 +25,6 @@ public class BaseApplication extends Application {
         mInstance = this;
         resources = getResources();
         AppLogger.init();
+        TimeTrackerApp.getInstance(this).startTracking();
     }
 }

@@ -28,13 +28,10 @@
             app:destination="@id/courseDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/matchesCoursesFragment"
-        android:name="com.appsnipp.education.ui.menusearch.MatchesCoursesFragment"
-        android:label="fragment_matches_courses"
-        tools:layout="@layout/fragment_matches_courses">
-        <action
-            android:id="@+id/action_matchesCoursesFragment_to_courseDetailFragment"
-            app:destination="@id/courseDetailFragment" />
+        android:id="@+id/profileFragment"
+        android:name="com.appsnipp.education.ui.menuprofile.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/fragment_profile">
     </fragment>
     <fragment
         android:id="@+id/courseDetailFragment"
