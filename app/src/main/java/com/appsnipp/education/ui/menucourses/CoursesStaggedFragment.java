@@ -71,7 +71,7 @@ public class CoursesStaggedFragment extends Fragment implements ItemClickListene
     private void setupSearchView() {
         binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                String query = v.getText().toString().trim();
+                String query = v.getText().toString();
                 if (!query.isEmpty()) {
                     performSearch(query);
                 }
