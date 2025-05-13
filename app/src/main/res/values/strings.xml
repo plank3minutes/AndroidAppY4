@@ -96,4 +96,12 @@
 
     <!-- New Strings for profile -->
     <string name="profile">Profile</string>
+    <string name="time_tracker">Online time</string>
+    <string name="monday">T2</string>
+    <string name="tuesday">T3</string>
+    <string name="wednesday">T4</string>
+    <string name="thursday">T5</string>
+    <string name="friday">T6</string>
+    <string name="saturday">T7</string>
+    <string name="sunday">CN</string>
 </resources>

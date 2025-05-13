@@ -5,9 +5,12 @@
 package com.appsnipp.education.ui.menuprofile;
 
 import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +27,8 @@ import android.widget.ProgressBar;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.ui.utils.TimeTrackerApp;
+
+import java.util.logging.Logger;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,11 +47,9 @@ public class ProfileFragment extends Fragment {
         timeProgressBar = view.findViewById(R.id.time_progress_bar);
         handler = new Handler(Looper.getMainLooper());
 
-        // Cập nhật ProgressBar ban đầu
         timeProgressBar.setProgress(TimeTrackerApp.getInstance(getContext()).getSecondsElapsed());
         updateProgressBarColor(TimeTrackerApp.getInstance(getContext()).getSecondsElapsed());
 
-        // Bắt đầu cập nhật thực thời
         startUpdating();
 
         return view;
@@ -69,20 +73,31 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateProgressBarColor(int secondsElapsed) {
-        LayerDrawable layerDrawable = (LayerDrawable) timeProgressBar.getProgressDrawable();
+        Drawable drawable = timeProgressBar.getProgressDrawable();
 
-        // Thường progress nằm ở index 1 hoặc 2 tùy vào theme/style
-        Drawable progressDrawable = layerDrawable.findDrawableByLayerId(android.R.id.progress);
+        if (drawable instanceof LayerDrawable) {
+            LayerDrawable layerDrawable = (LayerDrawable) drawable;
 
-        // Kiểm tra và cast đúng kiểu
-        if (progressDrawable instanceof GradientDrawable) {
-            GradientDrawable gradientDrawable = (GradientDrawable) progressDrawable;
-            if (secondsElapsed <= 600) {
-                gradientDrawable.setColor(0xFF00FF00); // Xanh lá
-            } else if (secondsElapsed <= 1200) {
-                gradientDrawable.setColor(0xFFFFEB3B); // Vàng
-            } else {
-                gradientDrawable.setColor(0xFFFF0000); // Đỏ
+            Drawable progressLayer = layerDrawable.findDrawableByLayerId(android.R.id.progress);
+            if (progressLayer instanceof ClipDrawable) {
+                ClipDrawable clipDrawable = (ClipDrawable) progressLayer;
+                Drawable innerDrawable = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    innerDrawable = clipDrawable.getDrawable();
+                }
+                if (innerDrawable instanceof GradientDrawable) {
+                    GradientDrawable gradientDrawable = (GradientDrawable) innerDrawable;
+
+                    if (secondsElapsed <= 600) {
+                        gradientDrawable.setColor(Color.GREEN);
+                    } else if (secondsElapsed <= 1200) {
+                        gradientDrawable.setColor(Color.YELLOW);
+                    } else if (secondsElapsed <= 1800){
+                        gradientDrawable.setColor(Color.BLUE);
+                    } else {
+                        gradientDrawable.setColor(Color.RED);
+                    }
+                }
             }
         }
     }

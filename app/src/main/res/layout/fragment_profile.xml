@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#F0F0F0"
     tools:context=".MainActivity">
 
     <!-- Profile Header -->
@@ -74,70 +74,233 @@
                 android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/profileHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        android:id="@+id/time_tracker_layout"
         android:gravity="center"
+        android:background="@drawable/round_small_border"
+        android:layout_margin="8dp"
         >
-        <ProgressBar
-            android:id="@+id/time_progress_bar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:max="1800"
-            android:progress="0"
-            android:progressDrawable="@drawable/progress_bar_custom"
-            android:layout_marginTop="16dp"/>
-        <!-- Dấu chia cho các mốc -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_tracker"
+            android:textSize="20sp"
+            android:layout_margin="8dp"
+            android:textStyle="bold"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="4dp">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="5sp"
+            >
+            <ProgressBar
+                android:id="@+id/time_progress_bar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:max="1800"
+                android:progress="0"
+                android:progressDrawable="@drawable/progress_bar_custom"
+                android:layout_marginTop="16dp"/>
+            <!-- Dấu chia cho các mốc -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="4dp">
 
-            <!-- Mốc 0 phút -->
-            <TextView
+                <!-- Mốc 0 phút -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="12sp"
+                    android:gravity="start"/>
+
+                <!-- Mốc 10 phút -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="10"
+                    android:textSize="12sp"
+                    android:gravity="center"/>
+
+                <!-- Mốc 20 phút -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="20"
+                    android:textSize="12sp"
+                    android:gravity="end"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30"
+                    android:textSize="12sp"
+                    android:gravity="end"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            >
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_weight="1"
-                android:text="0"
-                android:textSize="12sp"
-                android:gravity="start"/>
+                android:padding="4dp">
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:id="@+id/img_view_monday"
+                    android:background="@drawable/circle_background" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monday"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/bariol_bold"/>
+            </LinearLayout>
 
-            <!-- Mốc 10 phút -->
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_weight="1"
-                android:text="10"
-                android:textSize="12sp"
-                android:gravity="center"/>
+                android:padding="4dp">
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:id="@+id/img_view_tuesday"
+                    android:background="@drawable/circle_background" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tuesday"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/bariol_bold"/>
+            </LinearLayout>
 
-            <!-- Mốc 20 phút -->
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_weight="1"
-                android:text="20"
-                android:textSize="12sp"
-                android:gravity="end"/>
+                android:padding="4dp">
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:id="@+id/img_view_wednesday"
+                    android:background="@drawable/circle_background"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wednesday"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/bariol_bold"/>
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_weight="1"
-                android:text="30"
-                android:textSize="12sp"
-                android:gravity="end"/>
+                android:padding="4dp">
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:id="@+id/img_view_thursday"
+                    android:background="@drawable/circle_background" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thursday"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/bariol_bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="4dp">
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:id="@+id/img_view_friday"
+                    android:background="@drawable/circle_background" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/friday"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/bariol_bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="4dp">
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:id="@+id/img_view_saturday"
+                    android:background="@drawable/circle_background" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/saturday"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/bariol_bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="4dp">
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:id="@+id/img_view_sunday"
+                    android:background="@drawable/circle_background" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sunday"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/bariol_bold"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
