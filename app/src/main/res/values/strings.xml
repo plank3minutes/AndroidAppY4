@@ -26,7 +26,7 @@
     <string name="title_courses_available">Free to choose one</string>
     <string name="title_popular_courses">Popular Courses</string>
     <string name="more">. .</string>
-    <string name="hello_message">Hello Roger</string>
+    <string name="hello_message">Hello User</string>
     <string name="percentage_course">%1$d%% Completed</string>
 
     <string name="play_video">Play video</string>
