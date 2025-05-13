@@ -37,4 +37,9 @@ public class CourseViewModel extends AndroidViewModel {
     public LiveData<List<Quiz>> getQuizzesByCourseId(String courseId) {
         return repository.getQuizzesByCourseId(courseId);
     }
+
+    public LiveData<List<Course>> getCoursesByName(String name) {
+        return repository.getCoursesByName(name);
+    }
+
 } 
