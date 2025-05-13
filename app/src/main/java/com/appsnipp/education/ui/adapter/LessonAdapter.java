@@ -4,6 +4,7 @@
 
 package com.appsnipp.education.ui.adapter;
 
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.R;
@@ -87,7 +89,10 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         public void bind(Lesson lesson, LessonStatus status, int position) {
             textLessonNumber.setText(String.valueOf(position + 1));
             textLessonTitle.setText(lesson.getTitle());
-            textLessonDescription.setText(lesson.getContent().substring(0, Math.min(lesson.getContent().length(), 100)) + "...");
+            String html = lesson.getContent();
+            Spanned spanned = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY);
+            String plainText = spanned.toString(); // => "Hello world"
+            textLessonDescription.setText(plainText.substring(0, Math.min(lesson.getContent().length(), 100)) + "...");
             
             // Show video indicator if video URL exists
             if (lesson.getVideoUrl() != null && !lesson.getVideoUrl().isEmpty()) {
