@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.appsnipp.education.R;
@@ -38,6 +39,13 @@ public class ProfileFragment extends Fragment {
     private ProgressBar timeProgressBar;
     private Handler handler;
     private boolean isUpdating = false;
+    private ImageView imageViewMonday;
+    private ImageView imageViewTuesday;
+    private ImageView imageViewWednesday;
+    private ImageView imageViewThursday;
+    private ImageView imageViewFriday;
+    private ImageView imageViewSaturday;
+    private ImageView imageViewSunday;
 
     @Nullable
     @Override
@@ -49,6 +57,7 @@ public class ProfileFragment extends Fragment {
 
         timeProgressBar.setProgress(TimeTrackerApp.getInstance(getContext()).getSecondsElapsed());
         updateProgressBarColor(TimeTrackerApp.getInstance(getContext()).getSecondsElapsed());
+        initTimeOfWeek(view);
 
         startUpdating();
 
@@ -99,6 +108,62 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             }
+        }
+    }
+
+    private void initTimeOfWeek(View view) {
+        TimeTrackerApp app = TimeTrackerApp.getInstance(getContext());
+        for(int i = 1; i < 8; i++) {
+            int color = getColor(app.getTimeOnlineByDay(i));
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setShape(GradientDrawable.OVAL);
+            drawable.setColor(color);
+            switch (i) {
+                case 1:
+                    imageViewSunday = view.findViewById(R.id.img_view_sunday);
+                    imageViewSunday.setBackground(drawable);
+                    break;
+                case 2:
+                    imageViewMonday = view.findViewById(R.id.img_view_monday);
+                    imageViewMonday.setBackground(drawable);
+                    break;
+                case 3:
+                    imageViewTuesday = view.findViewById(R.id.img_view_tuesday);
+                    imageViewTuesday.setBackground(drawable);
+                    break;
+                case 4:
+                    imageViewWednesday = view.findViewById(R.id.img_view_wednesday);
+                    imageViewWednesday.setBackground(drawable);
+                    break;
+                case 5:
+                    imageViewThursday = view.findViewById(R.id.img_view_thursday);
+                    imageViewThursday.setBackground(drawable);
+                    break;
+                case 6:
+                    imageViewFriday = view.findViewById(R.id.img_view_friday);
+                    imageViewFriday.setBackground(drawable);
+                    break;
+                case 7:
+                    imageViewSaturday = view.findViewById(R.id.img_view_saturday);
+                    imageViewSaturday.setBackground(drawable);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private int getColor(int time) {
+        if (time == 0) {
+            return Color.parseColor("#E0E0E0");
+        } else if (time <= 600) {
+            return Color.GREEN;
+        } else if(time <= 1200) {
+            return Color.YELLOW;
+        } else if(time <= 1800) {
+            return Color.BLUE;
+        } else {
+            return Color.RED;
         }
     }
 

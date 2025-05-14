@@ -172,8 +172,7 @@
                 <ImageView
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:id="@+id/img_view_monday"
-                    android:background="@drawable/circle_background" />
+                    android:id="@+id/img_view_monday" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -192,8 +191,7 @@
                 <ImageView
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:id="@+id/img_view_tuesday"
-                    android:background="@drawable/circle_background" />
+                    android:id="@+id/img_view_tuesday" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -212,8 +210,7 @@
                 <ImageView
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:id="@+id/img_view_wednesday"
-                    android:background="@drawable/circle_background"/>
+                    android:id="@+id/img_view_wednesday" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -232,8 +229,7 @@
                 <ImageView
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:id="@+id/img_view_thursday"
-                    android:background="@drawable/circle_background" />
+                    android:id="@+id/img_view_thursday"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -252,8 +248,7 @@
                 <ImageView
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:id="@+id/img_view_friday"
-                    android:background="@drawable/circle_background" />
+                    android:id="@+id/img_view_friday"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -272,8 +267,7 @@
                 <ImageView
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:id="@+id/img_view_saturday"
-                    android:background="@drawable/circle_background" />
+                    android:id="@+id/img_view_saturday"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -292,8 +286,7 @@
                 <ImageView
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:id="@+id/img_view_sunday"
-                    android:background="@drawable/circle_background" />
+                    android:id="@+id/img_view_sunday"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
