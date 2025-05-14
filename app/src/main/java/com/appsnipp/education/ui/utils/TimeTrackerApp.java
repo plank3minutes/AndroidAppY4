@@ -54,7 +54,7 @@ public class TimeTrackerApp {
             if (lastDate.before(getDayWeekStart())) {
                 clearDataLastWeek(prefs);
             } else {
-                String previousTimeOnlineKey = getDayOfWeek() + "_TIME_ONLINE";
+                String previousTimeOnlineKey = getDayOfWeek(lastDateString) + "_TIME_ONLINE";
                 prefs.edit().putInt(previousTimeOnlineKey, prefs.getInt(KEY_SECONDS, 0)).commit();
             }
             prefs.edit().putInt(KEY_SECONDS, 0).commit();
@@ -113,9 +113,17 @@ public class TimeTrackerApp {
         return calendar.getTime();
     }
 
-    private int getDayOfWeek() {
-        Calendar calendar = Calendar.getInstance();
-        return calendar.get(Calendar.DAY_OF_WEEK);
+    public int getDayOfWeek(String dateString) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = format.parse(dateString);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            return calendar.get(Calendar.DAY_OF_WEEK);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     private void clearDataLastWeek(SharedPreferences prefs) {
