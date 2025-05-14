@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2020. rogergcc
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -104,14 +101,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="60dp"
-                        android:background="@drawable/refer_earn_button"
+                        android:background="@drawable/share_progress_button"
                         android:gravity="center">
 
                         <TextView
@@ -139,7 +136,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:layout_marginHorizontal="5dp"
+                    >
 
                     <TextView
                         style="@style/viewParent.headerText"
@@ -159,10 +157,9 @@
 
                 </RelativeLayout>
 
-                <!--remove the below layout with recycler view, use card poplar courses as model for design-->
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPopularCourses"
+                    android:layout_marginBottom="20dp"
 
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -172,16 +169,18 @@
                     tools:itemCount="7"
                     tools:listitem="@layout/card_popular_courses" />
 
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:layout_marginHorizontal="5dp"
+                    >
 
                     <TextView
                         style="@style/viewParent.headerText"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:text="@string/title_tutorials" />
+                        android:text="@string/your_courses" />
 
                     <TextView
                         style="@style/viewParent"
@@ -195,44 +194,55 @@
 
                 </RelativeLayout>
 
-                <!--remove the below layout with recycler view, use card poplar courses as model for design-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvJoinedCourse"
+                    android:layout_marginBottom="20dp"
 
-                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                    tools:itemCount="7"
+                    tools:listitem="@layout/card_popular_courses" />
+
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none">
+                    android:layout_marginHorizontal="5dp"
+                    >
 
-<!--                    <androidx.recyclerview.widget.RecyclerView-->
-<!--                        android:id="@+id/rvTutorials"-->
+                    <TextView
+                        style="@style/viewParent.headerText"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:text="@string/bookmarked" />
 
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+                    <TextView
+                        style="@style/viewParent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/text_see_more"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/headerMoreTextSize"
+                        android:fontFamily="@font/futura_medium"
+                        android:textStyle="normal" />
 
-<!--                        tools:itemCount="7"-->
-<!--                        tools:listitem="@layout/item_tutorial" />-->
+                </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBookmarkedCourse"
 
-                        <include layout="@layout/item_tutorial" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
-                        <include layout="@layout/item_tutorial" />
-
-                        <include layout="@layout/item_tutorial" />
-
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-
+                    tools:itemCount="7"
+                    tools:listitem="@layout/card_popular_courses" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>

@@ -32,18 +32,8 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
     private FragmentHomeCoursesBinding binding;
     private PopularCoursesAdapter popularCoursesAdapter;
     private ProgressViewModel progressViewModel;
-    private TutorialsAdapter tutorialsAdapter;
     private CourseViewModel viewModel;
     private static final String TAG = "HomeCoursesFragment";
-
-    public HomeCoursesFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -65,19 +55,8 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
             null,
             this
         );
-//        tutorialsAdapter = new TutorialsAdapter(this);
 
-        binding.rvPopularCourses.setLayoutManager(
-            new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        );
         binding.rvPopularCourses.setAdapter(popularCoursesAdapter);
-
-
-// Dont use it rn
-//        binding.rvTutorials.setLayoutManager(
-//            new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//        );
-//        binding.rvTutorials.setAdapter(tutorialsAdapter);
     }
 
     private void setupViewModel() {
@@ -85,11 +64,9 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
 
         viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
             popularCoursesAdapter.setListDataItems(courses);
-//            tutorialsAdapter.setListDataItems(courses);
         });
 
         progressViewModel = new ViewModelProvider(requireActivity()).get(ProgressViewModel.class);
-
 
         // Observe progress data
         progressViewModel.getLatestUserProgress().observe(getViewLifecycleOwner(), progress -> {

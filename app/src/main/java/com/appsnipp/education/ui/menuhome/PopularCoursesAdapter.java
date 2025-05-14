@@ -4,11 +4,11 @@
 
 package com.appsnipp.education.ui.menuhome;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.databinding.CardPopularCoursesBinding;
@@ -35,6 +35,8 @@ public class PopularCoursesAdapter
         this.mContext = mContext;
         this.itemClickListener = listener;
     }
+
+    @SuppressLint("NotifyDataSetChanged")
     public void setListDataItems(List<Course> listItems) {
         this.mCoursesList = listItems;
         notifyDataSetChanged();
@@ -42,10 +44,7 @@ public class PopularCoursesAdapter
 
     @Override
     public int getItemCount() {
-        if (mCoursesList == null)
-            return 0;
-        else
-            return mCoursesList.size();
+        return mCoursesList == null ? 0 : mCoursesList.size();
     }
 
     @Override
