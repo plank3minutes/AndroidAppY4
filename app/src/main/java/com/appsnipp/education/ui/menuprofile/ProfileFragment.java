@@ -16,6 +16,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.ui.utils.TimeTrackerApp;
@@ -46,6 +48,8 @@ public class ProfileFragment extends Fragment {
     private ImageView imageViewFriday;
     private ImageView imageViewSaturday;
     private ImageView imageViewSunday;
+    private ImageView imageViewSetting;
+    private TextView textViewDate;
 
     @Nullable
     @Override
@@ -59,6 +63,14 @@ public class ProfileFragment extends Fragment {
         updateProgressBarColor(TimeTrackerApp.getInstance(getContext()).getSecondsElapsed());
         initTimeOfWeek(view);
 
+        textViewDate = view.findViewById(R.id.text_view_date);
+        textViewDate.setText(TimeTrackerApp.getInstance(getContext()).getToday());
+
+        imageViewSetting = view.findViewById(R.id.img_view_setting);
+        imageViewSetting.setOnClickListener(imgView -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_setting_fragment);
+        });
+
         startUpdating();
 
         return view;
@@ -71,9 +83,11 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void run() {
                     if (isUpdating && isAdded()) {
-                        int secondsElapsed = TimeTrackerApp.getInstance(getContext()).getSecondsElapsed();
+                        TimeTrackerApp app = TimeTrackerApp.getInstance(getContext());
+                        int secondsElapsed = app.getSecondsElapsed();
                         timeProgressBar.setProgress(secondsElapsed);
                         updateProgressBarColor(secondsElapsed);
+                        textViewDate.setText(app.getToday());
                         handler.postDelayed(this, 1000);
                     }
                 }

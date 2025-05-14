@@ -32,6 +32,15 @@
         android:name="com.appsnipp.education.ui.menuprofile.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_fragment_to_setting_fragment"
+            app:destination="@+id/settingFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.appsnipp.education.ui.menuprofile.SettingFragment"
+        android:label="setting_fragment"
+        tools:layout="@layout/fragment_setting">
     </fragment>
     <fragment
         android:id="@+id/courseDetailFragment"

@@ -39,7 +39,7 @@ public class TimeTrackerApp {
         String todayString = getCurrentDate();
         String lastDateString = prefs.getString(KEY_LAST_TRACK_DATE, "");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         Date lastDate = null;
         try {
             lastDate = sdf.parse(lastDateString);
@@ -58,6 +58,9 @@ public class TimeTrackerApp {
                 prefs.edit().putInt(previousTimeOnlineKey, prefs.getInt(KEY_SECONDS, 0)).commit();
             }
             prefs.edit().putInt(KEY_SECONDS, 0).commit();
+            secondsElapsed = 0;
+        } else {
+            secondsElapsed = prefs.getInt(KEY_SECONDS, 0);
         }
     }
 
@@ -100,7 +103,7 @@ public class TimeTrackerApp {
     }
 
     private String getCurrentDate() {
-        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        return new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
     }
 
     private Date getDayWeekStart() {
@@ -131,5 +134,10 @@ public class TimeTrackerApp {
     public int getTimeOnlineByDay(int dayOfWeek) {
         SharedPreferences prefs = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getInt(dayOfWeek + "_TIME_ONLINE", 0);
+    }
+
+    public String getToday() {
+        SharedPreferences prefs = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(KEY_LAST_TRACK_DATE, getCurrentDate());
     }
 }
