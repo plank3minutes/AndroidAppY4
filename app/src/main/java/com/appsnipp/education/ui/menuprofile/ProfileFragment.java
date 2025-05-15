@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -50,6 +51,8 @@ public class ProfileFragment extends Fragment {
     private ImageView imageViewSunday;
     private ImageView imageViewSetting;
     private TextView textViewDate;
+    private CardView courseAnalysisCardView;
+    private CardView quizResultCardView;
 
     @Nullable
     @Override
@@ -72,6 +75,16 @@ public class ProfileFragment extends Fragment {
         });
 
         startUpdating();
+
+        quizResultCardView = view.findViewById(R.id.quiz_result_card_view_id);
+        quizResultCardView.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_quiz_result_fragment);
+        });
+
+        courseAnalysisCardView = view.findViewById(R.id.course_analysis_card_view_id);
+        courseAnalysisCardView.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_course_analysis_fragment);
+        });
 
         return view;
     }
