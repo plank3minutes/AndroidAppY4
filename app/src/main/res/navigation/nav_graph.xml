@@ -35,6 +35,12 @@
         <action
             android:id="@+id/action_profile_fragment_to_setting_fragment"
             app:destination="@+id/settingFragment"/>
+        <action
+            android:id="@+id/action_profile_fragment_to_quiz_result_fragment"
+            app:destination="@+id/quizResultFragment"/>
+        <action
+            android:id="@+id/action_profile_fragment_to_course_analysis_fragment"
+            app:destination="@+id/courseAnalysisFragment"/>
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
@@ -77,5 +83,17 @@
         <argument
             android:name="courseId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizResultFragment"
+        android:name="com.appsnipp.education.ui.menuprofile.QuizResultFragment"
+        android:label="fragment_quiz_result"
+        tools:layout="@layout/fragment_quiz_result">
+    </fragment>
+    <fragment
+        android:id="@+id/courseAnalysisFragment"
+        android:name="com.appsnipp.education.ui.menuprofile.CourseAnalysis"
+        android:label="fragment_course_analysis"
+        tools:layout="@layout/fragment_course_analysis">
     </fragment>
 </navigation>

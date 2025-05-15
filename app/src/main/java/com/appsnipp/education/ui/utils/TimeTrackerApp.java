@@ -34,34 +34,7 @@ public class TimeTrackerApp {
         this.appContext = context.getApplicationContext();
         this.handler = new Handler(Looper.getMainLooper());
 
-        SharedPreferences prefs = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-
-        String todayString = getCurrentDate();
-        String lastDateString = prefs.getString(KEY_LAST_TRACK_DATE, "");
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        Date lastDate = null;
-        try {
-            lastDate = sdf.parse(lastDateString);
-        } catch (ParseException e) {
-            Log.e(TAG, "TimeTrackerApp: ", e);
-            lastDate = new Date();
-        }
-
-        if (!todayString.equals(lastDateString)) {
-            prefs.edit()
-                    .putString(KEY_LAST_TRACK_DATE, todayString).commit();
-            if (lastDate.before(getDayWeekStart())) {
-                clearDataLastWeek(prefs);
-            } else {
-                String previousTimeOnlineKey = getDayOfWeek(lastDateString) + "_TIME_ONLINE";
-                prefs.edit().putInt(previousTimeOnlineKey, prefs.getInt(KEY_SECONDS, 0)).commit();
-            }
-            prefs.edit().putInt(KEY_SECONDS, 0).commit();
-            secondsElapsed = 0;
-        } else {
-            secondsElapsed = prefs.getInt(KEY_SECONDS, 0);
-        }
+        initAndUpdateInRealTime();
     }
 
     public static synchronized TimeTrackerApp getInstance(Context context) {
@@ -79,6 +52,7 @@ public class TimeTrackerApp {
                 public void run() {
                     secondsElapsed++;
                     saveTime();
+                    initAndUpdateInRealTime();
                     handler.postDelayed(this, 1000);
                 }
             });
@@ -147,5 +121,35 @@ public class TimeTrackerApp {
     public String getToday() {
         SharedPreferences prefs = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_LAST_TRACK_DATE, getCurrentDate());
+    }
+
+    private void initAndUpdateInRealTime() {
+        SharedPreferences prefs = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String todayString = getCurrentDate();
+        String lastDateString = prefs.getString(KEY_LAST_TRACK_DATE, "");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        Date lastDate = null;
+        try {
+            lastDate = sdf.parse(lastDateString);
+        } catch (ParseException e) {
+            Log.e(TAG, "TimeTrackerApp: ", e);
+            lastDate = new Date();
+        }
+
+        if (!todayString.equals(lastDateString)) {
+            prefs.edit()
+                    .putString(KEY_LAST_TRACK_DATE, todayString).commit();
+            if (lastDate.before(getDayWeekStart())) {
+                clearDataLastWeek(prefs);
+            } else {
+                String previousTimeOnlineKey = getDayOfWeek(lastDateString) + "_TIME_ONLINE";
+                prefs.edit().putInt(previousTimeOnlineKey, prefs.getInt(KEY_SECONDS, 0)).commit();
+            }
+            prefs.edit().putInt(KEY_SECONDS, 0).commit();
+            secondsElapsed = 0;
+        } else {
+            secondsElapsed = prefs.getInt(KEY_SECONDS, 0);
+        }
     }
 }
