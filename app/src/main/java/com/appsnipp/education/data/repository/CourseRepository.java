@@ -9,6 +9,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.appsnipp.education.data.*;
 import com.appsnipp.education.ui.model.*;
@@ -36,6 +37,12 @@ public class CourseRepository {
 
     public LiveData<List<Course>> getAllCourses() {
         return allCourses;
+    }
+
+    public LiveData<List<Course>> getFiveCourses() {
+        return Transformations.map(allCourses, courses -> {
+            return courses.subList(0, Math.min(courses.size(), 3));
+        });
     }
 
     public LiveData<Course> getCourseById(String courseId) {

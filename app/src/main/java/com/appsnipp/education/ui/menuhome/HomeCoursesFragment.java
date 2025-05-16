@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.appsnipp.education.R;
@@ -35,6 +36,7 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
     private TutorialsAdapter tutorialsAdapter;
     private CourseViewModel viewModel;
     private static final String TAG = "HomeCoursesFragment";
+    private int seeAll1=0;
 
     public HomeCoursesFragment() {
         // Required empty public constructor
@@ -57,6 +59,29 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
         super.onViewCreated(view, savedInstanceState);
         setupRecyclerViews();
         setupViewModel();
+
+        binding.seeAll1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(seeAll1==0){
+                    binding.rvPopularCourses.setLayoutManager(
+                            new GridLayoutManager(requireContext(),2)
+                    );
+                    viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+                        popularCoursesAdapter.setListDataItems(courses);
+                    });
+                    seeAll1=1;
+                }else{
+                    binding.rvPopularCourses.setLayoutManager(
+                            new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    );
+                    viewModel.getFiveCourses().observe(getViewLifecycleOwner(), courses -> {
+                        popularCoursesAdapter.setListDataItems(courses);
+                    });
+                    seeAll1=0;
+                }
+            }
+        });
     }
 
     private void setupRecyclerViews() {
@@ -83,7 +108,7 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
     private void setupViewModel() {
         viewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
 
-        viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+        viewModel.getFiveCourses().observe(getViewLifecycleOwner(), courses -> {
             popularCoursesAdapter.setListDataItems(courses);
 //            tutorialsAdapter.setListDataItems(courses);
         });
