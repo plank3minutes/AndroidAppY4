@@ -58,16 +58,16 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        TimeTrackerApp app = TimeTrackerApp.getInstance(getContext());
         timeProgressBar = view.findViewById(R.id.time_progress_bar);
         handler = new Handler(Looper.getMainLooper());
 
-        timeProgressBar.setProgress(TimeTrackerApp.getInstance(getContext()).getSecondsElapsed());
-        updateProgressBarColor(TimeTrackerApp.getInstance(getContext()).getSecondsElapsed());
+        timeProgressBar.setProgress(app.getSecondsElapsed());
+        updateProgressBarColor(app.getSecondsElapsed());
         initTimeOfWeek(view);
 
         textViewDate = view.findViewById(R.id.text_view_date);
-        textViewDate.setText(TimeTrackerApp.getInstance(getContext()).getToday());
+        textViewDate.setText(app.getToday());
 
         imageViewSetting = view.findViewById(R.id.img_view_setting);
         imageViewSetting.setOnClickListener(imgView -> {
