@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
@@ -348,8 +348,8 @@
                     android:gravity="center_vertical">
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:src="@drawable/course_profile"
                         android:contentDescription="Icon" />
 
@@ -358,7 +358,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/course_analysis"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/bariol_regular"
                         android:paddingStart="12dp"/>
@@ -385,8 +385,8 @@
                     android:gravity="center_vertical">
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:src="@drawable/quiz_profile"
                         android:contentDescription="Icon" />
 
@@ -395,7 +395,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/quiz_result"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/bariol_regular"
                         android:paddingStart="12dp"/>
