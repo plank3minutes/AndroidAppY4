@@ -64,5 +64,5 @@
     <color name="card_quiz_stroke">#4D8C8C8C</color>
     <color name="card_quiz_selected_background">#4DFF5733</color>
     <color name="card_quiz_selected_stroke">@color/bright_orange</color>
-
+    <color name="background_circle_online_time">#E0E0E0</color>
 </resources>

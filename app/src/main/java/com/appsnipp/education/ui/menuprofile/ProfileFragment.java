@@ -51,6 +51,8 @@ public class ProfileFragment extends Fragment {
     private ImageView imageViewSunday;
     private ImageView imageViewSetting;
     private TextView textViewDate;
+    private TextView courseTakeTextView;
+    private TextView quizTakeTextView;
     private CardView courseAnalysisCardView;
     private CardView quizResultCardView;
 
@@ -167,6 +169,8 @@ public class ProfileFragment extends Fragment {
         imageViewSetting = view.findViewById(R.id.img_view_setting);
         quizResultCardView = view.findViewById(R.id.quiz_result_card_view_id);
         courseAnalysisCardView = view.findViewById(R.id.course_analysis_card_view_id);
+        courseTakeTextView = view.findViewById(R.id.course_take_text_view);
+        quizTakeTextView = view.findViewById(R.id.quiz_take_text_view);
         for(int i = 1; i < 8; i++) {
             switch (i) {
                 case 1:
@@ -197,14 +201,16 @@ public class ProfileFragment extends Fragment {
     }
 
     private int getColor(int time) {
-        boolean isDarkMode = (getResources().getConfiguration().uiMode & 
-            android.content.res.Configuration.UI_MODE_NIGHT_MASK) == 
-            android.content.res.Configuration.UI_MODE_NIGHT_YES;
-
         if (time == 0) {
-            return isDarkMode ? Color.parseColor("#3A3A3A") : Color.parseColor("#E0E0E0");
+            return Color.parseColor("#E0E0E0");
+        } else if (time <= 600) {
+            return Color.GREEN;
+        } else if(time <= 1200) {
+            return Color.YELLOW;
+        } else if(time <= 1800) {
+            return Color.BLUE;
         } else {
-            return isDarkMode ? Color.parseColor("#FF5722") : Color.parseColor("#FF0000");
+            return Color.RED;
         }
     }
 
