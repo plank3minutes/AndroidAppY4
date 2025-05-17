@@ -59,6 +59,9 @@
     <color name="complete_button">#4CAF50</color>
     <color name="fab_background">#FF5733</color>
     <color name="collapsing_toolbar_text_color">@color/darkTextColor</color>
-    <color name="card_quiz_color">@color/grey_light</color>
+    <color name="card_quiz_background">#35384E</color>
+    <color name="card_quiz_stroke">#4DFFFFFF</color>
+    <color name="card_quiz_selected_background">#4DFF5733</color>
+    <color name="card_quiz_selected_stroke">@color/bright_orange</color>
 
 </resources>

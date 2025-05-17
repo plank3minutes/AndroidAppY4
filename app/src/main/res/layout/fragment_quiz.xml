@@ -26,7 +26,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Module Quiz"
+        android:text="@string/quiz_title"
         android:textColor="@color/contentTextColor"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -105,11 +105,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        app:cardBackgroundColor="@color/grey_light"
+                        app:cardBackgroundColor="@color/card_quiz_background"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="1dp"
-                        app:strokeColor="@color/grey_light">
+                        app:strokeColor="@color/card_quiz_background">
 
                         <RadioButton
                             android:id="@+id/radioOption1"
@@ -128,11 +128,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        app:cardBackgroundColor="@color/grey_light"
+                        app:cardBackgroundColor="@color/card_quiz_background"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="1dp"
-                        app:strokeColor="@color/grey_light">
+                        app:strokeColor="@color/card_quiz_background">
 
                         <RadioButton
                             android:id="@+id/radioOption2"
@@ -151,11 +151,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        app:cardBackgroundColor="@color/grey_light"
+                        app:cardBackgroundColor="@color/card_quiz_background"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="1dp"
-                        app:strokeColor="@color/grey_light">
+                        app:strokeColor="@color/card_quiz_background">
 
                         <RadioButton
                             android:id="@+id/radioOption3"
@@ -173,11 +173,11 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/grey_light"
+                        app:cardBackgroundColor="@color/card_quiz_background"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="1dp"
-                        app:strokeColor="@color/grey_light">
+                        app:strokeColor="@color/card_quiz_background">
 
                         <RadioButton
                             android:id="@+id/radioOption4"
@@ -215,7 +215,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/bottomNavigationBackground"
             android:fontFamily="sans-serif-medium"
-            android:text="Previous"
+            android:text="@string/previous"
             android:textColor="@color/contentTextColor"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -232,7 +232,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/bright_orange"
             android:fontFamily="sans-serif-medium"
-            android:text="Next"
+            android:text="@string/next"
             android:textAllCaps="false"
             android:textSize="16sp"
             app:cornerRadius="12dp"

@@ -168,15 +168,15 @@ public class QuizFragment extends Fragment {
 
     private void resetCardBackgrounds() {
         for (MaterialCardView cardView : cardViews) {
-            cardView.setCardBackgroundColor(Color.parseColor("#33FFFFFF"));
-            cardView.setStrokeColor(Color.parseColor("#4DFFFFFF"));
+            cardView.setCardBackgroundColor(getResources().getColor(R.color.card_quiz_background));
+            cardView.setStrokeColor(getResources().getColor(R.color.card_quiz_stroke));
         }
     }
 
     private void highlightSelectedCard(int index) {
         if (index >= 0 && index < cardViews.size()) {
-            cardViews.get(index).setCardBackgroundColor(Color.parseColor("#4DFF5733"));
-            cardViews.get(index).setStrokeColor(requireContext().getResources().getColor(R.color.bright_orange, null));
+            cardViews.get(index).setCardBackgroundColor(getResources().getColor(R.color.card_quiz_selected_background));
+            cardViews.get(index).setStrokeColor(getResources().getColor(R.color.card_quiz_selected_stroke));
         }
     }
 

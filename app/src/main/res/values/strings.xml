@@ -55,6 +55,8 @@
     <string name="bookmark_button">Bookmark</string>
     <string name="course_image">Course image</string>
     <string name="completed">Completed</string>
+    <string name="your_process">Your Progress</string>
+    <string name="continue_button">Continue</string>
 
     <!-- New strings for lesson detail -->
     <string name="num_lesson">%1$d Lesson</string>
@@ -63,8 +65,13 @@
     <string name="video_error">Error loading video</string>
     <string name="lesson_completed">Lesson completed!</string>
     <string name="video_available">Video available</string>
+    <string name="lesson_content">Lesson Content</string>
+    <string name="video_tutorial">Video Tutorial</string>
+    <string name="button_quiz">Take Quiz</string>
+    <string name="button_complete_lesson">Complete Lesson</string>
 
     <!-- New strings for quiz -->
+    <string name="quiz_title">Quiz</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="question_progress">Question %1$d of %2$d</string>
