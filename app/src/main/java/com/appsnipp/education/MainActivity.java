@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
@@ -24,13 +23,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.appsnipp.education.databinding.ActivityMainBinding;
+import com.appsnipp.education.ui.base.BaseActivity;
 import com.appsnipp.education.ui.utils.AppLogger;
 import com.appsnipp.education.ui.utils.helpers.BottomNavigationBehavior;
 import com.appsnipp.education.ui.utils.helpers.DarkModePrefManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DarkModePrefManager darkModePrefManager;
@@ -39,44 +39,54 @@ public class MainActivity extends AppCompatActivity
     NavController navController;
     AppBarConfiguration appBarConfiguration;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-
         View view = binding.getRoot();
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(view);
+        
+        initializeManagers();
         setAppTheme();
         setSupportActionBar(binding.appBarMain.toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, binding.drawerLayout, binding.appBarMain.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, binding.drawerLayout, binding.appBarMain.toolbar, 
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         binding.navView.setNavigationItemSelectedListener(this);
 
         setupNavigation();
+        
+        // Apply font size to all views
+        applyFontSizeToAllViews();
+    }
 
+    private void initializeManagers() {
+        darkModePrefManager = new DarkModePrefManager(this);
     }
 
     private void setAppTheme() {
-        darkModePrefManager = new DarkModePrefManager(this);
         boolean isDarkMode = darkModePrefManager.isNightMode();
         AppCompatDelegate.setDefaultNightMode(
             isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
         );
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reapply font sizes when returning to activity
+        applyFontSizeToAllViews();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
         return super.onCreateView(parent, name, context, attrs);
-
     }
 
     private void setupNavigation() {
@@ -143,17 +153,14 @@ public class MainActivity extends AppCompatActivity
         return super.onSupportNavigateUp();
     }
 
-
     @Override
     public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -184,7 +191,6 @@ public class MainActivity extends AppCompatActivity
             toggleDarkMode();
         }
 
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         binding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

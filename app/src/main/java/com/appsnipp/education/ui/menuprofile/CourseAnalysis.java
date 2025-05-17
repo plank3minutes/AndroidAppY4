@@ -5,21 +5,22 @@
 package com.appsnipp.education.ui.menuprofile;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.appsnipp.education.R;
+import com.appsnipp.education.ui.base.BaseFragment;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link BaseFragment} subclass.
  * Use the {@link CourseAnalysis#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseAnalysis extends Fragment {
+public class CourseAnalysis extends BaseFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
