@@ -28,5 +28,10 @@
 
         <!-- For vector icons tinting -->
         <item name="android:colorControlNormal">@color/bottomNavigationTextColor</item>
+
+        <!-- Theme transition -->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 </resources>
