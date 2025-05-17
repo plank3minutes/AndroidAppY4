@@ -66,13 +66,10 @@ public class MainActivity extends AppCompatActivity
 
     private void setAppTheme() {
         darkModePrefManager = new DarkModePrefManager(this);
-        boolean isDarkModeEnabled = darkModePrefManager.isNightMode();
-        if (isDarkModeEnabled) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
+        boolean isDarkMode = darkModePrefManager.isNightMode();
+        AppCompatDelegate.setDefaultNightMode(
+            isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+        );
     }
 
     @Nullable
@@ -219,11 +216,11 @@ public class MainActivity extends AppCompatActivity
         AppLogger.d("toggleDarkMode init");
         boolean isDarkModeEnabled = darkModePrefManager.isNightMode();
         darkModePrefManager.setDarkMode(!isDarkModeEnabled);
-//        recreate();
-
-        startActivity(new Intent(MainActivity.this, MainActivity.class));
-        finish();
-        overridePendingTransition(0, 0);
-
+        
+        // Apply theme change without recreating activity
+        int nightMode = !isDarkModeEnabled ? 
+            AppCompatDelegate.MODE_NIGHT_YES : 
+            AppCompatDelegate.MODE_NIGHT_NO;
+        AppCompatDelegate.setDefaultNightMode(nightMode);
     }
 }

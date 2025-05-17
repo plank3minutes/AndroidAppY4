@@ -1,41 +1,67 @@
-/*
- * Copyright (c) 2025. rogergcc
- */
-
 package com.appsnipp.education.ui.menuprofile;
 
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.content.Context;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.appsnipp.education.R;
+import com.appsnipp.education.ui.utils.helpers.DarkModePrefManager;
 
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
 public class SettingFragment extends Fragment {
+
     private ImageView backSettingImageView;
-    private Button changeThemeButton;
-    private Button changeFontButton;
-    private Button informationButton;
+    private CardView themeCardView;
+    private DarkModePrefManager darkModePrefManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
+        // Initialize DarkModePrefManager
+        darkModePrefManager = new DarkModePrefManager(requireContext());
+
+        // Views
         backSettingImageView = view.findViewById(R.id.back_setting_img_view_id);
-        backSettingImageView.setOnClickListener(v -> {
-            NavHostFragment.findNavController(this).navigateUp();
-        });
+        themeCardView = view.findViewById(R.id.card_theme_setting);
+
+        // Back button
+        backSettingImageView.setOnClickListener(v ->
+                NavHostFragment.findNavController(this).navigateUp()
+        );
+
+        // Theme selection
+        themeCardView.setOnClickListener(v -> showThemeDialog());
+
         return view;
+    }
+
+    private void showThemeDialog() {
+        final String[] themes = {"Light", "Dark"};
+        int currentTheme = darkModePrefManager.isNightMode() ? 1 : 0;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Choose Theme")
+                .setSingleChoiceItems(themes, currentTheme, (dialog, which) -> {
+                    boolean isDarkMode = which == 1;
+                    darkModePrefManager.setDarkMode(isDarkMode);
+                    AppCompatDelegate.setDefaultNightMode(
+                        isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+                    );
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 }

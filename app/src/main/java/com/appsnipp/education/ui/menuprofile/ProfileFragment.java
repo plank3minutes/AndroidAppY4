@@ -59,29 +59,24 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         TimeTrackerApp app = TimeTrackerApp.getInstance(getContext());
-        timeProgressBar = view.findViewById(R.id.time_progress_bar);
+        initComponentView(view);
         handler = new Handler(Looper.getMainLooper());
 
         timeProgressBar.setProgress(app.getSecondsElapsed());
         updateProgressBarColor(app.getSecondsElapsed());
-        initTimeOfWeek(view);
 
-        textViewDate = view.findViewById(R.id.text_view_date);
         textViewDate.setText(app.getToday());
 
-        imageViewSetting = view.findViewById(R.id.img_view_setting);
         imageViewSetting.setOnClickListener(imgView -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_setting_fragment);
         });
 
         startUpdating();
 
-        quizResultCardView = view.findViewById(R.id.quiz_result_card_view_id);
         quizResultCardView.setOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_quiz_result_fragment);
         });
 
-        courseAnalysisCardView = view.findViewById(R.id.course_analysis_card_view_id);
         courseAnalysisCardView.setOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_course_analysis_fragment);
         });
@@ -100,6 +95,7 @@ public class ProfileFragment extends Fragment {
                         int secondsElapsed = app.getSecondsElapsed();
                         timeProgressBar.setProgress(secondsElapsed);
                         updateProgressBarColor(secondsElapsed);
+                        updateTimeOfWeek();
                         textViewDate.setText(app.getToday());
                         handler.postDelayed(this, 1000);
                     }
@@ -123,22 +119,14 @@ public class ProfileFragment extends Fragment {
                 }
                 if (innerDrawable instanceof GradientDrawable) {
                     GradientDrawable gradientDrawable = (GradientDrawable) innerDrawable;
-
-                    if (secondsElapsed <= 600) {
-                        gradientDrawable.setColor(Color.GREEN);
-                    } else if (secondsElapsed <= 1200) {
-                        gradientDrawable.setColor(Color.YELLOW);
-                    } else if (secondsElapsed <= 1800){
-                        gradientDrawable.setColor(Color.BLUE);
-                    } else {
-                        gradientDrawable.setColor(Color.RED);
-                    }
+                    int color = getColor(secondsElapsed);
+                    gradientDrawable.setColor(color);
                 }
             }
         }
     }
 
-    private void initTimeOfWeek(View view) {
+    private void updateTimeOfWeek() {
         TimeTrackerApp app = TimeTrackerApp.getInstance(getContext());
         for(int i = 1; i < 8; i++) {
             int color = getColor(app.getTimeOnlineByDay(i));
@@ -147,31 +135,24 @@ public class ProfileFragment extends Fragment {
             drawable.setColor(color);
             switch (i) {
                 case 1:
-                    imageViewSunday = view.findViewById(R.id.img_view_sunday);
                     imageViewSunday.setBackground(drawable);
                     break;
                 case 2:
-                    imageViewMonday = view.findViewById(R.id.img_view_monday);
                     imageViewMonday.setBackground(drawable);
                     break;
                 case 3:
-                    imageViewTuesday = view.findViewById(R.id.img_view_tuesday);
                     imageViewTuesday.setBackground(drawable);
                     break;
                 case 4:
-                    imageViewWednesday = view.findViewById(R.id.img_view_wednesday);
                     imageViewWednesday.setBackground(drawable);
                     break;
                 case 5:
-                    imageViewThursday = view.findViewById(R.id.img_view_thursday);
                     imageViewThursday.setBackground(drawable);
                     break;
                 case 6:
-                    imageViewFriday = view.findViewById(R.id.img_view_friday);
                     imageViewFriday.setBackground(drawable);
                     break;
                 case 7:
-                    imageViewSaturday = view.findViewById(R.id.img_view_saturday);
                     imageViewSaturday.setBackground(drawable);
                     break;
                 default:
@@ -180,17 +161,50 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    private void initComponentView(View view) {
+        timeProgressBar = view.findViewById(R.id.time_progress_bar);
+        textViewDate = view.findViewById(R.id.text_view_date);
+        imageViewSetting = view.findViewById(R.id.img_view_setting);
+        quizResultCardView = view.findViewById(R.id.quiz_result_card_view_id);
+        courseAnalysisCardView = view.findViewById(R.id.course_analysis_card_view_id);
+        for(int i = 1; i < 8; i++) {
+            switch (i) {
+                case 1:
+                    imageViewSunday = view.findViewById(R.id.img_view_sunday);
+                    break;
+                case 2:
+                    imageViewMonday = view.findViewById(R.id.img_view_monday);
+                    break;
+                case 3:
+                    imageViewTuesday = view.findViewById(R.id.img_view_tuesday);
+                    break;
+                case 4:
+                    imageViewWednesday = view.findViewById(R.id.img_view_wednesday);
+                    break;
+                case 5:
+                    imageViewThursday = view.findViewById(R.id.img_view_thursday);
+                    break;
+                case 6:
+                    imageViewFriday = view.findViewById(R.id.img_view_friday);
+                    break;
+                case 7:
+                    imageViewSaturday = view.findViewById(R.id.img_view_saturday);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private int getColor(int time) {
+        boolean isDarkMode = (getResources().getConfiguration().uiMode & 
+            android.content.res.Configuration.UI_MODE_NIGHT_MASK) == 
+            android.content.res.Configuration.UI_MODE_NIGHT_YES;
+
         if (time == 0) {
-            return Color.parseColor("#E0E0E0");
-        } else if (time <= 600) {
-            return Color.GREEN;
-        } else if(time <= 1200) {
-            return Color.YELLOW;
-        } else if(time <= 1800) {
-            return Color.BLUE;
+            return isDarkMode ? Color.parseColor("#3A3A3A") : Color.parseColor("#E0E0E0");
         } else {
-            return Color.RED;
+            return isDarkMode ? Color.parseColor("#FF5722") : Color.parseColor("#FF0000");
         }
     }
 
