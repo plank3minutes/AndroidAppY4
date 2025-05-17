@@ -198,15 +198,15 @@ public class ProfileFragment extends Fragment {
 
     private int getColor(int time) {
         if (time == 0) {
-            return Color.parseColor("#E0E0E0");
+            return Color.parseColor("#3A3A3A"); // Dark gray for inactive state
         } else if (time <= 300) {
-            return Color.GREEN;
+            return Color.parseColor("#FF5722"); // Deep Orange for active state
         } else if(time <= 600) {
-            return Color.YELLOW;
+            return Color.parseColor("#FF5722"); // Deep Orange
         } else if(time <= 900) {
-            return Color.BLUE;
+            return Color.parseColor("#FF5722"); // Deep Orange
         } else {
-            return Color.RED;
+            return Color.parseColor("#FF5722"); // Deep Orange
         }
     }
 

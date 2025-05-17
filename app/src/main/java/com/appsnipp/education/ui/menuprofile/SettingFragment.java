@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
@@ -57,15 +55,10 @@ public class SettingFragment extends Fragment {
         builder.setTitle("Choose Theme")
                 .setSingleChoiceItems(themes, currentTheme, (dialog, which) -> {
                     boolean isDarkMode = which == 1;
-                    if (isDarkMode != darkModePrefManager.isNightMode()) {
-                        darkModePrefManager.setDarkMode(isDarkMode);
-                        // Delay theme change slightly for smoother transition
-                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                            if (isAdded()) {
-                                darkModePrefManager.applyTheme();
-                            }
-                        }, 100);
-                    }
+                    darkModePrefManager.setDarkMode(isDarkMode);
+                    AppCompatDelegate.setDefaultNightMode(
+                        isDarkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+                    );
                     dialog.dismiss();
                 })
                 .setNegativeButton("Cancel", null)
