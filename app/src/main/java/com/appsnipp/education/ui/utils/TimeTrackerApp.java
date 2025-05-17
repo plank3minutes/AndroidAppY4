@@ -130,35 +130,30 @@ public class TimeTrackerApp {
             Log.e(TAG, "Failed to parse lastDateString: " + lastDateString, e);
         }
 
-        // Nếu lastDate không hợp lệ, gán mặc định là ngày hôm nay
         if (lastDate == null) {
             lastDate = new Date();
         }
 
         SharedPreferences.Editor editor = prefs.edit();
-        // Nếu ngày hôm nay khác ngày lưu lần trước, cần cập nhật lại dữ liệu
         if (!todayString.equals(lastDateString)) {
             editor.putString(KEY_LAST_TRACK_DATE, todayString);
 
-            // Kiểm tra nếu lastDate nằm trước tuần hiện tại, xóa dữ liệu tuần trước
             if (lastDate.before(getDayWeekStart())) {
-                clearDataLastWeek(editor);  // Sửa clearDataLastWeek nhận editor để gom commit
+                clearDataLastWeek(editor);
             } else {
-                // Lưu thời gian online của ngày trước vào key riêng theo thứ
                 String previousTimeOnlineKey = getDayOfWeek(lastDateString) + "_TIME_ONLINE";
-                System.out.println(previousTimeOnlineKey);
                 int seconds = prefs.getInt(KEY_SECONDS, 0);
                 editor.putInt(previousTimeOnlineKey, seconds);
             }
-            // Reset thời gian online cho ngày hôm nay
             editor.putInt(KEY_SECONDS, 0);
-            editor.apply();
 
             secondsElapsed = 0;
         } else {
-            // Vẫn trong ngày, lấy lại số giây đã tính
             secondsElapsed = prefs.getInt(KEY_SECONDS, 0);
             editor.putString(KEY_LAST_TRACK_DATE, todayString);
+            String todayTimeOnlineKey = getDayOfWeek(todayString) + "_TIME_ONLINE";
+            editor.putInt(todayTimeOnlineKey, secondsElapsed);
         }
+        editor.apply();
     }
 }

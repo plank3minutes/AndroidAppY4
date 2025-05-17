@@ -119,16 +119,8 @@ public class ProfileFragment extends Fragment {
                 }
                 if (innerDrawable instanceof GradientDrawable) {
                     GradientDrawable gradientDrawable = (GradientDrawable) innerDrawable;
-
-                    if (secondsElapsed <= 60) {
-                        gradientDrawable.setColor(Color.GREEN);
-                    } else if (secondsElapsed <= 120) {
-                        gradientDrawable.setColor(Color.YELLOW);
-                    } else if (secondsElapsed <= 180){
-                        gradientDrawable.setColor(Color.BLUE);
-                    } else {
-                        gradientDrawable.setColor(Color.RED);
-                    }
+                    int color = getColor(secondsElapsed);
+                    gradientDrawable.setColor(color);
                 }
             }
         }
@@ -207,11 +199,11 @@ public class ProfileFragment extends Fragment {
     private int getColor(int time) {
         if (time == 0) {
             return Color.parseColor("#E0E0E0");
-        } else if (time <= 60) {
+        } else if (time <= 300) {
             return Color.GREEN;
-        } else if(time <= 120) {
+        } else if(time <= 600) {
             return Color.YELLOW;
-        } else if(time <= 180) {
+        } else if(time <= 900) {
             return Color.BLUE;
         } else {
             return Color.RED;

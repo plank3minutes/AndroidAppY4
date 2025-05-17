@@ -126,7 +126,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginRight="10dp"
-                        android:max="2400"
+                        android:max="1200"
                         android:progress="0"
                         android:progressDrawable="@drawable/progress_bar_custom" />
                     <!-- Dấu chia cho các mốc -->
@@ -153,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="start"
-                            android:text="10"
+                            android:text="5"
                             android:textSize="12sp" />
 
                         <!-- Mốc 20 phút -->
@@ -162,7 +162,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="start"
-                            android:text="20"
+                            android:text="10"
                             android:textSize="12sp" />
 
                         <TextView
@@ -170,7 +170,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="start"
-                            android:text="30"
+                            android:text="15"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -403,139 +403,4 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <!--    &lt;!&ndash; Date &ndash;&gt;-->
-    <!--    <TextView-->
-    <!--        android:id="@+id/dateText"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="13/05/2025"-->
-    <!--        android:textSize="14sp"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/profileHeader"-->
-    <!--        android:layout_marginTop="8dp" />-->
-
-    <!--    &lt;!&ndash; Progress Bar &ndash;&gt;-->
-    <!--    <ProgressBar-->
-    <!--        android:id="@+id/progressBar"-->
-    <!--        style="?android:attr/progressBarStyleHorizontal"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:max="60"-->
-    <!--        android:progress="30"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/dateText"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        android:layout_marginTop="16dp" />-->
-
-    <!--    &lt;!&ndash; Progress Labels &ndash;&gt;-->
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/progressBar"-->
-    <!--        android:layout_marginTop="8dp">-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="5p"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:gravity="center" />-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="15p"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:gravity="center" />-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="30p"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:gravity="center" />-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="60p"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:gravity="center" />-->
-    <!--    </LinearLayout>-->
-
-    <!--    &lt;!&ndash; Circular Indicators &ndash;&gt;-->
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/progressBar"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:gravity="center">-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="20dp"-->
-    <!--            android:layout_height="20dp"-->
-    <!--            android:src="@drawable/ic_circle"-->
-    <!--            android:layout_margin="4dp" />-->
-    <!--        <ImageView-->
-    <!--            android:layout_width="20dp"-->
-    <!--            android:layout_height="20dp"-->
-    <!--            android:src="@drawable/ic_circle"-->
-    <!--            android:layout_margin="4dp" />-->
-    <!--        <ImageView-->
-    <!--            android:layout_width="20dp"-->
-    <!--            android:layout_height="20dp"-->
-    <!--            android:src="@drawable/ic_circle"-->
-    <!--            android:layout_margin="4dp" />-->
-    <!--        <ImageView-->
-    <!--            android:layout_width="20dp"-->
-    <!--            android:layout_height="20dp"-->
-    <!--            android:src="@drawable/ic_circle"-->
-    <!--            android:layout_margin="4dp" />-->
-    <!--        <ImageView-->
-    <!--            android:layout_width="20dp"-->
-    <!--            android:layout_height="20dp"-->
-    <!--            android:src="@drawable/ic_circle"-->
-    <!--            android:layout_margin="4dp" />-->
-    <!--        <ImageView-->
-    <!--            android:layout_width="20dp"-->
-    <!--            android:layout_height="20dp"-->
-    <!--            android:src="@drawable/ic_circle"-->
-    <!--            android:layout_margin="4dp" />-->
-    <!--        <ImageView-->
-    <!--            android:layout_width="20dp"-->
-    <!--            android:layout_height="20dp"-->
-    <!--            android:src="@drawable/ic_circle"-->
-    <!--            android:layout_margin="4dp" />-->
-    <!--        <TextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="T2 T3 T4 T5 T6 T7 CN"-->
-    <!--            android:layout_marginStart="8dp" />-->
-    <!--    </LinearLayout>-->
-
-    <!--    &lt;!&ndash; Learn and Participate Button &ndash;&gt;-->
-    <!--    <Button-->
-    <!--        android:id="@+id/learnButton"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Khóa học để tham gia"-->
-    <!--        android:drawableLeft="@drawable/ic_book"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/progressBar"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        android:layout_marginTop="32dp" />-->
-
-    <!--    &lt;!&ndash; Quiz Statistics Button &ndash;&gt;-->
-    <!--    <Button-->
-    <!--        android:id="@+id/quizButton"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Thống kê quiz"-->
-    <!--        android:drawableLeft="@drawable/ic_brain"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/learnButton"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        android:layout_marginTop="16dp" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
