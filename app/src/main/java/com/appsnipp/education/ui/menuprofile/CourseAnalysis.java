@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +32,9 @@ public class CourseAnalysis extends BaseFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ProgressBar courseProgressBar;
+    private ProgressBar quizProgressBar;
 
     public CourseAnalysis() {
         // Required empty public constructor
@@ -62,10 +67,60 @@ public class CourseAnalysis extends BaseFragment {
         }
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_course_analysis, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                            @Nullable ViewGroup container,
+                            @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_course_analysis, container, false);
+        initializeViews(view);
+        return view;
+    }
+
+    private void initializeViews(View view) {
+        // Initialize progress bars
+        courseProgressBar = view.findViewById(R.id.courseProgressBar);
+        quizProgressBar = view.findViewById(R.id.quizProgressBar);
+
+        // Set up back button
+        ImageButton btnBack = view.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
+
+        // Set up initial progress
+        setupProgressBars();
+    }
+
+    private void setupProgressBars() {
+        try {
+            // Example values - replace these with actual progress values from your data
+            int courseProgress = 30; // Completed percentage
+            int courseInProgress = 40; // In progress percentage
+            
+            int quizProgress = 25; // Completed percentage
+            int quizInProgress = 35; // In progress percentage
+
+            // Set progress values for course progress
+            if (courseProgressBar != null) {
+                courseProgressBar.setMax(100);
+                courseProgressBar.setProgress(courseProgress);
+                courseProgressBar.setSecondaryProgress(courseProgress + courseInProgress);
+            }
+
+            // Set progress values for quiz progress
+            if (quizProgressBar != null) {
+                quizProgressBar.setMax(100);
+                quizProgressBar.setProgress(quizProgress);
+                quizProgressBar.setSecondaryProgress(quizProgress + quizInProgress);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
