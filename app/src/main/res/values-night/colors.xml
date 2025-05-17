@@ -1,12 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--colors for dark mode-->
-    <color name="contentBodyColor">#2A2E43</color>
-    <color name="contentTextColor">#fff</color>
-    <color name="bottomNavigationBackground">#2A2E43</color>
+    <color name="colorPrimary">#1F2237</color>
+    <color name="colorPrimaryDark">#1A1D2E</color>
+    <color name="colorAccent">#FF5733</color>
+    <color name="bottomNavigationTextColor">#B2B2B2</color>
+    <color name="bottomNavigationTintColor">#B2B2B2</color>
+    <color name="bottomNavigationSelectedColor">#FF5733</color>
+    <color name="statusBarColor">#000000</color>
+    <color name="whiteBodyColor">#1F2237</color>
+    <color name="darkTextColor">#E6E6F2</color>
+    <color name="primaryTextColor">#FF5733</color>
+    <color name="whiteTextColor">#FFFFFF</color>
+    <color name="color_hint">#AAAAAA</color>
 
-    <color name="grey_light">#fff</color>
+    <color name="dashboard_subtitle">#B7B7CC</color>
 
-    <color name="primaryTextColor">#44BBF8</color>
+    <!--colors for night mode-->
+    <color name="contentBodyColor">#1F2237</color>
+    <color name="contentTextColor">#D1D1E1</color>
+    <color name="bottomNavigationBackground">#2A2E45</color>
 
+    <!--    color items-->
+    <color name="color1">#F1755B</color>
+    <color name="color2">#5CB187</color>
+    <color name="color3">#B05777</color>
+    <color name="color4">#EEBE5C</color>
+    <color name="color5">#8778E9</color>
+    <color name="back_courses">#2A2E45</color>
+
+    <!--    colors play game-->
+    <color name="black_transparent">#CC003366</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#D32F2F</color>
+    <color name="grey">#CFCFCF</color>
+    <color name="orange">#FE940D</color>
+    <color name="green">#00FF00</color>
+    <color name="dark_blue">#5d3369</color>
+
+    <color name="grey_light">#59CFCFCF</color>
+    <color name="red_light">#33D32F2F</color>
+
+    <color name="nav_bar_color">#33CFCFCF</color>
+
+    <color name="option1">#503FEF</color>
+    <color name="option2">#A919DD</color>
+    <color name="option3">#E34B4A</color>
+    <color name="option4">#FF8033</color>
+
+    <color name="colorPrimaryText">@android:color/white</color>
+
+    <color name="dark_navy">#1F2237</color>
+    <color name="bright_orange">#FF5733</color>
+    <color name="card_background">#2A2E45</color>
+    <color name="video_background">#1A1D2E</color>
+    <color name="complete_button">#4CAF50</color>
+    <color name="fab_background">#FF5733</color>
 </resources>
