@@ -24,67 +24,17 @@
                 android:layout_marginTop="@dimen/fab_margin"
                 android:orientation="vertical">
 
-                <TextView
-                    style="@style/viewParent.headerText"
-                    android:text="@string/hello_message" />
-
                 <RelativeLayout
+                    android:id="@+id/vHaventJoined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:minHeight="200dp"
-                        app:cardBackgroundColor="@color/color1"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="@dimen/card_maincourse_elevation"
-                        app:cardPreventCornerOverlap="false">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <TextView
-                                android:id="@+id/tvHomeCourse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/title_home_message"
-                                android:textColor="@color/whiteBodyColor"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <ProgressBar
-                                android:id="@+id/pbHomeCourse"
-                                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-                                android:layout_width="150dp"
-                                android:layout_height="5dp"
-                                android:layout_marginTop="15dp"
-                                android:progress="60"
-                                android:progressDrawable="@drawable/progress_drawable" />
-
-                            <TextView
-                                android:id="@+id/tvPercentage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:format="%d"
-                                android:text="@string/percentage_course"
-                                android:textColor="@color/whiteBodyColor"
-
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                tools:format="75" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    <TextView
+                        style="@style/viewParent.headerText"
+                        android:layout_marginEnd="100dp"
+                        android:text="@string/havent_joined" />
 
                     <ImageView
                         android:layout_width="150dp"
@@ -94,14 +44,164 @@
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/imageAccess"
                         android:cropToPadding="true"
-                        android:elevation="@dimen/card_image_elevation"
-                        android:src="@drawable/header_image" />
+                        android:src="@drawable/wondering" />
                 </RelativeLayout>
 
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/vPopularCourses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/viewParent.headerText"
+                        android:text="@string/title_popular_courses" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvPopularCourses"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                        tools:itemCount="7"
+                        tools:listitem="@layout/card_popular_courses" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vExploreCourses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/viewParent.SubtitleText"
+                        android:layout_gravity="center"
+                        android:text="@string/explore_courses" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/share_progress_button"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:text="@string/btn_explore_courses"
+                                android:textAlignment="center"
+                                android:textColor="@color/whiteTextColor"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vJoined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/viewParent.headerText"
+                        android:text="@string/hello_message" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/latestLearning"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:minHeight="200dp"
+                            app:cardBackgroundColor="@color/color1"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="@dimen/card_maincourse_elevation"
+                            app:cardPreventCornerOverlap="false">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+                                <TextView
+                                    android:id="@+id/tvHomeCourse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/title_home_message"
+                                    android:textColor="@color/whiteBodyColor"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold" />
+
+                                <ProgressBar
+                                    android:id="@+id/pbHomeCourse"
+                                    style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                                    android:layout_width="150dp"
+                                    android:layout_height="5dp"
+                                    android:layout_marginTop="15dp"
+                                    android:progress="60"
+                                    android:progressDrawable="@drawable/progress_drawable" />
+
+                                <TextView
+                                    android:id="@+id/tvPercentage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:format="%d"
+                                    android:text="@string/percentage_course"
+                                    android:textColor="@color/whiteBodyColor"
+
+                                    android:textSize="13sp"
+                                    android:textStyle="bold"
+                                    tools:format="75" />
+
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <ImageView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/imageAccess"
+                            android:cropToPadding="true"
+                            android:elevation="@dimen/card_image_elevation"
+                            android:src="@drawable/header_image" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/vShareFriends"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -133,114 +233,94 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
+
+                <LinearLayout
+                    android:id="@+id/vJoinedCourses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    >
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <TextView
-                        style="@style/viewParent.headerText"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:text="@string/title_popular_courses" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp">
 
-                    <TextView
-                        style="@style/viewParent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:text="@string/text_see_more"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="@dimen/headerMoreTextSize"
-                        android:fontFamily="@font/futura_medium"
-                        android:textStyle="normal" />
+                        <TextView
+                            style="@style/viewParent.headerText"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="@string/your_courses" />
 
-                </RelativeLayout>
+                        <TextView
+                            style="@style/viewParent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/futura_medium"
+                            android:text="@string/text_see_more"
+                            android:textColor="@color/primaryTextColor"
+                            android:textSize="@dimen/headerMoreTextSize"
+                            android:textStyle="normal" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPopularCourses"
-                    android:layout_marginBottom="20dp"
+                    </RelativeLayout>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvJoinedCourses"
+                        android:layout_width="match_parent"
 
-                    tools:itemCount="7"
-                    tools:listitem="@layout/card_popular_courses" />
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
+                        tools:itemCount="7"
+                        tools:listitem="@layout/joined_course_card" />
+                </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    >
-
-                    <TextView
-                        style="@style/viewParent.headerText"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:text="@string/your_courses" />
-
-                    <TextView
-                        style="@style/viewParent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:text="@string/text_see_more"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="@dimen/headerMoreTextSize"
-                        android:fontFamily="@font/futura_medium"
-                        android:textStyle="normal" />
-
-                </RelativeLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvJoinedCourse"
-                    android:layout_marginBottom="20dp"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-                    tools:itemCount="7"
-                    tools:listitem="@layout/card_popular_courses" />
-
-
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/vBookmarkedCourses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    >
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <TextView
-                        style="@style/viewParent.headerText"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:text="@string/bookmarked" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp">
 
-                    <TextView
-                        style="@style/viewParent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:text="@string/text_see_more"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="@dimen/headerMoreTextSize"
-                        android:fontFamily="@font/futura_medium"
-                        android:textStyle="normal" />
+                        <TextView
+                            style="@style/viewParent.headerText"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="@string/bookmarked" />
 
-                </RelativeLayout>
+                        <TextView
+                            style="@style/viewParent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/futura_medium"
+                            android:text="@string/text_see_more"
+                            android:textColor="@color/primaryTextColor"
+                            android:textSize="@dimen/headerMoreTextSize"
+                            android:textStyle="normal" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvBookmarkedCourse"
+                    </RelativeLayout>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBookmarkedCourses"
 
-                    tools:itemCount="7"
-                    tools:listitem="@layout/card_popular_courses" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                        tools:itemCount="7"
+                        tools:listitem="@layout/bookmarked_course_card" />
+                </LinearLayout>
+
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

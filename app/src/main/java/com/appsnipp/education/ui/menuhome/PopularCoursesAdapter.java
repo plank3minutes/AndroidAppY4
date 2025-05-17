@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2023. rogergcc
- */
-
 package com.appsnipp.education.ui.menuhome;
 
 import android.annotation.SuppressLint;
@@ -90,9 +86,9 @@ public class PopularCoursesAdapter
         public void bind(Course data) {
             binding.tvCourseTitle.setText(data.getCourseTitle());
             Glide.with(itemView.getContext())
-                .load(data.getImageResource())
-                .apply(new RequestOptions().centerCrop())
-                .into(binding.imvCoursePhoto);
+                    .load(data.getImageResource())
+                    .apply(new RequestOptions().centerCrop())
+                    .into(binding.imvCoursePhoto);
         }
     }
 }
