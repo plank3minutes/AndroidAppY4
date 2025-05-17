@@ -9,22 +9,30 @@
         <item name="colorSecondary">@color/colorAccent</item>
         <item name="colorOnSecondary">@color/whiteTextColor</item>
 
-        <!-- Background -->
-        <item name="android:windowBackground">@color/contentBodyColor</item>
-        <item name="colorSurface">@color/card_background</item>
-        <item name="colorOnSurface">@color/contentTextColor</item>
+        <!-- Background colors -->
+        <item name="android:windowBackground">#1A1D2E</item>
+        <item name="android:colorBackground">#1A1D2E</item>
+        <item name="colorSurface">#252836</item>
+
+        <!-- Text colors -->
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorSecondary">#9A9A9A</item>
+
+        <!-- Progress bar colors -->
+        <item name="colorAccent">#FF5722</item>
+
+        <!-- Card colors -->
+        <item name="cardBackgroundColor">#252836</item>
 
         <!-- Status bar and navigation -->
         <item name="android:statusBarColor">@color/statusBarColor</item>
         <item name="android:navigationBarColor">@color/bottomNavigationBackground</item>
 
         <!-- Others -->
-        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="colorError">@color/red</item>
 
         <!-- Material components support -->
-        <item name="android:colorBackground">@color/contentBodyColor</item>
         <item name="android:colorAccent">@color/colorAccent</item>
-        <item name="colorError">@color/red</item>
 
         <!-- For vector icons tinting -->
         <item name="android:colorControlNormal">@color/bottomNavigationTextColor</item>

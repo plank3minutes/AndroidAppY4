@@ -197,16 +197,14 @@ public class ProfileFragment extends Fragment {
     }
 
     private int getColor(int time) {
+        boolean isDarkMode = (getResources().getConfiguration().uiMode & 
+            android.content.res.Configuration.UI_MODE_NIGHT_MASK) == 
+            android.content.res.Configuration.UI_MODE_NIGHT_YES;
+
         if (time == 0) {
-            return Color.parseColor("#3A3A3A"); // Dark gray for inactive state
-        } else if (time <= 300) {
-            return Color.parseColor("#FF5722"); // Deep Orange for active state
-        } else if(time <= 600) {
-            return Color.parseColor("#FF5722"); // Deep Orange
-        } else if(time <= 900) {
-            return Color.parseColor("#FF5722"); // Deep Orange
+            return isDarkMode ? Color.parseColor("#3A3A3A") : Color.parseColor("#E0E0E0");
         } else {
-            return Color.parseColor("#FF5722"); // Deep Orange
+            return isDarkMode ? Color.parseColor("#FF5722") : Color.parseColor("#FF0000");
         }
     }
 
