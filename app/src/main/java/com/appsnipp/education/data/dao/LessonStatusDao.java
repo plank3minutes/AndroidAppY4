@@ -44,4 +44,7 @@ public interface LessonStatusDao {
 
     @Query("DELETE FROM lesson_status")
     void deleteAll();
+
+    @Query("SELECT COUNT(*) FROM lesson_status ls WHERE ls.quizScore >= 0")
+    LiveData<Integer> getQuizTaken();
 } 

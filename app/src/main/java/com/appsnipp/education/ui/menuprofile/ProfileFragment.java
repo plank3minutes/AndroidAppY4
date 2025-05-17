@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
@@ -30,6 +32,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.appsnipp.education.R;
+import com.appsnipp.education.data.repository.CourseRepository;
+import com.appsnipp.education.data.repository.LessonStatusRepository;
+import com.appsnipp.education.data.repository.ProgressRepository;
+import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.utils.TimeTrackerApp;
 
 import java.util.logging.Logger;
@@ -83,6 +89,21 @@ public class ProfileFragment extends Fragment {
             NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_course_analysis_fragment);
         });
 
+        LiveData<Integer> courseTakenCount = ProgressRepository.getInstance(view.getContext()).getCourseTaken();
+        courseTakenCount.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                courseTakeTextView.setText(String.valueOf(integer));
+            }
+        });
+
+        LiveData<Integer> quizTakenCount = LessonStatusRepository.getInstance(view.getContext()).getQuizTaken();
+        quizTakenCount.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                quizTakeTextView.setText(String.valueOf(integer));
+            }
+        });
         return view;
     }
 

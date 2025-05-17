@@ -38,4 +38,7 @@ public interface UserProgressDao {
 
     @Query("SELECT * FROM user_progress ORDER BY lastAccess DESC LIMIT 1")
     LiveData<UserProgress> getLatestUserProgress();
+
+    @Query("SELECT COUNT(*) FROM user_progress u WHERE u.completedLessons > 0")
+    LiveData<Integer> getCourseTaken();
 }
