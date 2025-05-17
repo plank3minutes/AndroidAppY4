@@ -77,6 +77,10 @@ public class ProgressRepository {
         new UpdateLastAccessAsyncTask(userProgressDao).execute(courseId);
     }
 
+    public LiveData<Integer> getCourseTaken() {
+        return userProgressDao.getCourseTaken();
+    }
+
     private static class UpdateLastAccessAsyncTask extends AsyncTask<String, Void, Void> {
         private final UserProgressDao userProgressDao;
 
