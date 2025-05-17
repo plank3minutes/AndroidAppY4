@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.ui.lesson;
 
 import android.content.res.Configuration;
@@ -67,6 +63,13 @@ public class LessonDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Khôi phục trạng thái
+        if (savedInstanceState != null) {
+            isVideoWatched = savedInstanceState.getBoolean("isVideoWatched", false);
+            isQuizCompleted = savedInstanceState.getBoolean("isQuizCompleted", false);
+            lessonIndex = savedInstanceState.getInt("lessonIndex", 0);
+        }
+
         if (getArguments() != null) {
             lessonId = getArguments().getString("lessonId");
             courseId = getArguments().getString("courseId");
@@ -77,6 +80,14 @@ public class LessonDetailFragment extends Fragment {
         observeData();
         setupButtonListeners();
         updateLastAccessed(courseId);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("isVideoWatched", isVideoWatched);
+        outState.putBoolean("isQuizCompleted", isQuizCompleted);
+        outState.putInt("lessonIndex", lessonIndex);
     }
 
     private void setupToolbar() {

@@ -3,7 +3,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { margin: 0; background: #2A2E45; }
+        body { margin: 0; background: #2A2E45; overflow: hidden; }
+        .youtube-container { position: relative; width: 100%; height: 100%; }
         #player { width: 100%; height: 100%; }
     </style>
 </head>
@@ -30,10 +31,12 @@
             height: '100%',
             width: '100%',
             playerVars: {
-                'autoplay': 0, // 0: không tự động phát, 1: tự động phát
-                'controls': 1, // Hiển thị thanh điều khiển
-                'enablejsapi': 1 // Bật API JavaScript
-                },
+                'controls': 1, // Hiển thị điều khiển video
+                'modestbranding': 1, // Giảm hiển thị thương hiệu YouTube
+                'rel': 0, // Không hiển thị video liên quan
+                'iv_load_policy': 3, // Ẩn chú thích
+                'fs': 1 // Cho phép toàn màn hình
+            },
             events: {
                 'onReady': onPlayerReady,
                 'onStateChange': onPlayerStateChange,
