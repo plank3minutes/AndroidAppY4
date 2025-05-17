@@ -67,7 +67,6 @@ public class CourseDetailFragment extends Fragment {
     }
 
     private void setupToolbar() {
-        binding.toolbar.setNavigationIcon(R.drawable.ic_back);
         binding.toolbar.setNavigationOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigateUp();
         });

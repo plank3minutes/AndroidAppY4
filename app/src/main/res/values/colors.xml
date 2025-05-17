@@ -12,8 +12,9 @@
     <color name="primaryTextColor">#007EBE</color>
     <color name="whiteTextColor">#fff</color>
     <color name="color_hint">#4c4c4c</color>
+    <color name ="color_control">#000000</color>
 
-    <color name="dashboard_subtitle">#B7B7CC</color>
+    <color name="dashboard_subtitle">#696975</color>
 
     <!--colors for light mode-->
     <color name="contentBodyColor">#FCFCFC</color>
@@ -54,9 +55,11 @@
 
     <color name="dark_navy">#1F2237</color>
     <color name="bright_orange">#FF5733</color>
-    <color name="card_background">#2A2E45</color>
-    <color name="video_background">#1A1D2E</color>
+    <color name="card_background">#F0EFEF</color>
+    <color name="video_background">@color/colorPrimary</color>
     <color name="complete_button">#4CAF50</color>
     <color name="fab_background">#FF5733</color>
+    <color name="collapsing_toolbar_text_color">@color/darkTextColor</color>
+    <color name="card_quiz_color">@color/bright_orange</color>
 
 </resources>

@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_navy"
+    android:background="@color/contentBodyColor"
     tools:context=".ui.quiz.QuizFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/quizToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/dark_navy"
+        android:background="@color/contentBodyColor"
         app:navigationIcon="@drawable/ic_back"
         app:title="Quiz"
-        app:titleTextColor="@color/white"
+        app:titleTextColor="@color/contentTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Module Quiz"
-        android:textColor="@color/white"
+        android:textColor="@color/contentTextColor"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:layout_marginTop="16dp"
         android:progress="40"
         app:indicatorColor="@color/bright_orange"
-        app:trackColor="#33FFFFFF"
+        app:trackColor="@color/grey_light"
         app:trackThickness="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Question 2 of 5"
-        android:textColor="@color/white"
+        android:textColor="@color/dashboard_subtitle"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/progressIndicator"
         app:layout_constraintTop_toBottomOf="@+id/progressIndicator" />
@@ -66,7 +66,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
-        app:cardBackgroundColor="@color/card_background"
+        app:cardBackgroundColor="@color/bottomNavigationBackground"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/white"
+                    android:textColor="@color/contentTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="What is the main advantage of using Jetpack Compose over traditional XML layouts in Android development?" />
@@ -105,11 +105,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        app:cardBackgroundColor="#33FFFFFF"
+                        app:cardBackgroundColor="@color/grey_light"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="1dp"
-                        app:strokeColor="#4DFFFFFF">
+                        app:strokeColor="@color/grey_light">
 
                         <RadioButton
                             android:id="@+id/radioOption1"
@@ -119,7 +119,7 @@
                             android:button="@null"
                             android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
                             android:padding="16dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/contentTextColor"
                             android:textSize="16sp"
                             tools:text="It allows for more declarative UI building with less boilerplate code" />
                     </com.google.android.material.card.MaterialCardView>
@@ -128,11 +128,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        app:cardBackgroundColor="#33FFFFFF"
+                        app:cardBackgroundColor="@color/grey_light"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="1dp"
-                        app:strokeColor="#4DFFFFFF">
+                        app:strokeColor="@color/grey_light">
 
                         <RadioButton
                             android:id="@+id/radioOption2"
@@ -142,7 +142,7 @@
                             android:button="@null"
                             android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
                             android:padding="16dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/contentTextColor"
                             android:textSize="16sp"
                             tools:text="It's the only way to create animations in Android" />
                     </com.google.android.material.card.MaterialCardView>
@@ -151,11 +151,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        app:cardBackgroundColor="#33FFFFFF"
+                        app:cardBackgroundColor="@color/grey_light"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="1dp"
-                        app:strokeColor="#4DFFFFFF">
+                        app:strokeColor="@color/grey_light">
 
                         <RadioButton
                             android:id="@+id/radioOption3"
@@ -165,7 +165,7 @@
                             android:button="@null"
                             android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
                             android:padding="16dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/contentTextColor"
                             android:textSize="16sp"
                             tools:text="It consumes less memory than XML layouts" />
                     </com.google.android.material.card.MaterialCardView>
@@ -173,11 +173,11 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="#33FFFFFF"
+                        app:cardBackgroundColor="@color/grey_light"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="1dp"
-                        app:strokeColor="#4DFFFFFF">
+                        app:strokeColor="@color/grey_light">
 
                         <RadioButton
                             android:id="@+id/radioOption4"
@@ -187,7 +187,7 @@
                             android:button="@null"
                             android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
                             android:padding="16dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/contentTextColor"
                             android:textSize="16sp"
                             tools:text="It automatically optimizes layouts for all screen sizes" />
                     </com.google.android.material.card.MaterialCardView>
@@ -213,13 +213,15 @@
             android:layout_height="56dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:backgroundTint="#4D5066"
+            android:backgroundTint="@color/bottomNavigationBackground"
             android:fontFamily="sans-serif-medium"
             android:text="Previous"
+            android:textColor="@color/contentTextColor"
             android:textAllCaps="false"
             android:textSize="16sp"
             app:cornerRadius="12dp"
-            app:icon="@drawable/ic_arrow_back"
+            app:iconTint="@color/contentTextColor"
+            app:icon="@drawable/ic_back"
             app:iconGravity="textStart" />
 
         <com.google.android.material.button.MaterialButton

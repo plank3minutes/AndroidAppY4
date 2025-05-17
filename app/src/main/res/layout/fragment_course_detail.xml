@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_navy"
+    android:background="@color/contentBodyColor"
     tools:context=".ui.course.CourseDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@color/dark_navy"
+        android:background="@color/contentBodyColor"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/dark_navy"
+            app:contentScrim="@color/contentBodyColor"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.CollapsingToolbar.Collapsed"
             app:expandedTitleTextAppearance="@style/TextAppearance.ExpandedTitle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -49,7 +50,8 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_back"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+                app:theme="@style/ToolbarThemeCourse" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -87,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/white"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         tools:text="Android Development Masterclass" />
@@ -98,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="sans-serif"
-                        android:textColor="#B3FFFFFF"
+                        android:textColor="@color/dashboard_subtitle"
                         android:textSize="14sp"
                         tools:text="By John Smith • 24 lessons" />
 
@@ -109,7 +111,7 @@
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif"
                         android:lineSpacingExtra="4dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="15sp"
                         tools:text="Learn Android development from scratch with this comprehensive course. Master Java, Kotlin, and build real-world applications with modern architecture patterns." />
 
@@ -118,7 +120,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="24dp"
-                        android:background="#33FFFFFF" />
+                        android:background="@color/grey_light" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -136,7 +138,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="Your Progress"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -145,7 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/dashboard_subtitle"
                                 android:textSize="14sp"
                                 tools:text="45% Complete" />
                         </LinearLayout>
@@ -158,6 +160,7 @@
                             android:fontFamily="sans-serif-medium"
                             android:text="Continue"
                             android:textAllCaps="false"
+                            android:textColor="@color/whiteTextColor"
                             app:cornerRadius="12dp" />
                     </LinearLayout>
 
@@ -168,7 +171,7 @@
                         android:layout_marginTop="16dp"
                         android:progress="45"
                         app:indicatorColor="@color/bright_orange"
-                        app:trackColor="#33FFFFFF"
+                        app:trackColor="@color/grey_light"
                         app:trackThickness="8dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -186,7 +189,7 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/lessons"
-                    android:textColor="@color/white"
+                    android:textColor="@color/contentTextColor"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -195,7 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:textColor="#B3FFFFFF"
+                    android:textColor="@color/dashboard_subtitle"
                     android:textSize="14sp"
                     tools:text="24 Lessons" />
             </LinearLayout>
@@ -226,6 +229,6 @@
         app:borderWidth="0dp"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|end"
-        app:tint="@color/white" />
+        app:tint="@color/whiteTextColor" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

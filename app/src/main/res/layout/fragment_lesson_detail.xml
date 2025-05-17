@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_navy"
+    android:background="@color/contentBodyColor"
     tools:context=".ui.lesson.LessonDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_navy"
+        android:background="@color/contentBodyColor"
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_back"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/contentTextColor" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="@color/white"
+                android:textColor="@color/contentTextColor"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:text="Lesson Content"
-                        android:textColor="@color/white"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:text="Video Tutorial"
-                        android:textColor="@color/white"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"

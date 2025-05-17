@@ -13,12 +13,17 @@
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:windowContentTransitions">true</item>
 
-        <!--        <item name="colorControlNormal">@color/colorPrimaryDark</item>-->
+        <item name="colorControlNormal">@color/color_control</item>
         <item name="android:textColorSecondary">@color/grey_light</item>
         <item name="colorControlActivated">@color/colorAccent</item>
 
 
     </style>
+
+    <style name="ToolbarThemeCourse" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/color_control</item> <!-- Màu bạn muốn cho icon back -->
+    </style>
+
 
     <style name="SplashTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:windowBackground">@drawable/splash_drawable</item>
@@ -128,6 +133,13 @@
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+
+    <style name="TextAppearance.CollapsingToolbar.Collapsed" parent="TextAppearance.AppCompat.Title">
+
+        <item name="android:textColor">@color/collapsing_toolbar_text_color</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 </resources>

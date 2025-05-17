@@ -12,6 +12,8 @@
     <color name="primaryTextColor">#FF5733</color>
     <color name="whiteTextColor">#FFFFFF</color>
     <color name="color_hint">#AAAAAA</color>
+    <color name ="color_control">#E6E6F2</color>
+
 
     <color name="dashboard_subtitle">#B7B7CC</color>
 
@@ -56,4 +58,7 @@
     <color name="video_background">#1A1D2E</color>
     <color name="complete_button">#4CAF50</color>
     <color name="fab_background">#FF5733</color>
+    <color name="collapsing_toolbar_text_color">@color/darkTextColor</color>
+    <color name="card_quiz_color">@color/grey_light</color>
+
 </resources>

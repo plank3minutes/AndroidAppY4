@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_navy"
+    android:background="@color/contentBodyColor"
     tools:context=".MainActivity">
 
     <!-- Profile Header -->
@@ -28,7 +28,7 @@
             android:src="@drawable/setting_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:tint="@color/contentTextColor" />
 
         <TextView
             android:id="@+id/profileTitle"
@@ -38,7 +38,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/profile"
-            android:textColor="@color/white"
+            android:textColor="@color/contentTextColor"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
             android:text="13/05/2024"
-            android:textColor="@color/white"
+            android:textColor="@color/contentTextColor"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileTitle" />
@@ -103,10 +103,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/card_background"
+                app:cardBackgroundColor="@color/bottomNavigationBackground"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#33FFFFFF"
+                app:strokeColor="@color/grey_light"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/time_tracker"
-                        android:textColor="@color/white"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -130,7 +130,7 @@
                         android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif"
                         android:text="Track your daily learning progress"
-                        android:textColor="#B3FFFFFF"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="14sp" />
 
                     <LinearLayout
@@ -146,7 +146,7 @@
                             android:max="2400"
                             android:progress="1200"
                             app:indicatorColor="@color/bright_orange"
-                            app:trackColor="#33FFFFFF"
+                            app:trackColor="@color/color_hint"
                             app:trackThickness="8dp" />
 
                         <!-- Dấu chia cho các mốc -->
@@ -164,7 +164,7 @@
                                 android:fontFamily="sans-serif"
                                 android:gravity="start"
                                 android:text="0"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
 
                             <!-- Mốc 10 phút -->
@@ -175,7 +175,7 @@
                                 android:fontFamily="sans-serif"
                                 android:gravity="start"
                                 android:text="10"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
 
                             <!-- Mốc 20 phút -->
@@ -186,7 +186,7 @@
                                 android:fontFamily="sans-serif"
                                 android:gravity="start"
                                 android:text="20"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
 
                             <TextView
@@ -196,7 +196,7 @@
                                 android:fontFamily="sans-serif"
                                 android:gravity="start"
                                 android:text="30"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -205,7 +205,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="#33FFFFFF" />
+                        android:background="@color/grey_light" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -221,7 +221,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="#4DFF5733"
+                                app:cardBackgroundColor="@color/bright_orange"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -240,7 +240,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/monday"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -254,7 +254,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="#4DFF5733"
+                                app:cardBackgroundColor="@color/bright_orange"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -273,7 +273,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/tuesday"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -287,7 +287,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="#4DFF5733"
+                                app:cardBackgroundColor="@color/bright_orange"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -306,7 +306,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/wednesday"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -320,7 +320,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="#33FFFFFF"
+                                app:cardBackgroundColor="@color/bright_orange"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -329,6 +329,7 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
+                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -338,7 +339,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/thursday"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -352,7 +353,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="#33FFFFFF"
+                                app:cardBackgroundColor="@color/grey_light"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -361,6 +362,7 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
+                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -370,7 +372,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/friday"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -384,7 +386,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="#33FFFFFF"
+                                app:cardBackgroundColor="@color/grey_light"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -393,6 +395,7 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
+                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -402,7 +405,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/saturday"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -416,7 +419,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="#33FFFFFF"
+                                app:cardBackgroundColor="@color/grey_light"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -425,6 +428,7 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
+                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -434,7 +438,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/sunday"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -449,11 +453,11 @@
                 android:layout_marginTop="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@color/card_background"
+                app:cardBackgroundColor="@color/bottomNavigationBackground"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:rippleColor="#33FFFFFF"
-                app:strokeColor="#33FFFFFF"
+                app:rippleColor="@color/grey_light"
+                app:strokeColor="@color/grey_light"
                 app:strokeWidth="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -478,7 +482,7 @@
                         android:layout_marginStart="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/course_analysis"
-                        android:textColor="@color/white"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/textCourseAnalysisDesc"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -494,7 +498,7 @@
                         android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif"
                         android:text="View your course progress and statistics"
-                        android:textColor="#B3FFFFFF"
+                        android:textColor="@color/dashboard_subtitle"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -508,7 +512,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/white" />
+                        app:tint="@color/contentTextColor" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -520,11 +524,11 @@
                 android:layout_marginTop="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@color/card_background"
+                app:cardBackgroundColor="@color/bottomNavigationBackground"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:rippleColor="#33FFFFFF"
-                app:strokeColor="#33FFFFFF"
+                app:rippleColor="@color/grey_light"
+                app:strokeColor="@color/grey_light"
                 app:strokeWidth="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -549,7 +553,7 @@
                         android:layout_marginStart="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/quiz_result"
-                        android:textColor="@color/white"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/textQuizResultDesc"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -565,7 +569,7 @@
                         android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif"
                         android:text="Check your quiz performance and scores"
-                        android:textColor="#B3FFFFFF"
+                        android:textColor="@color/dashboard_subtitle"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -579,7 +583,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/white" />
+                        app:tint="@color/contentTextColor" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -590,11 +594,11 @@
                 android:layout_marginTop="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@color/card_background"
+                app:cardBackgroundColor="@color/bottomNavigationBackground"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:rippleColor="#33FFFFFF"
-                app:strokeColor="#33FFFFFF"
+                app:rippleColor="@color/grey_light"
+                app:strokeColor="@color/grey_light"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -608,7 +612,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:text="Your Achievements"
-                        android:textColor="@color/white"
+                        android:textColor="@color/contentTextColor"
                         android:textSize="18sp" />
 
                     <TextView
@@ -617,7 +621,7 @@
                         android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif"
                         android:text="Track your learning milestones"
-                        android:textColor="#B3FFFFFF"
+                        android:textColor="@color/dashboard_subtitle"
                         android:textSize="14sp" />
 
                     <LinearLayout
@@ -648,7 +652,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
                                 android:text="Courses"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
@@ -674,7 +678,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
                                 android:text="Quizzes"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
@@ -700,7 +704,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
                                 android:text="Badges"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>

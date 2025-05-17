@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
@@ -15,7 +15,6 @@
         <item name="colorSurface">#FFFFFF</item>
 
         <!-- Text colors -->
-        <item name="android:textColor">#000000</item>
         <item name="android:textColorSecondary">#757575</item>
 
         <!-- Status bar and navigation -->
@@ -31,6 +30,7 @@
 
         <!-- For vector icons tinting -->
         <item name="android:colorControlNormal">@color/bottomNavigationTextColor</item>
+
 
         <!-- Theme transition -->
         <item name="android:windowAnimationStyle">@null</item>
