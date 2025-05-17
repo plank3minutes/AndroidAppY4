@@ -26,6 +26,10 @@ public class CourseViewModel extends AndroidViewModel {
         allCourses = repository.getAllCourses();
     }
 
+    public LiveData<List<Course>> getCoursesByIds(List<String> courseIds) {
+        return repository.getCoursesByIds(courseIds);
+    }
+
     public LiveData<List<Course>> getAllCourses() {
         return allCourses;
     }
