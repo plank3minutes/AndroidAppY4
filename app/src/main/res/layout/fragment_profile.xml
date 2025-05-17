@@ -139,15 +139,14 @@
                         android:layout_marginTop="24dp"
                         android:orientation="vertical">
 
-                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                        <ProgressBar
                             android:id="@+id/time_progress_bar"
+                            style="@android:style/Widget.ProgressBar.Horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="30dp"
                             android:max="2400"
-                            android:progress="1200"
-                            app:indicatorColor="@color/bright_orange"
-                            app:trackColor="@color/color_hint"
-                            app:trackThickness="8dp" />
+                            android:progress="0"
+                            android:progressDrawable="@drawable/progress_bar_custom" />
 
                         <!-- Dấu chia cho các mốc -->
                         <LinearLayout
@@ -156,7 +155,6 @@
                             android:layout_marginTop="8dp"
                             android:orientation="horizontal">
 
-                            <!-- Mốc 0 phút -->
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -167,7 +165,16 @@
                                 android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
 
-                            <!-- Mốc 10 phút -->
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="sans-serif"
+                                android:gravity="start"
+                                android:text="5"
+                                android:textColor="@color/contentTextColor"
+                                android:textSize="12sp" />
+
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -178,24 +185,13 @@
                                 android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
 
-                            <!-- Mốc 20 phút -->
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="sans-serif"
                                 android:gravity="start"
-                                android:text="20"
-                                android:textColor="@color/contentTextColor"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="sans-serif"
-                                android:gravity="start"
-                                android:text="30"
+                                android:text="15"
                                 android:textColor="@color/contentTextColor"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -221,7 +217,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="@color/bright_orange"
+                                app:cardBackgroundColor="#E0E0E0"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -230,7 +226,6 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
-                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -254,7 +249,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="@color/bright_orange"
+                                app:cardBackgroundColor="#E0E0E0"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -263,7 +258,6 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
-                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -287,7 +281,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="@color/bright_orange"
+                                app:cardBackgroundColor="@color/background_circle_online_time"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -296,9 +290,9 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
-                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
+
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -317,10 +311,11 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
+
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="@color/bright_orange"
+                                app:cardBackgroundColor="@color/background_circle_online_time"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -329,7 +324,6 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
-                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -353,7 +347,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="@color/grey_light"
+                                app:cardBackgroundColor="@color/background_circle_online_time"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -362,7 +356,6 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
-                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -386,7 +379,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="@color/grey_light"
+                                app:cardBackgroundColor="@color/background_circle_online_time"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -395,7 +388,6 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
-                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -419,7 +411,7 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                app:cardBackgroundColor="@color/grey_light"
+                                app:cardBackgroundColor="@color/background_circle_online_time"
                                 app:cardCornerRadius="16dp"
                                 app:cardElevation="0dp">
 
@@ -428,7 +420,6 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:layout_gravity="center"
-                                    android:src="@drawable/ic_check_circle"
                                     app:tint="@color/white" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -640,6 +631,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/course_take_text_view"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="5"
                                 android:textColor="@color/bright_orange"
@@ -651,7 +643,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
-                                android:text="Courses"
+                                android:text="@string/title_courses"
                                 android:textColor="@color/contentTextColor"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -666,6 +658,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/quiz_take_text_view"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="12"
                                 android:textColor="@color/bright_orange"
@@ -677,33 +670,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
-                                android:text="Quizzes"
-                                android:textColor="@color/contentTextColor"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="3"
-                                android:textColor="@color/bright_orange"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:fontFamily="sans-serif"
-                                android:text="Badges"
+                                android:text="@string/title_quiz"
                                 android:textColor="@color/contentTextColor"
                                 android:textSize="14sp" />
                         </LinearLayout>
