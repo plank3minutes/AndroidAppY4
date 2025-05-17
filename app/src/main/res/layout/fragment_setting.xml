@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.menuprofile.SettingFragment"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="#F0F0F0">
+    android:background="@color/contentBodyColor">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="10dp"
-                android:background="@color/white"
+                android:background="@color/whiteBodyColor"
                 app:cardElevation="10dp">
 
                 <RelativeLayout
@@ -39,14 +39,14 @@
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground"
                         android:src="@drawable/ic_back"
-                        app:tint="@color/black" />
+                        app:tint="@color/darkTextColor" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/title_setting"
-                        android:textColor="@color/black"
+                        android:textColor="@color/darkTextColor"
                         android:textSize="20sp" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:text="@string/title_theme"
-                            android:textColor="@color/black"
+                            android:textColor="@color/darkTextColor"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -115,7 +115,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:text="@string/title_font"
-                            android:textColor="@color/black"
+                            android:textColor="@color/darkTextColor"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -147,7 +147,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:text="@string/title_intro"
-                            android:textColor="@color/black"
+                            android:textColor="@color/darkTextColor"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

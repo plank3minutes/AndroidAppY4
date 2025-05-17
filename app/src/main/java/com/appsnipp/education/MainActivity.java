@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,13 +68,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setAppTheme() {
         darkModePrefManager = new DarkModePrefManager(this);
-        boolean isDarkModeEnabled = darkModePrefManager.isNightMode();
-        if (isDarkModeEnabled) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
+        darkModePrefManager.applyTheme();
     }
 
     @Nullable
@@ -219,11 +215,10 @@ public class MainActivity extends AppCompatActivity
         AppLogger.d("toggleDarkMode init");
         boolean isDarkModeEnabled = darkModePrefManager.isNightMode();
         darkModePrefManager.setDarkMode(!isDarkModeEnabled);
-//        recreate();
-
-        startActivity(new Intent(MainActivity.this, MainActivity.class));
-        finish();
-        overridePendingTransition(0, 0);
-
+        
+        // Apply theme change with a slight delay for smoother transition
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            darkModePrefManager.applyTheme();
+        }, 100);
     }
 }

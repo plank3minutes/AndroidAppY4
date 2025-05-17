@@ -3,6 +3,9 @@ package com.appsnipp.education.ui.menuprofile;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
@@ -15,25 +18,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.appsnipp.education.R;
+import com.appsnipp.education.ui.utils.helpers.DarkModePrefManager;
 
 public class SettingFragment extends Fragment {
 
     private ImageView backSettingImageView;
     private CardView themeCardView;
-    private SharedPreferences sharedPreferences;
-    private static final String PREF_NAME = "settings_pref";
-    private static final String KEY_THEME = "theme_mode";
+    private DarkModePrefManager darkModePrefManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-        // Initialize SharedPreferences
-        sharedPreferences = requireContext().getSharedPreferences(PREF_NAME, 0);
-
-        // Apply saved theme
-        applySavedTheme();
+        // Initialize DarkModePrefManager
+        darkModePrefManager = new DarkModePrefManager(requireContext());
 
         // Views
         backSettingImageView = view.findViewById(R.id.back_setting_img_view_id);
@@ -52,28 +51,24 @@ public class SettingFragment extends Fragment {
 
     private void showThemeDialog() {
         final String[] themes = {"Light", "Dark"};
+        int currentTheme = darkModePrefManager.isNightMode() ? 1 : 0;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Choose Theme")
-                .setItems(themes, (dialog, which) -> {
-                    if (which == 0) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                        saveThemeMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    } else if (which == 1) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        saveThemeMode(AppCompatDelegate.MODE_NIGHT_YES);
+                .setSingleChoiceItems(themes, currentTheme, (dialog, which) -> {
+                    boolean isDarkMode = which == 1;
+                    if (isDarkMode != darkModePrefManager.isNightMode()) {
+                        darkModePrefManager.setDarkMode(isDarkMode);
+                        // Delay theme change slightly for smoother transition
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            if (isAdded()) {
+                                darkModePrefManager.applyTheme();
+                            }
+                        }, 100);
                     }
+                    dialog.dismiss();
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
-    }
-
-    private void saveThemeMode(int mode) {
-        sharedPreferences.edit().putInt(KEY_THEME, mode).apply();
-    }
-
-    private void applySavedTheme() {
-        int savedMode = sharedPreferences.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
-        AppCompatDelegate.setDefaultNightMode(savedMode);
     }
 }

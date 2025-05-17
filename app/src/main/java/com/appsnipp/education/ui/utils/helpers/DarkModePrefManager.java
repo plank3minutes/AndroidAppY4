@@ -6,6 +6,7 @@ package com.appsnipp.education.ui.utils.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import androidx.appcompat.app.AppCompatDelegate;
 
 
 public class DarkModePrefManager {
@@ -28,13 +29,20 @@ public class DarkModePrefManager {
         editor = pref.edit();
     }
 
-    public void setDarkMode(boolean isFirstTime) {
-        editor.putBoolean(IS_NIGHT_MODE, isFirstTime);
-        editor.apply();
+    public void setDarkMode(boolean isDarkMode) {
+        editor.putBoolean(IS_NIGHT_MODE, isDarkMode);
+        editor.commit(); // Using commit for immediate effect
     }
 
     public boolean isNightMode() {
         return pref.getBoolean(IS_NIGHT_MODE, false);
     }
 
+    public void applyTheme() {
+        if (isNightMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 }
