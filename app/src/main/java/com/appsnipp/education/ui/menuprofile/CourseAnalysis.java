@@ -4,6 +4,7 @@
 
 package com.appsnipp.education.ui.menuprofile;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.ui.base.BaseFragment;
@@ -84,6 +86,10 @@ public class CourseAnalysis extends BaseFragment {
 
         // Set up back button
         ImageButton btnBack = view.findViewById(R.id.btnBack);
+        // Set the tint color to contentTextColor
+        btnBack.setImageTintList(ColorStateList.valueOf(
+            ContextCompat.getColor(requireContext(), R.color.contentTextColor)));
+            
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
