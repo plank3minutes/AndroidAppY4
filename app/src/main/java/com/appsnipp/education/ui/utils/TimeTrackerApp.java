@@ -88,7 +88,7 @@ public class TimeTrackerApp {
     }
 
     public int getDayOfWeek(String dateString) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         try {
             Date date = format.parse(dateString);
             Calendar calendar = Calendar.getInstance();
@@ -100,17 +100,10 @@ public class TimeTrackerApp {
         }
     }
 
-    private void clearDataLastWeek(SharedPreferences prefs) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor
-                .putInt("MONDAY_TIME_ONLINE", 0)
-                .putInt("TUESDAY_TIME_ONLINE", 0)
-                .putInt("WEDNESDAY_TIME_ONLINE", 0)
-                .putInt("THURSDAY_TIME_ONLINE", 0)
-                .putInt("FRIDAY_TIME_ONLINE", 0)
-                .putInt("SATURDAY_TIME_ONLINE", 0)
-                .putInt("SUNDAY_TIME_ONLINE", 0);
-        editor.commit();
+    private void clearDataLastWeek(SharedPreferences.Editor editor) {
+        for (int i = 1; i < 8; i++) {
+            editor.putInt(i + "_TIME_ONLINE", 0);
+        }
     }
 
     public int getTimeOnlineByDay(int dayOfWeek) {
@@ -125,31 +118,47 @@ public class TimeTrackerApp {
 
     private void initAndUpdateInRealTime() {
         SharedPreferences prefs = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String todayString = getCurrentDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+        String todayString = sdf.format(new Date());
         String lastDateString = prefs.getString(KEY_LAST_TRACK_DATE, "");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         Date lastDate = null;
         try {
-            lastDate = sdf.parse(lastDateString);
+            lastDate = lastDateString.isEmpty() ? null : sdf.parse(lastDateString);
         } catch (ParseException e) {
-            Log.e(TAG, "TimeTrackerApp: ", e);
+            Log.e(TAG, "Failed to parse lastDateString: " + lastDateString, e);
+        }
+
+        // Nếu lastDate không hợp lệ, gán mặc định là ngày hôm nay
+        if (lastDate == null) {
             lastDate = new Date();
         }
 
+        SharedPreferences.Editor editor = prefs.edit();
+        // Nếu ngày hôm nay khác ngày lưu lần trước, cần cập nhật lại dữ liệu
         if (!todayString.equals(lastDateString)) {
-            prefs.edit()
-                    .putString(KEY_LAST_TRACK_DATE, todayString).commit();
+            editor.putString(KEY_LAST_TRACK_DATE, todayString);
+
+            // Kiểm tra nếu lastDate nằm trước tuần hiện tại, xóa dữ liệu tuần trước
             if (lastDate.before(getDayWeekStart())) {
-                clearDataLastWeek(prefs);
+                clearDataLastWeek(editor);  // Sửa clearDataLastWeek nhận editor để gom commit
             } else {
+                // Lưu thời gian online của ngày trước vào key riêng theo thứ
                 String previousTimeOnlineKey = getDayOfWeek(lastDateString) + "_TIME_ONLINE";
-                prefs.edit().putInt(previousTimeOnlineKey, prefs.getInt(KEY_SECONDS, 0)).commit();
+                System.out.println(previousTimeOnlineKey);
+                int seconds = prefs.getInt(KEY_SECONDS, 0);
+                editor.putInt(previousTimeOnlineKey, seconds);
             }
-            prefs.edit().putInt(KEY_SECONDS, 0).commit();
+            // Reset thời gian online cho ngày hôm nay
+            editor.putInt(KEY_SECONDS, 0);
+            editor.apply();
+
             secondsElapsed = 0;
         } else {
+            // Vẫn trong ngày, lấy lại số giây đã tính
             secondsElapsed = prefs.getInt(KEY_SECONDS, 0);
+            editor.putString(KEY_LAST_TRACK_DATE, todayString);
         }
     }
 }
