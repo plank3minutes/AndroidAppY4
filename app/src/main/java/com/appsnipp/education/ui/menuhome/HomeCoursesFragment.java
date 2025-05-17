@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentHomeCoursesBinding;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.UserProgress;
@@ -28,7 +28,7 @@ import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 
 import java.util.Date;
 
-public class HomeCoursesFragment extends Fragment implements ItemClickListener<Course> {
+public class HomeCoursesFragment extends BaseFragment implements ItemClickListener<Course> {
 
     private FragmentHomeCoursesBinding binding;
     private PopularCoursesAdapter popularCoursesAdapter;

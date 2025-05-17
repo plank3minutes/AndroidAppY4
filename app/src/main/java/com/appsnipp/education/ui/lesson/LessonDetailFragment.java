@@ -16,13 +16,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Transaction;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentLessonDetailBinding;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.UserProgress;
@@ -34,7 +34,7 @@ import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 import java.util.Date;
 import java.util.List;
 
-public class LessonDetailFragment extends Fragment {
+public class LessonDetailFragment extends BaseFragment {
 
     private FragmentLessonDetailBinding binding;
     private CourseViewModel courseViewModel;

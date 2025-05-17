@@ -15,13 +15,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentCoursesStaggedBinding;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.utils.MyUtilsApp;
@@ -30,7 +30,7 @@ import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 
 import java.util.List;
 
-public class CoursesStaggedFragment extends Fragment implements ItemClickListener<Course> {
+public class CoursesStaggedFragment extends BaseFragment implements ItemClickListener<Course> {
 
     private FragmentCoursesStaggedBinding binding;
     private CourseRecyclerAdapter adapter;
