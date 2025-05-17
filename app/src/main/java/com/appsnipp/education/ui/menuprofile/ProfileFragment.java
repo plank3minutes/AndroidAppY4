@@ -197,16 +197,14 @@ public class ProfileFragment extends Fragment {
     }
 
     private int getColor(int time) {
+        boolean isDarkMode = (getResources().getConfiguration().uiMode & 
+            android.content.res.Configuration.UI_MODE_NIGHT_MASK) == 
+            android.content.res.Configuration.UI_MODE_NIGHT_YES;
+
         if (time == 0) {
-            return Color.parseColor("#E0E0E0");
-        } else if (time <= 300) {
-            return Color.GREEN;
-        } else if(time <= 600) {
-            return Color.YELLOW;
-        } else if(time <= 900) {
-            return Color.BLUE;
+            return isDarkMode ? Color.parseColor("#3A3A3A") : Color.parseColor("#E0E0E0");
         } else {
-            return Color.RED;
+            return isDarkMode ? Color.parseColor("#FF5722") : Color.parseColor("#FF0000");
         }
     }
 

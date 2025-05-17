@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F0"
+    android:background="#1A1D2E"
     tools:context=".MainActivity">
 
     <!-- Profile Header -->
@@ -12,7 +12,7 @@
         android:id="@+id/profileHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_background"
+        android:background="#1A1D2E"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:background="@drawable/round_small_border"
+                android:background="#252836"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -108,6 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:text="@string/time_tracker"
+                    android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -145,6 +146,7 @@
                             android:layout_weight="1"
                             android:gravity="start"
                             android:text="0"
+                            android:textColor="#9A9A9A"
                             android:textSize="12sp" />
 
                         <!-- Mốc 10 phút -->
@@ -154,6 +156,7 @@
                             android:layout_weight="1"
                             android:gravity="start"
                             android:text="5"
+                            android:textColor="#9A9A9A"
                             android:textSize="12sp" />
 
                         <!-- Mốc 20 phút -->
@@ -163,6 +166,7 @@
                             android:layout_weight="1"
                             android:gravity="start"
                             android:text="10"
+                            android:textColor="#9A9A9A"
                             android:textSize="12sp" />
 
                         <TextView
@@ -171,6 +175,7 @@
                             android:layout_weight="1"
                             android:gravity="start"
                             android:text="15"
+                            android:textColor="#9A9A9A"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -198,6 +203,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bariol_bold"
                             android:text="@string/monday"
+                            android:textColor="#FFFFFF"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -219,6 +225,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bariol_bold"
                             android:text="@string/tuesday"
+                            android:textColor="#FFFFFF"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -240,6 +247,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bariol_bold"
                             android:text="@string/wednesday"
+                            android:textColor="#FFFFFF"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -261,6 +269,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bariol_bold"
                             android:text="@string/thursday"
+                            android:textColor="#FFFFFF"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -282,6 +291,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bariol_bold"
                             android:text="@string/friday"
+                            android:textColor="#FFFFFF"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -303,6 +313,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bariol_bold"
                             android:text="@string/saturday"
+                            android:textColor="#FFFFFF"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -324,6 +335,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bariol_bold"
                             android:text="@string/sunday"
+                            android:textColor="#FFFFFF"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -335,7 +347,7 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="6dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="#252836"
                 android:foreground="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true">
@@ -358,8 +370,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/course_analysis"
+                        android:textColor="#FFFFFF"
                         android:textSize="25sp"
-                        android:textColor="@color/black"
                         android:fontFamily="@font/bariol_regular"
                         android:paddingStart="12dp"/>
                 </LinearLayout>
@@ -372,7 +384,7 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="6dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="#252836"
                 android:foreground="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true">
@@ -395,8 +407,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/quiz_result"
+                        android:textColor="#FFFFFF"
                         android:textSize="25sp"
-                        android:textColor="@color/black"
                         android:fontFamily="@font/bariol_regular"
                         android:paddingStart="12dp"/>
                 </LinearLayout>

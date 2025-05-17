@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.menuprofile.SettingFragment"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="#F0F0F0">
+    android:background="@color/contentBodyColor">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="10dp"
-                android:background="@color/white"
+                android:background="@color/whiteBodyColor"
                 app:cardElevation="10dp">
 
                 <RelativeLayout
@@ -40,14 +39,14 @@
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground"
                         android:src="@drawable/ic_back"
-                        app:tint="@color/black" />
+                        app:tint="@color/darkTextColor" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/title_setting"
-                        android:textColor="@color/black"
+                        android:textColor="@color/darkTextColor"
                         android:textSize="20sp" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -58,6 +57,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_theme_setting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -83,14 +83,15 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:text="@string/title_theme"
-                            android:textColor="@color/black"
+                            android:textColor="@color/darkTextColor"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_font_setting"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:clickable="true"
                     android:elevation="6dp"
@@ -114,14 +115,15 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:text="@string/title_font"
-                            android:textColor="@color/black"
+                            android:textColor="@color/darkTextColor"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_intro_setting"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:clickable="true"
                     android:elevation="6dp"
@@ -145,12 +147,11 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:text="@string/title_intro"
-                            android:textColor="@color/black"
+                            android:textColor="@color/darkTextColor"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </FrameLayout>
