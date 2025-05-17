@@ -24,6 +24,7 @@ public class SettingFragment extends BaseFragment {
     private ImageView backSettingImageView;
     private CardView themeCardView;
     private CardView fontCardView;
+    private CardView introCardView;
     private DarkModePrefManager darkModePrefManager;
     private FontSizePrefManager fontSizePrefManager;
 
@@ -40,6 +41,7 @@ public class SettingFragment extends BaseFragment {
         backSettingImageView = view.findViewById(R.id.back_setting_img_view_id);
         themeCardView = view.findViewById(R.id.card_theme_setting);
         fontCardView = view.findViewById(R.id.card_font_setting);
+        introCardView = view.findViewById(R.id.card_intro_setting);
 
         // Back button
         backSettingImageView.setOnClickListener(v ->
@@ -51,6 +53,9 @@ public class SettingFragment extends BaseFragment {
 
         // Font size selection
         fontCardView.setOnClickListener(v -> showFontSizeDialog());
+
+        // Introduction dialog
+        introCardView.setOnClickListener(v -> showIntroductionDialog());
 
         return view;
     }
@@ -114,6 +119,15 @@ public class SettingFragment extends BaseFragment {
                     requireActivity().recreate();
                 })
                 .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void showIntroductionDialog() {
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_introduction, null);
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setView(dialogView)
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                 .show();
     }
 }
