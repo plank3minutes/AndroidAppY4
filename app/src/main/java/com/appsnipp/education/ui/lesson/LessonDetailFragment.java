@@ -4,6 +4,7 @@
 
 package com.appsnipp.education.ui.lesson;
 
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -139,6 +140,12 @@ public class LessonDetailFragment extends Fragment {
         }
     }
 
+    private boolean isDarkThemeEnabled() {
+        int nightModeFlags =
+                getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
     private void setupLessonContent(Lesson lesson) {
         binding.lessonToolbar.setTitle(lesson.getTitle());
         binding.textLessonTitle.setText(lesson.getTitle());
@@ -152,12 +159,19 @@ public class LessonDetailFragment extends Fragment {
         webSettings.setBuiltInZoomControls(false); // Cho phép zoom nếu cần
         webSettings.setDisplayZoomControls(false); // Ẩn nút zoom
 
+        int bgColorInt = getResources().getColor(R.color.card_background);
+        int textColorInt = getResources().getColor(R.color.contentTextColor);
+
+        // Chuyển sang mã HEX để dùng trong HTML
+        String bgColor = String.format("#%06X", (0xFFFFFF & bgColorInt));
+        String textColor = String.format("#%06X", (0xFFFFFF & textColorInt));
+
         String htmlContent = "<!DOCTYPE html>" +
                 "<html>" +
                 "<head>" +
                 "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
                 "<style>" +
-                "body { background-color: #2A2E45; color: #FFFFFF; font-family: Arial, sans-serif; margin: 20px; text-align:justify;}" +
+                "body { background-color: " + bgColor + " ; color: " + textColor + " ; font-family: Arial, sans-serif; margin: 20px; text-align:justify;}" +
                 "img { max-width: 100%; height: auto; }" +
                 "</style>" +
                 "</head>" +
