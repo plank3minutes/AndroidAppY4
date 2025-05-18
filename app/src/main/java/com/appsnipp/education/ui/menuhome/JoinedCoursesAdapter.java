@@ -1,119 +1,120 @@
 package com.appsnipp.education.ui.menuhome;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.appsnipp.education.data.repository.ProgressRepository;
 import com.appsnipp.education.databinding.JoinedCourseCardBinding;
-import com.appsnipp.education.ui.base.BaseViewHolder;
+import com.appsnipp.education.databinding.SeeAllCardBinding;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.UserProgress;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
-import java.util.logging.Logger;
-
 
 public class JoinedCoursesAdapter
-        extends RecyclerView.Adapter<BaseViewHolder<Course>> {
+        extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    final Context mContext;
+    private static final int VIEW_TYPE_COURSE = 0;
+    private static final int VIEW_TYPE_SEE_ALL = 1;
+
     private final ItemClickListener<Course> itemClickListener;
-    private List<Course> mCoursesList;
+    private List<Pair<Course, UserProgress>> items;
 
-    public JoinedCoursesAdapter(Context mContext, List<Course> mData, ItemClickListener<Course> listener) {
-        this.mCoursesList = mData;
-        this.mContext = mContext;
+    public JoinedCoursesAdapter(List<Pair<Course, UserProgress>> items, ItemClickListener<Course> listener) {
+        this.items = items;
         this.itemClickListener = listener;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setListDataItems(List<Course> listItems) {
-        this.mCoursesList = listItems;
+    public void setListDataItems(List<Pair<Course, UserProgress>> listItems) {
+        this.items = listItems;
         notifyDataSetChanged();
-        Logger.getLogger(JoinedCoursesAdapter.class.getName()).info("setListDataItems: " + listItems);
     }
 
     @Override
     public int getItemCount() {
-        return mCoursesList == null ? 0 : mCoursesList.size();
+        return items == null ? 0 : items.size() >= 2 ? items.size() + 1 : items.size();
     }
 
     @Override
-    public long getItemId(int position) {
-        Course course = mCoursesList.get(position);
-        return Long.parseLong(course.getId());
-    }
-
-    @NotNull
-    @Override
-    public BaseViewHolder<Course> onCreateViewHolder(@NotNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        JoinedCourseCardBinding binding = JoinedCourseCardBinding.inflate(inflater, viewGroup, false);
-
-        return new ViewHolder(binding, ProgressRepository.getInstance(mContext));
-    }
-
-
-    @Override
-    public void onBindViewHolder(@NotNull BaseViewHolder<Course> holder, int i) {
-        Course item = mCoursesList.get(i);
-
-        if (item != null) {
-            holder.bind(item);
-            holder.itemView.setOnClickListener(v -> {
-                ViewHolder viewHolder = (ViewHolder) holder;
-                itemClickListener.onItemClick(item, viewHolder.getItemCardBinding().imvCoursePhoto);
-            });
+    public int getItemViewType(int position) {
+        if (position == items.size()) {
+            return VIEW_TYPE_SEE_ALL; // Last item is "See All"
+        } else {
+            return VIEW_TYPE_COURSE;   // Normal course item
         }
     }
 
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-    public static class ViewHolder extends BaseViewHolder<Course> {
-        private final JoinedCourseCardBinding binding;
-        private final ProgressRepository progressRepository;
+        if (viewType == VIEW_TYPE_SEE_ALL) {
+            SeeAllCardBinding binding = SeeAllCardBinding.inflate(inflater, parent, false);
+            return new SeeAllViewHolder(binding);
+        } else {
+            JoinedCourseCardBinding binding = JoinedCourseCardBinding.inflate(inflater, parent, false);
+            return new JoinedCourseViewHolder(binding);
+        }
+    }
 
-        public ViewHolder(JoinedCourseCardBinding binding, ProgressRepository progressRepository) {
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (position == items.size()) {
+            ((SeeAllViewHolder) holder).bind(itemClickListener);
+        } else {
+            Pair<Course, UserProgress> item = items.get(position);
+            ((JoinedCourseViewHolder) holder).bind(item, itemClickListener);
+        }
+    }
+
+    public static class SeeAllViewHolder extends RecyclerView.ViewHolder {
+        SeeAllCardBinding binding;
+
+        public SeeAllViewHolder(SeeAllCardBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            this.progressRepository = progressRepository;
         }
 
-        public JoinedCourseCardBinding getItemCardBinding() {
-            return binding;
+        public void bind(ItemClickListener<Course> itemClickListener) {
+            itemView.setOnClickListener(v -> itemClickListener.onItemClick(null, null));
+        }
+    }
+
+    public static class JoinedCourseViewHolder extends RecyclerView.ViewHolder {
+        JoinedCourseCardBinding binding;
+
+        public JoinedCourseViewHolder(JoinedCourseCardBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
-        @Override
-        public void bind(Course course) {
-            List<UserProgress> progresses = progressRepository.getAllUserProgress().getValue();
-
-            // TODO: Figure out why it not work with getUserProgressByCourseId
-            UserProgress progress = progresses.stream()
-                    .filter(p -> p.getCourseId().equals(course.getId()))
-                    .findFirst()
-                    .orElse(null);
-
-            if (progress == null) {
-                return;
-            }
+        public void bind(Pair<Course, UserProgress> item, ItemClickListener<Course> itemClickListener) {
+            Course course = item.first;
+            UserProgress progress = item.second;
 
             int completionPercentage = (progress.getCompletedLessons() * 100) / course.getLessons().size();
+            String progressText = completionPercentage + "% Completed";
 
             binding.tvCourseTitle.setText(course.getCourseTitle());
             binding.progressBar.setProgress(completionPercentage);
-            binding.tvPercentage.setText(completionPercentage + "% Completed");
+            binding.tvPercentage.setText(progressText);
             Glide.with(itemView.getContext())
                     .load(course.getImageResource())
                     .apply(new RequestOptions().centerCrop())
                     .into(binding.imvCoursePhoto);
+
+            itemView.setOnClickListener(v -> {
+                itemClickListener.onItemClick(course, binding.imvCoursePhoto);
+            });
         }
     }
 }

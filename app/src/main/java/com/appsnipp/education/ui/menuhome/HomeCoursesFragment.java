@@ -1,6 +1,7 @@
 package com.appsnipp.education.ui.menuhome;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.utils.MyUtilsApp;
+import com.appsnipp.education.ui.utils.OnBottomNavTabSelected;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 
@@ -31,7 +33,7 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
     private JoinedCoursesAdapter joinedCoursesAdapter;
     private BookmarkedCoursesAdapter bookmarkedCoursesAdapter;
     private ProgressViewModel progressViewModel;
-    private CourseViewModel viewModel;
+    private CourseViewModel courseViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -50,19 +52,16 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
 
     private void setupRecyclerViews() {
         popularCoursesAdapter = new PopularCoursesAdapter(
-                requireContext(),
                 null,
                 this
         );
 
         joinedCoursesAdapter = new JoinedCoursesAdapter(
-                requireContext(),
                 null,
                 this
         );
 
         bookmarkedCoursesAdapter = new BookmarkedCoursesAdapter(
-                requireContext(),
                 null,
                 this
         );
@@ -73,18 +72,23 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
     }
 
     private void setupViewModel() {
-        viewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
+        courseViewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
+        progressViewModel = new ViewModelProvider(requireActivity()).get(ProgressViewModel.class);
 
-        viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+        courseViewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
             popularCoursesAdapter.setListDataItems(courses);
         });
 
-        progressViewModel = new ViewModelProvider(requireActivity()).get(ProgressViewModel.class);
-
         progressViewModel.getAllUserProgress().observe(getViewLifecycleOwner(), progresses -> {
             if (progresses != null && !progresses.isEmpty()) {
-                List<Course> joinedCourses = progresses.stream().filter(o -> o.getCompletedLessons() > 0).map(o -> viewModel.getCourseById(o.getCourseId()).getValue()).collect(Collectors.toList());
-                List<Course> markedCourses = progresses.stream().filter(UserProgress::isMarked).map(o -> viewModel.getCourseById(o.getCourseId()).getValue()).collect(Collectors.toList());
+                List<Pair<Course, UserProgress>> joinedCourses = progresses.stream()
+                        .filter(o -> o.getCompletedLessons() > 0)
+                        .map(o -> Pair.create(courseViewModel.getCourseById(o.getCourseId()).getValue(), o))
+                        .collect(Collectors.toList());
+                List<Course> markedCourses = progresses.stream()
+                        .filter(UserProgress::isMarked)
+                        .map(o -> courseViewModel.getCourseById(o.getCourseId()).getValue())
+                        .collect(Collectors.toList());
 
                 if (!markedCourses.isEmpty()) {
                     binding.vBookmarkedCourses.setVisibility(View.VISIBLE);
@@ -112,7 +116,7 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
 
         progressViewModel.getLatestUserProgress().observe(getViewLifecycleOwner(), progress -> {
             if (progress != null) {
-                viewModel.getCourseById(progress.getCourseId()).observe(getViewLifecycleOwner(), course -> {
+                courseViewModel.getCourseById(progress.getCourseId()).observe(getViewLifecycleOwner(), course -> {
                     // Cập nhật UI với dữ liệu progress
                     updateProgressUI(progress, course);
                 });
@@ -138,10 +142,17 @@ public class HomeCoursesFragment extends Fragment implements ItemClickListener<C
 
     @Override
     public void onItemClick(Course course, ImageView imageView) {
-        Bundle args = new Bundle();
-        args.putString("courseId", course.getId());
-        NavHostFragment.findNavController(this)
-                .navigate(R.id.action_homeCoursesFragment_to_courseDetailFragment, args);
+        if (course == null) {
+            if (getActivity() instanceof OnBottomNavTabSelected) {
+                ((OnBottomNavTabSelected) getActivity())
+                        .switchToTab(R.id.coursesStaggedFragment); // ← switch tab here
+            }
+        } else {
+            Bundle args = new Bundle();
+            args.putString("courseId", course.getId());
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_homeCoursesFragment_to_courseDetailFragment, args);
+        }
     }
 
     @Override

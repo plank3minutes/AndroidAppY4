@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,11 +17,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.appsnipp.education.databinding.ActivityMainBinding;
+import com.appsnipp.education.ui.utils.OnBottomNavTabSelected;
 import com.appsnipp.education.ui.utils.helpers.BottomNavigationBehavior;
 import com.appsnipp.education.ui.utils.helpers.DarkModePrefManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnBottomNavTabSelected {
 
     DarkModePrefManager darkModePrefManager;
     ActivityMainBinding binding;
@@ -92,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void switchToTab(@IdRes int menuItemId) {
+        binding.appBarMain.bottomNavigationView.setSelectedItemId(menuItemId);
     }
 
     /*
