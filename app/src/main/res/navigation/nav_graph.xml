@@ -95,5 +95,8 @@
         android:name="com.appsnipp.education.ui.menuprofile.CourseAnalysis"
         android:label="fragment_course_analysis"
         tools:layout="@layout/fragment_course_analysis">
+        <action
+            android:id="@+id/action_courseListFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
     </fragment>
 </navigation>
