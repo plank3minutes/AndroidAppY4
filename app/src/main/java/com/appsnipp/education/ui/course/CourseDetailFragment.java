@@ -60,6 +60,7 @@ public class CourseDetailFragment extends BaseFragment {
         setupRecyclerView();
         setupButtonListeners();
         observeCourseData();
+        updateLastAccessed(courseId);
     }
 
     private void setupToolbar() {
@@ -178,9 +179,15 @@ public class CourseDetailFragment extends BaseFragment {
         if (currentCourse != null && currentCourse.getLessonCount() > 0) {
             completionPercentage = (progress.getCompletedLessons() * 100) / currentCourse.getLessonCount();
         }
+        if (completionPercentage >= 100) {
+            binding.buttonContinue.setEnabled(false);
+            binding.buttonContinue.setAlpha(0.5f);
+            binding.buttonContinue.setText(R.string.completed);
+        }
         binding.progressBarCourse.setProgress(completionPercentage);
         binding.textProgress.setText(getString(R.string.percentage_course, completionPercentage));
     }
+
 
     private final LessonAdapter.LessonListener lessonListener = new LessonAdapter.LessonListener() {
         @Override
@@ -192,6 +199,10 @@ public class CourseDetailFragment extends BaseFragment {
             }
         }
     };
+
+    public void updateLastAccessed(String courseId) {
+        progressViewModel.updateLastAccess(courseId);
+    }
 
     @Override
     public void onDestroyView() {

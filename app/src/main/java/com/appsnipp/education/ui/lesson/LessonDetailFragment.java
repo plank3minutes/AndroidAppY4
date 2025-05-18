@@ -79,7 +79,6 @@ public class LessonDetailFragment extends BaseFragment {
         setupViewModels();
         observeData();
         setupButtonListeners();
-        updateLastAccessed(courseId);
     }
 
     @Override
@@ -363,7 +362,6 @@ public class LessonDetailFragment extends BaseFragment {
     public void updateLastAccessed(String courseId) {
         progressViewModel.updateLastAccess(courseId);
     }
-
 
     @Transaction
     private void markLessonAsComplete() {
