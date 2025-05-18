@@ -31,13 +31,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.data.repository.CourseRepository;
+import com.appsnipp.education.data.repository.LessonStatusRepository;
 import com.appsnipp.education.data.repository.ProgressRepository;
 import com.appsnipp.education.ui.adapter.CourseStatAdapter;
 import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.course.CourseDetailFragment;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.CourseStat;
+import com.appsnipp.education.ui.model.LessonStatus;
 import com.appsnipp.education.ui.model.UserProgress;
+import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.viewmodel.CourseStatViewModel;
 
 import java.util.ArrayList;
@@ -61,6 +64,9 @@ public class CourseAnalysis extends BaseFragment{
     private TextView inProgressEmptyTv;
     private TextView notJoinEmptyTv;
     private CourseStatViewModel viewModel;
+    private CourseRepository courseRepository;
+    private ProgressRepository progressRepository;
+    private LessonStatusRepository lessonStatusRepository;
 
     private final CourseStatAdapter.CourseStatListener listener = new CourseStatAdapter.CourseStatListener () {
         @Override
@@ -129,39 +135,13 @@ public class CourseAnalysis extends BaseFragment{
         completedEmptyTv = view.findViewById(R.id.completed_course_empty_tv);
         inProgressEmptyTv = view.findViewById(R.id.in_progress_course_empty_tv);
         notJoinEmptyTv = view.findViewById(R.id.not_join_course_empty_tv);
-        // Set up initial progress
-        setupProgressBars();
     }
 
     private void initViewModel() {
         this.viewModel = new CourseStatViewModel(requireActivity().getApplication());
-    }
-
-    private void setupProgressBars() {
-        try {
-            // Example values - replace these with actual progress values from your data
-            int courseProgress = 30; // Completed percentage
-            int courseInProgress = 40; // In progress percentage
-            
-            int quizProgress = 25; // Completed percentage
-            int quizInProgress = 35; // In progress percentage
-
-            // Set progress values for course progress
-            if (courseProgressBar != null) {
-                courseProgressBar.setMax(100);
-                courseProgressBar.setProgress(courseProgress);
-                courseProgressBar.setSecondaryProgress(courseProgress + courseInProgress);
-            }
-
-            // Set progress values for quiz progress
-            if (quizProgressBar != null) {
-                quizProgressBar.setMax(100);
-                quizProgressBar.setProgress(quizProgress);
-                quizProgressBar.setSecondaryProgress(quizProgress + quizInProgress);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.courseRepository = CourseRepository.getInstance(requireContext());
+        this.progressRepository = ProgressRepository.getInstance(requireContext());
+        this.lessonStatusRepository = LessonStatusRepository.getInstance(requireContext());
     }
 
     private void loadData() {
@@ -188,7 +168,55 @@ public class CourseAnalysis extends BaseFragment{
                 } else {
                     courseNotJoinRv.setAdapter(new CourseStatAdapter(courseStat.notJoinCourses, courseStat.notJoinProgress, listener));
                 }
+
+                // Update progress bars with real data
+                updateProgressBars(courseStat);
             }
         });
+    }
+
+    private void updateProgressBars(CourseStat courseStat) {
+        try {
+            // Calculate course progress
+            int totalCourses = courseStat.completedCourses.size() + 
+                             courseStat.inProgressCourses.size() + 
+                             courseStat.notJoinCourses.size();
+            
+            if (totalCourses > 0) {
+                int completedPercentage = (courseStat.completedCourses.size() * 100) / totalCourses;
+                int inProgressPercentage = (courseStat.inProgressCourses.size() * 100) / totalCourses;
+
+                // Set course progress values
+                courseProgressBar.setMax(100);
+                courseProgressBar.setProgress(completedPercentage);
+                courseProgressBar.setSecondaryProgress(completedPercentage + inProgressPercentage);
+            }
+
+            // Calculate quiz progress
+            lessonStatusRepository.getQuizTaken().observe(getViewLifecycleOwner(), quizzesTaken -> {
+                courseRepository.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+                    int totalQuizzes = 0;
+                    for (Course course : courses) {
+                        for (Lesson lesson : course.getLessons()) {
+                            if (lesson.getQuiz() != null) {
+                                totalQuizzes++;
+                            }
+                        }
+                    }
+
+                    if (totalQuizzes > 0 && quizzesTaken != null) {
+                        int quizProgress = (quizzesTaken * 100) / totalQuizzes;
+                        
+                        // Set quiz progress values
+                        quizProgressBar.setMax(100);
+                        quizProgressBar.setProgress(quizProgress);
+                        // We don't have a way to track in-progress quizzes, so we'll only show completed ones
+                        quizProgressBar.setSecondaryProgress(quizProgress);
+                    }
+                });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
