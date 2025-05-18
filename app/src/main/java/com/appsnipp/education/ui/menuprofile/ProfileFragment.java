@@ -4,6 +4,7 @@
 
 package com.appsnipp.education.ui.menuprofile;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,7 +17,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
@@ -35,16 +35,11 @@ import com.appsnipp.education.R;
 import com.appsnipp.education.data.repository.CourseRepository;
 import com.appsnipp.education.data.repository.LessonStatusRepository;
 import com.appsnipp.education.data.repository.ProgressRepository;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.utils.TimeTrackerApp;
 
-import java.util.logging.Logger;
-
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
     private ProgressBar timeProgressBar;
     private Handler handler;
     private boolean isUpdating = false;
@@ -61,14 +56,20 @@ public class ProfileFragment extends Fragment {
     private TextView quizTakeTextView;
     private CardView courseAnalysisCardView;
     private CardView quizResultCardView;
+    private View rootView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        handler = new Handler(Looper.getMainLooper());
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         TimeTrackerApp app = TimeTrackerApp.getInstance(getContext());
-        initComponentView(view);
-        handler = new Handler(Looper.getMainLooper());
+        initComponentView(rootView);
 
         timeProgressBar.setProgress(app.getSecondsElapsed());
         updateProgressBarColor(app.getSecondsElapsed());
@@ -81,6 +82,13 @@ public class ProfileFragment extends Fragment {
 
         startUpdating();
 
+        setupClickListeners();
+        observeData();
+
+        return rootView;
+    }
+
+    private void setupClickListeners() {
         quizResultCardView.setOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_quiz_result_fragment);
         });
@@ -88,23 +96,47 @@ public class ProfileFragment extends Fragment {
         courseAnalysisCardView.setOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_profile_fragment_to_course_analysis_fragment);
         });
+    }
 
-        LiveData<Integer> courseTakenCount = ProgressRepository.getInstance(view.getContext()).getCourseTaken();
-        courseTakenCount.observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
+    private void observeData() {
+        LiveData<Integer> courseTakenCount = ProgressRepository.getInstance(requireContext()).getCourseTaken();
+        courseTakenCount.observe(getViewLifecycleOwner(), integer -> {
+            if (courseTakeTextView != null) {
                 courseTakeTextView.setText(String.valueOf(integer));
             }
         });
 
-        LiveData<Integer> quizTakenCount = LessonStatusRepository.getInstance(view.getContext()).getQuizTaken();
-        quizTakenCount.observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
+        LiveData<Integer> quizTakenCount = LessonStatusRepository.getInstance(requireContext()).getQuizTaken();
+        quizTakenCount.observe(getViewLifecycleOwner(), integer -> {
+            if (quizTakeTextView != null) {
                 quizTakeTextView.setText(String.valueOf(integer));
             }
         });
-        return view;
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Recreate views when configuration changes (including theme changes)
+        if (rootView != null) {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
+            rootView = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_profile, parent, false);
+            initComponentView(rootView);
+            observeData();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+        stopUpdating();
+        rootView = null;
     }
 
     private void startUpdating() {
@@ -113,18 +145,19 @@ public class ProfileFragment extends Fragment {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (isUpdating && isAdded()) {
+                    if (isUpdating && timeProgressBar != null) {
                         TimeTrackerApp app = TimeTrackerApp.getInstance(getContext());
-                        int secondsElapsed = app.getSecondsElapsed();
-                        timeProgressBar.setProgress(secondsElapsed);
-                        updateProgressBarColor(secondsElapsed);
-                        updateTimeOfWeek();
-                        textViewDate.setText(app.getToday());
+                        timeProgressBar.setProgress(app.getSecondsElapsed());
+                        updateProgressBarColor(app.getSecondsElapsed());
                         handler.postDelayed(this, 1000);
                     }
                 }
             });
         }
+    }
+
+    private void stopUpdating() {
+        isUpdating = false;
     }
 
     private void updateProgressBarColor(int secondsElapsed) {
@@ -238,12 +271,5 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        handler.removeCallbacksAndMessages(null);
-        isUpdating = false;
     }
 }
