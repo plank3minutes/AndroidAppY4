@@ -175,6 +175,12 @@ public class CourseAnalysis extends BaseFragment{
         });
     }
 
+    private static class QuizProgressHolder {
+        int totalQuizzes = 0;
+        int totalCompletedQuizzes = 0;
+        int totalInProgressQuizzes = 0;
+    }
+
     private void updateProgressBars(CourseStat courseStat) {
         try {
             // Calculate course progress
@@ -192,31 +198,82 @@ public class CourseAnalysis extends BaseFragment{
                 courseProgressBar.setSecondaryProgress(completedPercentage + inProgressPercentage);
             }
 
-            // Calculate quiz progress
-            lessonStatusRepository.getQuizTaken().observe(getViewLifecycleOwner(), quizzesTaken -> {
-                courseRepository.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
-                    int totalQuizzes = 0;
-                    for (Course course : courses) {
-                        for (Lesson lesson : course.getLessons()) {
-                            if (lesson.getQuiz() != null) {
-                                totalQuizzes++;
-                            }
-                        }
-                    }
+            // Calculate quiz progress using CourseStat data
+            QuizProgressHolder progressHolder = new QuizProgressHolder();
 
-                    if (totalQuizzes > 0 && quizzesTaken != null) {
-                        int quizProgress = (quizzesTaken * 100) / totalQuizzes;
-                        
-                        // Set quiz progress values
-                        quizProgressBar.setMax(100);
-                        quizProgressBar.setProgress(quizProgress);
-                        // We don't have a way to track in-progress quizzes, so we'll only show completed ones
-                        quizProgressBar.setSecondaryProgress(quizProgress);
+            // Count quizzes in completed courses
+            for (Course course : courseStat.completedCourses) {
+                for (Lesson lesson : course.getLessons()) {
+                    if (lesson.getQuiz() != null) {
+                        progressHolder.totalQuizzes++;
+                        progressHolder.totalCompletedQuizzes++; // All quizzes in completed courses are completed
                     }
-                });
-            });
+                }
+            }
+
+            // Count quizzes in not-joined courses (just for total count)
+            for (Course course : courseStat.notJoinCourses) {
+                for (Lesson lesson : course.getLessons()) {
+                    if (lesson.getQuiz() != null) {
+                        progressHolder.totalQuizzes++;
+                    }
+                }
+            }
+
+            // Initial progress bar update (will be updated again when in-progress courses are processed)
+            updateQuizProgressBar(progressHolder);
+
+            // Count quizzes in in-progress courses
+            for (Course course : courseStat.inProgressCourses) {
+                // Count quizzes in this course
+                int courseQuizCount = 0;
+                for (Lesson lesson : course.getLessons()) {
+                    if (lesson.getQuiz() != null) {
+                        courseQuizCount++;
+                    }
+                }
+
+                progressHolder.totalQuizzes += courseQuizCount;
+                
+                lessonStatusRepository.getLessonStatusByCourseId(course.getId())
+                    .observe(getViewLifecycleOwner(), lessonStatuses -> {
+                        if (lessonStatuses != null) {
+                            int completedQuizzes = 0;
+                            int inProgressQuizzes = 0;
+
+                            for (LessonStatus status : lessonStatuses) {
+                                if (status.getQuizScore() > 0) {
+                                    if (status.isCompleted() || status.getQuizScore() == 100) {
+                                        completedQuizzes++;
+                                    } else {
+                                        inProgressQuizzes++;
+                                    }
+                                }
+                            }
+
+                            // Update progress holder
+                            progressHolder.totalCompletedQuizzes += completedQuizzes;
+                            progressHolder.totalInProgressQuizzes += inProgressQuizzes;
+
+                            // Update progress bar
+                            updateQuizProgressBar(progressHolder);
+                        }
+                    });
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateQuizProgressBar(QuizProgressHolder holder) {
+        if (holder.totalQuizzes > 0) {
+            int completedPercentage = (holder.totalCompletedQuizzes * 100) / holder.totalQuizzes;
+            int inProgressPercentage = (holder.totalInProgressQuizzes * 100) / holder.totalQuizzes;
+
+            quizProgressBar.setMax(100);
+            quizProgressBar.setProgress(completedPercentage);
+            quizProgressBar.setSecondaryProgress(completedPercentage + inProgressPercentage);
         }
     }
 }
