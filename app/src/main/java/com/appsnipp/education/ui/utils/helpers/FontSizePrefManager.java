@@ -15,6 +15,10 @@ public class FontSizePrefManager {
     
     public FontSizePrefManager(Context context) {
         preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        // Ensure default font size is set when app is first installed
+        if (!preferences.contains(KEY_FONT_SIZE)) {
+            setFontSize(FONT_MEDIUM);
+        }
     }
     
     public void setFontSize(int size) {

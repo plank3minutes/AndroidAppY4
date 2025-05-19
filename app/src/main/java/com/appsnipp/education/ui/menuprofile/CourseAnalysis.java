@@ -152,21 +152,36 @@ public class CourseAnalysis extends BaseFragment{
                     courseCompletedRv.setVisibility(INVISIBLE);
                     completedEmptyTv.setVisibility(VISIBLE);
                 } else {
-                    courseCompletedRv.setAdapter(new CourseStatAdapter(courseStat.completedCourses, courseStat.completedProgress, listener));
+                    courseCompletedRv.setAdapter(new CourseStatAdapter(
+                        requireContext(),
+                        courseStat.completedCourses, 
+                        courseStat.completedProgress, 
+                        listener
+                    ));
                 }
 
                 if (courseStat.inProgressCourses.isEmpty()) {
                     courseInProgressRv.setVisibility(INVISIBLE);
                     inProgressEmptyTv.setVisibility(VISIBLE);
                 } else {
-                    courseInProgressRv.setAdapter(new CourseStatAdapter(courseStat.inProgressCourses, courseStat.inProgress, listener));
+                    courseInProgressRv.setAdapter(new CourseStatAdapter(
+                        requireContext(),
+                        courseStat.inProgressCourses, 
+                        courseStat.inProgress, 
+                        listener
+                    ));
                 }
 
                 if (courseStat.notJoinCourses.isEmpty()) {
                     courseNotJoinRv.setVisibility(INVISIBLE);
                     notJoinEmptyTv.setVisibility(VISIBLE);
                 } else {
-                    courseNotJoinRv.setAdapter(new CourseStatAdapter(courseStat.notJoinCourses, courseStat.notJoinProgress, listener));
+                    courseNotJoinRv.setAdapter(new CourseStatAdapter(
+                        requireContext(),
+                        courseStat.notJoinCourses, 
+                        courseStat.notJoinProgress, 
+                        listener
+                    ));
                 }
 
                 // Update progress bars with real data
