@@ -31,7 +31,7 @@ public class CourseViewModel extends AndroidViewModel {
         filteredCourses = new MutableLiveData<>(allCourses.getValue());
     }
 
-    public LiveData<List<Course>> getFilteredCourses() {
+    public MutableLiveData<List<Course>> getFilteredCourses() {
         return filteredCourses;
     }
 
