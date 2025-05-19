@@ -7,6 +7,7 @@ package com.appsnipp.education.ui.menucourses;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,8 @@ import com.appsnipp.education.databinding.ItemCardBinding;
 import com.appsnipp.education.ui.base.BaseViewHolder;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.Course;
+import com.appsnipp.education.ui.utils.FontSizeUtils;
+import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -30,11 +33,13 @@ public class CourseRecyclerAdapter extends
     final Context mContext;
     private List<Course> mData;
     private final ItemClickListener<Course> itemClickListener;
+    private final FontSizePrefManager fontSizePrefManager;
 
     public CourseRecyclerAdapter(Context mContext, List<Course> mData, ItemClickListener<Course> listener) {
         this.mData = mData;
         this.mContext = mContext;
         this.itemClickListener = listener;
+        this.fontSizePrefManager = new FontSizePrefManager(mContext);
     }
 
     public void setCourseCards(List<Course> courses) {
@@ -58,6 +63,11 @@ public class CourseRecyclerAdapter extends
             ViewHolder viewHolder = (ViewHolder) holder;
             itemClickListener.onItemClick(item, viewHolder.getItemCardBinding().cardViewImage);
         });
+        
+        // Áp dụng font size cho text trong ViewHolder
+        ViewHolder viewHolder = (ViewHolder) holder;
+        TextView courseTitle = viewHolder.getItemCardBinding().stagItemCourse;
+        FontSizeUtils.applyFontSize(courseTitle, fontSizePrefManager.getFontSize());
     }
 
     @Override

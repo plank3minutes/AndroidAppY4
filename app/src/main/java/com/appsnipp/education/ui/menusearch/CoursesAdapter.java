@@ -4,14 +4,18 @@
 
 package com.appsnipp.education.ui.menusearch;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.databinding.ItemPopularCourseBinding;
 import com.appsnipp.education.ui.model.Course;
+import com.appsnipp.education.ui.utils.FontSizeUtils;
+import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,9 +25,13 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
 
     private static ClickListener mClickListener;
     private List<Course> mCoursesList;
+    private final FontSizePrefManager fontSizePrefManager;
+    private final Context context;
 
-    public CoursesAdapter(ClickListener clickListener) {
+    public CoursesAdapter(Context context, ClickListener clickListener) {
         mClickListener = clickListener;
+        this.context = context;
+        this.fontSizePrefManager = new FontSizePrefManager(context);
     }
 
     public void setListDataItems(List<Course> listItems) {
@@ -52,6 +60,12 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
         Course item = mCoursesList.get(i);
         if (item != null) {
             viewHolder.bind(item);
+            
+            // Áp dụng font size cho text
+            TextView titleView = viewHolder.binding.tvTitleCourse;
+            TextView detailsView = viewHolder.binding.tvDetailsCourse;
+            FontSizeUtils.applyFontSize(titleView, fontSizePrefManager.getFontSize());
+            FontSizeUtils.applyFontSize(detailsView, fontSizePrefManager.getFontSize());
         }
     }
 

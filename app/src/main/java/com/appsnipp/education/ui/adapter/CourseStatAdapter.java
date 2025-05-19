@@ -4,6 +4,7 @@
 
 package com.appsnipp.education.ui.adapter;
 
+import android.content.Context;
 import android.location.GnssAntennaInfo;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.appsnipp.education.R;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.CourseStat;
 import com.appsnipp.education.ui.model.UserProgress;
+import com.appsnipp.education.ui.utils.FontSizeUtils;
+import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
 
 import java.util.List;
 
@@ -27,11 +30,15 @@ public class CourseStatAdapter extends RecyclerView.Adapter<CourseStatAdapter.Co
     private List<Course> courses;
     private List<Integer> progresses;
     private CourseStatListener listener;
+    private final FontSizePrefManager fontSizePrefManager;
+    private final Context context;
 
-    public CourseStatAdapter(List<Course> courses, List<Integer> progresses, CourseStatListener listener) {
+    public CourseStatAdapter(Context context, List<Course> courses, List<Integer> progresses, CourseStatListener listener) {
+        this.context = context;
         this.courses = courses;
         this.progresses = progresses;
         this.listener = listener;
+        this.fontSizePrefManager = new FontSizePrefManager(context);
     }
 
     @NonNull
@@ -50,6 +57,10 @@ public class CourseStatAdapter extends RecyclerView.Adapter<CourseStatAdapter.Co
         holder.courseIv.setImageResource(course.getImageResource());
         holder.progressBar.setProgress(progress);
         holder.linearLayout.setOnClickListener(v -> listener.onCourseStatClicked(course.getId()));
+
+        // Áp dụng font size cho text
+        FontSizeUtils.applyFontSize(holder.titleCourseTv, fontSizePrefManager.getFontSize());
+        FontSizeUtils.applyFontSize(holder.progressTv, fontSizePrefManager.getFontSize());
     }
 
     @Override

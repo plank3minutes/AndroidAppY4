@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2025. rogergcc
- */
+
 
 package com.appsnipp.education.ui.menuprofile;
 
@@ -16,7 +14,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
@@ -35,16 +32,21 @@ import com.appsnipp.education.R;
 import com.appsnipp.education.data.repository.CourseRepository;
 import com.appsnipp.education.data.repository.LessonStatusRepository;
 import com.appsnipp.education.data.repository.ProgressRepository;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.utils.TimeTrackerApp;
+import com.appsnipp.education.ui.utils.helpers.FontSizeChangeEvent;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.logging.Logger;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link BaseFragment} subclass.
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
     private ProgressBar timeProgressBar;
     private Handler handler;
     private boolean isUpdating = false;
@@ -59,6 +61,13 @@ public class ProfileFragment extends Fragment {
     private TextView textViewDate;
     private TextView courseTakeTextView;
     private TextView quizTakeTextView;
+    private TextView profileTitle;
+    private TextView timeTrackerTitle;
+    private TextView timeTrackerDesc;
+    private TextView courseAnalysisTitle;
+    private TextView courseAnalysisDesc;
+    private TextView quizResultTitle;
+    private TextView quizResultDesc;
     private CardView courseAnalysisCardView;
     private CardView quizResultCardView;
 
@@ -105,6 +114,22 @@ public class ProfileFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFontSizeChanged(FontSizeChangeEvent event) {
+        int newSize = event.getNewFontSize();
+        // Update text sizes
+        profileTitle.setTextSize(newSize + 12);
+        timeTrackerTitle.setTextSize(newSize);
+        timeTrackerDesc.setTextSize(newSize - 6);
+        courseAnalysisTitle.setTextSize(newSize);
+        courseAnalysisDesc.setTextSize(newSize - 6);
+        quizResultTitle.setTextSize(newSize);
+        quizResultDesc.setTextSize(newSize - 6);
+        courseTakeTextView.setTextSize(newSize);
+        quizTakeTextView.setTextSize(newSize);
+        textViewDate.setTextSize(newSize - 8);
     }
 
     private void startUpdating() {
@@ -192,6 +217,16 @@ public class ProfileFragment extends Fragment {
         courseAnalysisCardView = view.findViewById(R.id.course_analysis_card_view_id);
         courseTakeTextView = view.findViewById(R.id.course_take_text_view);
         quizTakeTextView = view.findViewById(R.id.quiz_take_text_view);
+        
+        // Initialize text views for font size changes
+        profileTitle = view.findViewById(R.id.profileTitle);
+        timeTrackerTitle = view.findViewById(R.id.time_tracker_title);
+        timeTrackerDesc = view.findViewById(R.id.time_tracker_desc);
+        courseAnalysisTitle = view.findViewById(R.id.course_analysis_title);
+        courseAnalysisDesc = view.findViewById(R.id.course_analysis_desc);
+        quizResultTitle = view.findViewById(R.id.quiz_result_title);
+        quizResultDesc = view.findViewById(R.id.quiz_result_desc);
+
         for(int i = 1; i < 8; i++) {
             switch (i) {
                 case 1:
@@ -223,15 +258,15 @@ public class ProfileFragment extends Fragment {
 
     private int getColor(int time) {
         if (time == 0) {
-            return Color.parseColor("#E0E0E0");
-        } else if (time <= 600) {
-            return Color.GREEN;
-        } else if(time <= 1200) {
-            return Color.YELLOW;
-        } else if(time <= 1800) {
-            return Color.BLUE;
+            return Color.parseColor("#EEEEEE");
+        } else if (time < 1800) {
+            return Color.parseColor("#9BE9A8");
+        } else if (time < 3600) {
+            return Color.parseColor("#40C463");
+        } else if (time < 5400) {
+            return Color.parseColor("#30A14E");
         } else {
-            return Color.RED;
+            return Color.parseColor("#216E39");
         }
     }
 
@@ -243,7 +278,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        handler.removeCallbacksAndMessages(null);
         isUpdating = false;
+        handler.removeCallbacksAndMessages(null);
     }
 }

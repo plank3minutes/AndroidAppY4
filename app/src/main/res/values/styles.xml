@@ -143,4 +143,16 @@
         <item name="android:textColor">@color/collapsing_toolbar_text_color</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
+
+    <style name="TextAppearance.App.Hint" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.App.Hint.Small" parent="TextAppearance.App.Hint">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.App.Hint.Large" parent="TextAppearance.App.Hint">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

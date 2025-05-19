@@ -18,6 +18,8 @@ import com.appsnipp.education.R;
 import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.utils.helpers.DarkModePrefManager;
 import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
+import com.appsnipp.education.ui.utils.helpers.FontSizeChangeEvent;
+import org.greenrobot.eventbus.EventBus;
 
 public class SettingFragment extends BaseFragment {
 
@@ -111,12 +113,8 @@ public class SettingFragment extends BaseFragment {
                     }
                     
                     fontSizePrefManager.setFontSize(selectedFontSize);
-                    // Apply font size changes to current fragment
-                    if (getView() != null) {
-                        applyFontSizeToView(getView());
-                    }
-                    // Recreate activity to apply changes everywhere
-                    requireActivity().recreate();
+                    // Post event to notify font size change
+                    EventBus.getDefault().post(new FontSizeChangeEvent(selectedFontSize));
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
