@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2020. rogergcc
-  -->
+<?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -82,6 +80,15 @@
 
                 android:textColorHint="@color/color_hint"
                 android:textSize="14sp" />
+
+          <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffba60"
+                app:tabTextColor="#FFFFFF"
+                app:tabSelectedTextColor="@color/colorPrimaryDark"
+                app:tabIndicatorColor="@color/colorPrimaryDark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
