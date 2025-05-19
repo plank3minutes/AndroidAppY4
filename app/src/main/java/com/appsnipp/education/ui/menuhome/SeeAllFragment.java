@@ -136,7 +136,6 @@ public class SeeAllFragment extends Fragment implements ItemClickListener<Course
                 }
             });
         });
-
     }
 
     private void setupToolbar() {
@@ -203,8 +202,15 @@ public class SeeAllFragment extends Fragment implements ItemClickListener<Course
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        courseViewModel.getFilteredCourses().setValue(courseViewModel.getAllCourses().getValue());
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-} 
+}
