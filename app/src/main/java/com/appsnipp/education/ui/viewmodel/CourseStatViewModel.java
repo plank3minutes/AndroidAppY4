@@ -43,9 +43,6 @@ public class CourseStatViewModel extends ViewModel {
 
     private void combineData(List<Course> courses, List<UserProgress> progresses) {
         if (courses == null || progresses == null) return;
-
-        // Xử lý logic ở đây giống bạn đang làm ở Fragment
-
         List<Course> completedCourses = new ArrayList<>();
         List<Integer> completedProgress = new ArrayList<>();
 
@@ -75,6 +72,11 @@ public class CourseStatViewModel extends ViewModel {
             }
         }
 
+        for (Course course : courses) {
+            if (completedCourses.contains(course) || inProgressCourses.contains(course)) continue;
+            notJoinCourses.add(course);
+            notJoinProgress.add(0);
+        }
         // Truyền về dữ liệu cho Fragment
         CourseStat data = new CourseStat(completedCourses, completedProgress, inProgressCourses, inProgress, notJoinCourses, notJoinProgress);
         courseStatLiveData.setValue(data);
