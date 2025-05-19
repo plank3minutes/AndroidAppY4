@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_navy"
+    android:background="@color/contentBodyColor"
     tools:context=".ui.menuhome.HomeCoursesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/hello_message"
-                    android:textColor="@color/white"
+                    android:textColor="@color/contentTextColor"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
@@ -129,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    app:cardBackgroundColor="#4D5066"
+                    app:cardBackgroundColor="@color/dashboard_subtitle"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp">
 
@@ -179,7 +179,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
                             android:text="@string/joined_courses"
-                            android:textColor="@color/white"
+                            android:textColor="@color/contentTextColor"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
@@ -222,7 +222,7 @@
                                 android:layout_height="80dp"
                                 android:alpha="0.7"
                                 android:src="@drawable/ic_course"
-                                app:tint="@color/white" />
+                                app:tint="@color/contentTextColor" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -230,7 +230,7 @@
                                 android:layout_marginTop="16dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/no_courses_yet"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="18sp" />
 
                             <TextView
@@ -240,7 +240,7 @@
                                 android:fontFamily="sans-serif"
                                 android:gravity="center"
                                 android:text="@string/explore_our_catalog_and_enroll_in_your_first_course"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/dashboard_subtitle"
                                 android:textSize="14sp" />
 
                             <com.google.android.material.button.MaterialButton
@@ -286,7 +286,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
                             android:text="@string/bookmarked"
-                            android:textColor="@color/white"
+                            android:textColor="@color/contentTextColor"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
@@ -329,7 +329,7 @@
                                 android:layout_height="80dp"
                                 android:alpha="0.7"
                                 android:src="@drawable/ic_bookmark"
-                                app:tint="@color/white" />
+                                app:tint="@color/contentTextColor" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -337,7 +337,7 @@
                                 android:layout_marginTop="16dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="@string/no_bookmarked_courses_yet"
-                                android:textColor="@color/white"
+                                android:textColor="@color/contentTextColor"
                                 android:textSize="18sp" />
 
                             <TextView
@@ -347,7 +347,7 @@
                                 android:fontFamily="sans-serif"
                                 android:gravity="center"
                                 android:text="@string/browse_our_catalog_and_bookmark_courses_you_re_interested_in"
-                                android:textColor="#B3FFFFFF"
+                                android:textColor="@color/dashboard_subtitle"
                                 android:textSize="14sp" />
 
                             <com.google.android.material.button.MaterialButton
