@@ -26,7 +26,7 @@
     <string name="title_courses_available">Free to choose one</string>
     <string name="title_popular_courses">Popular Courses</string>
     <string name="more">. .</string>
-    <string name="hello_message">Hello Roger</string>
+    <string name="hello_message">Hello, what would you like to learn today?</string>
     <string name="percentage_course">%1$d%% Completed</string>
 
     <string name="play_video">Play video</string>
@@ -36,7 +36,7 @@
 
     <string name="text_see_more">See All</string>
     <string name="imageAccess">Image</string>
-    <string name="message_banner">Refer your friends and\n earn free course *</string>
+    <string name="message_banner">The more you learn, the more you realize how much you do not know</string>
     <string name="title_drawer">Android developer</string>
     <string name="email_drawer">devhunter@movidev.com</string>
     <string name="title_menu">Menu</string>
@@ -45,9 +45,10 @@
     <string name="title_search">More</string>
     <string name="title_user">User</string>
     <string name="title_tutorials">Tutorials</string>
-    <string name="title_home_message">Continue to \nWebdeveloper Course</string>
+    <string name="featured_course_title">Start with the basics</string>
     <string name="title_course">Design Basic</string>
     <string name="course_details">Learn design basics.</string>
+    <string name="continue_learning">Continue Learning</string>
 
     <!-- New strings for course detail -->
     <string name="lessons">Lessons</string>
@@ -55,8 +56,6 @@
     <string name="bookmark_button">Bookmark</string>
     <string name="course_image">Course image</string>
     <string name="completed">Completed</string>
-    <string name="your_process">Your Progress</string>
-    <string name="continue_button">Continue</string>
 
     <!-- New strings for lesson detail -->
     <string name="num_lesson">%1$d Lesson</string>
@@ -65,13 +64,8 @@
     <string name="video_error">Error loading video</string>
     <string name="lesson_completed">Lesson completed!</string>
     <string name="video_available">Video available</string>
-    <string name="lesson_content">Lesson Content</string>
-    <string name="video_tutorial">Video Tutorial</string>
-    <string name="button_quiz">Take Quiz</string>
-    <string name="button_complete_lesson">Complete Lesson</string>
 
     <!-- New strings for quiz -->
-    <string name="quiz_title">Quiz</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="question_progress">Question %1$d of %2$d</string>
@@ -85,6 +79,8 @@
     <string name="bookmark_added">Added to bookmarks</string>
     <string name="bookmark_removed">Removed from bookmarks</string>
 
+    <string name="all_joined_courses">All Joined Courses</string>
+    <string name="all_bookmarked_courses">All Bookmarked Courses</string>
     <!-- New strings for settings -->
     <string name="settings">Settings</string>
     <string name="theme">Theme</string>
@@ -100,6 +96,26 @@
     <string name="restore">Restore</string>
     <string name="backup_success">Backup successful</string>
     <string name="restore_success">Restore successful</string>
+    <string name="bookmarked">Bookmarked Courses</string>
+    <string name="havent_joined">Hello! It seems like you haven\'t joined any course yet, have you?</string>
+    <string name="explore_courses">Let\'s explore the available courses here!</string>
+    <string name="btn_explore_courses">Let\'s expore new courses</string>
+    <string name="featured_course_sub">Embark your learning journey today</string>
+    <string name="featured_progress_percentage">0% Complete</string>
+    <string name="featured_course_btn_label">Start Learning</string>
+    <string name="no_courses_yet">No courses yet</string>
+    <string name="explore_our_catalog_and_enroll_in_your_first_course">Explore our catalog and enroll in your first course</string>
+    <string name="browse_courses">Browse Courses</string>
+    <string name="no_bookmarked_courses_yet">No bookmarked courses yet</string>
+    <string name="browse_our_catalog_and_bookmark_courses_you_re_interested_in">Browse our catalog and bookmark courses you\'re interested in!</string>
+    <string name="joined_courses">Joined Courses</string>
+    <string name="your_process">Your Progress</string>
+    <string name="continue_button">Continue</string>
+    <string name="lesson_content">Lesson Content</string>
+    <string name="video_tutorial">Video Tutorial</string>
+    <string name="button_quiz">Take Quiz</string>
+    <string name="button_complete_lesson">Complete Lesson</string>
+    <string name="quiz_title">Quiz</string>
 
     <!-- New Strings for profile -->
     <string name="profile">Profile</string>

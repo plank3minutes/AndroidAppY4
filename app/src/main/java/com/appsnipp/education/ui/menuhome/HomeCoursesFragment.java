@@ -1,56 +1,43 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
 package com.appsnipp.education.ui.menuhome;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentHomeCoursesBinding;
-import com.appsnipp.education.ui.base.BaseFragment;
-import com.appsnipp.education.ui.listeners.ItemClickListener;
+import com.appsnipp.education.ui.listeners.HomeCourseItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.UserProgress;
-import com.appsnipp.education.ui.utils.MyUtilsApp;
+import com.appsnipp.education.ui.utils.OnBottomNavTabSelected;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class HomeCoursesFragment extends BaseFragment implements ItemClickListener<Course> {
-
+public class HomeCoursesFragment extends Fragment implements HomeCourseItemClickListener {
     private FragmentHomeCoursesBinding binding;
-    private PopularCoursesAdapter popularCoursesAdapter;
+    private JoinedCoursesAdapter joinedCoursesAdapter;
+    private BookmarkedCoursesAdapter bookmarkedCoursesAdapter;
     private ProgressViewModel progressViewModel;
-    private TutorialsAdapter tutorialsAdapter;
-    private CourseViewModel viewModel;
-    private static final String TAG = "HomeCoursesFragment";
-    private int seeAll1=0;
-
-    public HomeCoursesFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private CourseViewModel courseViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         binding = FragmentHomeCoursesBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 
@@ -59,96 +46,131 @@ public class HomeCoursesFragment extends BaseFragment implements ItemClickListen
         super.onViewCreated(view, savedInstanceState);
         setupRecyclerViews();
         setupViewModel();
-
-        binding.seeAll1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(seeAll1==0){
-                    binding.rvPopularCourses.setLayoutManager(
-                            new GridLayoutManager(requireContext(),2)
-                    );
-                    viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
-                        popularCoursesAdapter.setListDataItems(courses);
-                    });
-                    seeAll1=1;
-                }else{
-                    binding.rvPopularCourses.setLayoutManager(
-                            new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                    );
-                    viewModel.getFiveCourses().observe(getViewLifecycleOwner(), courses -> {
-                        popularCoursesAdapter.setListDataItems(courses);
-                    });
-                    seeAll1=0;
-                }
-            }
-        });
     }
 
     private void setupRecyclerViews() {
-        popularCoursesAdapter = new PopularCoursesAdapter(
-            requireContext(),
-            null,
-            this
+        joinedCoursesAdapter = new JoinedCoursesAdapter(
+                null,
+                this
         );
-//        tutorialsAdapter = new TutorialsAdapter(this);
 
-        binding.rvPopularCourses.setLayoutManager(
-            new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        bookmarkedCoursesAdapter = new BookmarkedCoursesAdapter(
+                null,
+                this
         );
-        binding.rvPopularCourses.setAdapter(popularCoursesAdapter);
 
-
-// Dont use it rn
-//        binding.rvTutorials.setLayoutManager(
-//            new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//        );
-//        binding.rvTutorials.setAdapter(tutorialsAdapter);
+        binding.rvJoinedCourses.setAdapter(joinedCoursesAdapter);
+        binding.rvBookmarkedCourses.setAdapter(bookmarkedCoursesAdapter);
     }
 
     private void setupViewModel() {
-        viewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
-
-        viewModel.getFiveCourses().observe(getViewLifecycleOwner(), courses -> {
-            popularCoursesAdapter.setListDataItems(courses);
-//            tutorialsAdapter.setListDataItems(courses);
-        });
-
+        courseViewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
         progressViewModel = new ViewModelProvider(requireActivity()).get(ProgressViewModel.class);
 
+        progressViewModel.getAllUserProgress().observe(getViewLifecycleOwner(), progresses -> {
+            if (progresses != null && !progresses.isEmpty()) {
+                List<Pair<Course, UserProgress>> joinedCourses = progresses.stream()
+                        .filter(o -> o.getCompletedLessons() > 0)
+                        .map(o -> Pair.create(courseViewModel.getCourseById(o.getCourseId()).getValue(), o))
+                        .collect(Collectors.toList());
+                List<Course> markedCourses = progresses.stream()
+                        .filter(UserProgress::isMarked)
+                        .map(o -> courseViewModel.getCourseById(o.getCourseId()).getValue())
+                        .collect(Collectors.toList());
 
-        // Observe progress data
+                if (!markedCourses.isEmpty()) {
+                    binding.rvBookmarkedCourses.setVisibility(View.VISIBLE);
+                    binding.cvEmptyBookmarkedCourses.setVisibility(View.GONE);
+                    bookmarkedCoursesAdapter.setListDataItems(markedCourses);
+                } else {
+                    binding.rvBookmarkedCourses.setVisibility(View.GONE);
+                    binding.cvEmptyBookmarkedCourses.setVisibility(View.VISIBLE);
+                }
+
+                if (!joinedCourses.isEmpty()) {
+                    binding.rvJoinedCourses.setVisibility(View.VISIBLE);
+                    binding.cvEmptyJoinedCourses.setVisibility(View.GONE);
+                    joinedCoursesAdapter.setListDataItems(joinedCourses);
+                } else {
+                    binding.rvJoinedCourses.setVisibility(View.GONE);
+                    binding.cvEmptyJoinedCourses.setVisibility(View.VISIBLE);
+                }
+
+            } else {
+                binding.rvJoinedCourses.setVisibility(View.GONE);
+                binding.rvBookmarkedCourses.setVisibility(View.VISIBLE);
+                binding.cvEmptyJoinedCourses.setVisibility(View.VISIBLE);
+                binding.cvEmptyBookmarkedCourses.setVisibility(View.VISIBLE);
+            }
+        });
+
         progressViewModel.getLatestUserProgress().observe(getViewLifecycleOwner(), progress -> {
             if (progress != null) {
-                viewModel.getCourseById(progress.getCourseId()).observe(getViewLifecycleOwner(), course -> {
-                    // Cập nhật UI với dữ liệu progress
-                    updateProgressUI(progress, course);
-                });
+                courseViewModel.getCourseById(progress.getCourseId())
+                        .observe(getViewLifecycleOwner(), course -> {
+                            updateFeaturedCard(progress, course);
+                        });
             } else {
-                MyUtilsApp.showToast(requireContext(), "No progress data available");
+                Course firstCourse = Objects.requireNonNull(courseViewModel.getAllCourses().getValue()).get(0);
+
+                binding.tvFeaturedCourseTitle.setText(String.format("Start with %s", firstCourse.getCourseTitle()));
+                binding.pbFeaturedCourse.setVisibility(View.GONE);
+                binding.tvFeaturedProgressPercentage.setVisibility(View.GONE);
+                binding.btnFeaturedCourse.setOnClickListener(v -> {
+                    onCourseItemClick(firstCourse);
+                });
             }
+        });
+
+        binding.seeAll1.setOnClickListener(v -> {
+            onSeeAllClick(SeeAllType.JOINED);
+        });
+
+        binding.seeAll2.setOnClickListener(v -> {
+            onSeeAllClick(SeeAllType.BOOKMARKED);
+        });
+
+        binding.btnExploreCourses1.setOnClickListener(v -> {
+            ((OnBottomNavTabSelected) getActivity()).switchToTab(R.id.coursesStaggedFragment);
+        });
+
+        binding.btnExploreCourses2.setOnClickListener(v -> {
+            ((OnBottomNavTabSelected) getActivity()).switchToTab(R.id.coursesStaggedFragment);
         });
     }
 
-    private void updateProgressUI(UserProgress progress, Course currentCourse) {
+    @SuppressLint("DefaultLocale")
+    private void updateFeaturedCard(UserProgress progress, Course currentCourse) {
+        if (currentCourse == null) return;
+
         int completionPercentage = 0;
-        if (currentCourse != null && currentCourse.getLessons().size() > 0) {
+        if (!currentCourse.getLessons().isEmpty()) {
             completionPercentage = (progress.getCompletedLessons() * 100) / currentCourse.getLessons().size();
         }
 
-        binding.tvHomeCourse.setText("Continue to " + currentCourse.getCourseTitle());
-        binding.pbHomeCourse.setProgress(completionPercentage);
-        binding.tvPercentage.setText(completionPercentage + "% " + getString(R.string.completed));
-
+        binding.tvFeaturedCourseTitle.setText(String.format("Continue with %s", currentCourse.getCourseTitle()));
+        binding.pbFeaturedCourse.setProgress(completionPercentage);
+        binding.pbFeaturedCourse.setVisibility(View.VISIBLE);
+        binding.tvFeaturedCourseSub.setVisibility(View.GONE);
+        binding.tvFeaturedProgressPercentage.setText(String.format("%d%% %s", completionPercentage, getString(R.string.completed)));
+        binding.tvFeaturedProgressPercentage.setVisibility(View.VISIBLE);
+        binding.btnFeaturedCourse.setText(getText(R.string.continue_learning));
+        binding.btnFeaturedCourse.setOnClickListener(a -> {
+            onCourseItemClick(currentCourse);
+        });
     }
 
     @Override
-    public void onItemClick(Course course, ImageView imageView) {
-        Bundle args = new Bundle();
-        args.putString("courseId", course.getId());
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_homeCoursesFragment_to_courseDetailFragment, args);
+    public void onCourseItemClick(Course course) {
+        NavDirections action = HomeCoursesFragmentDirections.actionHomeCoursesFragmentToCourseDetailFragment(course.getId());
+        NavHostFragment.findNavController(this).navigate(action);
     }
 
+    @Override
+    public void onSeeAllClick(SeeAllType type) {
+        NavDirections action = HomeCoursesFragmentDirections.actionHomeCoursesFragmentToSeeAllFragment(type);
+        NavHostFragment.findNavController(this).navigate(action);
+    }
 
     @Override
     public void onDestroyView() {

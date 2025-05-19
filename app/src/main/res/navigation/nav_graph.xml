@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeCoursesFragment_to_courseDetailFragment"
             app:destination="@id/courseDetailFragment" />
+        <action
+            android:id="@+id/action_homeCoursesFragment_to_seeAllFragment"
+            app:destination="@id/seeAllFragment" />
     </fragment>
     <fragment
         android:id="@+id/coursesStaggedFragment"
@@ -97,6 +100,17 @@
         tools:layout="@layout/fragment_course_analysis">
         <action
             android:id="@+id/action_courseListFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seeAllFragment"
+        android:name="com.appsnipp.education.ui.menuhome.SeeAllFragment"
+        android:label="SeeAllFragment">
+        <argument
+            android:name="viewType"
+            app:argType="com.appsnipp.education.ui.menuhome.SeeAllType" />
+        <action
+            android:id="@+id/action_seeAllFragment_to_courseDetailFragment"
             app:destination="@id/courseDetailFragment" />
     </fragment>
 </navigation>

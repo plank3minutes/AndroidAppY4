@@ -1,239 +1,382 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2020. rogergcc
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/contentBodyColor"
     tools:context=".ui.menuhome.HomeCoursesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
-        style="@style/parent.contentLayout"
-        android:paddingLeft="@dimen/normalPadding"
-        android:paddingRight="@dimen/normalPadding"
-        android:paddingBottom="@dimen/normalPadding">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
-
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="24dp">
 
+                <!-- Header Section -->
                 <TextView
-                    style="@style/viewParent.headerText"
-                    android:text="@string/hello_message" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/hello_message"
+                    android:textColor="@color/contentTextColor"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
 
-                <RelativeLayout
+                <!-- Featured Course Card (No Progress) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="24dp">
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:minHeight="200dp"
+                        android:layout_marginTop="24dp"
                         app:cardBackgroundColor="@color/color1"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="@dimen/card_maincourse_elevation"
-                        app:cardPreventCornerOverlap="false">
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <TextView
-                                android:id="@+id/tvHomeCourse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/title_home_message"
-                                android:textColor="@color/whiteBodyColor"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <ProgressBar
-                                android:id="@+id/pbHomeCourse"
-                                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-                                android:layout_width="150dp"
-                                android:layout_height="5dp"
-                                android:layout_marginTop="15dp"
-                                android:progress="60"
-                                android:progressDrawable="@drawable/progress_drawable" />
-
-                            <TextView
-                                android:id="@+id/tvPercentage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:format="%d"
-                                android:text="@string/percentage_course"
-                                android:textColor="@color/whiteBodyColor"
-
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                tools:format="75" />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/imageAccess"
-                        android:cropToPadding="true"
-                        android:elevation="@dimen/card_image_elevation"
-                        android:src="@drawable/header_image" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="60dp"
-                        android:background="@drawable/refer_earn_button"
-                        android:gravity="center">
-
-                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="@string/message_banner"
-                            android:textAlignment="center"
-                            android:textColor="@color/whiteTextColor"
-                            android:textSize="13sp" />
+                            android:orientation="vertical"
+                            android:padding="24dp">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tvFeaturedCourseTitle"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/featured_course_title"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvFeaturedCourseSub"
+                                android:layout_width="160dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/featured_course_sub"
+                                android:textColor="#B3FFFFFF"
+                                android:textSize="14sp"
+                                android:visibility="visible" />
+
+                            <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:id="@+id/pbFeaturedCourse"
+                                android:layout_width="160dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="24dp"
+                                android:progress="0"
+                                app:indicatorColor="@color/white"
+                                app:trackColor="#33FFFFFF"
+                                app:trackThickness="8dp" />
+
+                            <TextView
+                                android:id="@+id/tvFeaturedProgressPercentage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/featured_progress_percentage"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnFeaturedCourse"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:backgroundTint="@color/white"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/featured_course_btn_label"
+                                android:textAllCaps="false"
+                                android:textColor="@color/color1"
+                                app:cornerRadius="12dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
                     <ImageView
-                        android:layout_width="80dp"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/imageAccess"
-                        android:cropToPadding="true"
-                        android:src="@drawable/refer_icon" />
+                        android:src="@drawable/header_image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </RelativeLayout>
-
-                <RelativeLayout
+                <!-- Promotional Banner -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:layout_marginTop="24dp"
+                    app:cardBackgroundColor="@color/dashboard_subtitle"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
 
-                    <TextView
-                        style="@style/viewParent.headerText"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:text="@string/title_popular_courses" />
-
-                    <TextView
-                        android:id="@+id/seeAll1"
-                        style="@style/viewParent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/futura_medium"
-                        android:text="@string/text_see_more"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="@dimen/headerMoreTextSize"
-                        android:textStyle="normal" />
-
-                </RelativeLayout>
-
-                <!--remove the below layout with recycler view, use card poplar courses as model for design-->
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPopularCourses"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-                    tools:itemCount="7"
-                    tools:listitem="@layout/card_popular_courses" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
-
-                    <TextView
-                        style="@style/viewParent.headerText"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:text="@string/title_tutorials" />
-
-                    <TextView
-                        style="@style/viewParent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/futura_medium"
-                        android:text="@string/text_see_more"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="@dimen/headerMoreTextSize"
-                        android:textStyle="normal" />
-
-                </RelativeLayout>
-
-                <!--remove the below layout with recycler view, use card poplar courses as model for design-->
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none">
-
-                    <!--                    <androidx.recyclerview.widget.RecyclerView-->
-                    <!--                        android:id="@+id/rvTutorials"-->
-
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="match_parent"-->
-                    <!--                        android:orientation="horizontal"-->
-                    <!--                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-
-                    <!--                        tools:itemCount="7"-->
-                    <!--                        tools:listitem="@layout/item_tutorial" />-->
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal">
+                        android:padding="16dp">
 
-                        <include layout="@layout/item_tutorial" />
+                        <ImageView
+                            android:id="@+id/imagePromo"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="@string/imageAccess"
+                            android:src="@drawable/refer_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <include layout="@layout/item_tutorial" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/message_banner"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imagePromo"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                        <include layout="@layout/item_tutorial" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    </LinearLayout>
-                </HorizontalScrollView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp">
 
+                        <TextView
+                            android:id="@+id/textPopularCourses"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/joined_courses"
+                            android:textColor="@color/contentTextColor"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <TextView
+                            android:id="@+id/seeAll1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/text_see_more"
+                            android:textColor="@color/bright_orange"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/textPopularCourses"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textPopularCourses" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Empty State for Popular Courses -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvEmptyJoinedCourses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:cardBackgroundColor="@color/card_background"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="#33FFFFFF"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="24dp">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:alpha="0.7"
+                                android:src="@drawable/ic_course"
+                                app:tint="@color/contentTextColor" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/no_courses_yet"
+                                android:textColor="@color/contentTextColor"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="sans-serif"
+                                android:gravity="center"
+                                android:text="@string/explore_our_catalog_and_enroll_in_your_first_course"
+                                android:textColor="@color/dashboard_subtitle"
+                                android:textSize="14sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnExploreCourses1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:backgroundTint="@color/bright_orange"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/browse_courses"
+                                android:textAllCaps="false"
+                                app:cornerRadius="12dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvJoinedCourses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/card_joined_course" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp">
+
+                        <TextView
+                            android:id="@+id/tvMarkedCourses"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/bookmarked"
+                            android:textColor="@color/contentTextColor"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/seeAll2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/text_see_more"
+                            android:textColor="@color/bright_orange"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvMarkedCourses"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tvMarkedCourses" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Empty State for Popular Courses -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvEmptyBookmarkedCourses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:cardBackgroundColor="@color/card_background"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="#33FFFFFF"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="24dp">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:alpha="0.7"
+                                android:src="@drawable/ic_bookmark"
+                                app:tint="@color/contentTextColor" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/no_bookmarked_courses_yet"
+                                android:textColor="@color/contentTextColor"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="sans-serif"
+                                android:gravity="center"
+                                android:text="@string/browse_our_catalog_and_bookmark_courses_you_re_interested_in"
+                                android:textColor="@color/dashboard_subtitle"
+                                android:textSize="14sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnExploreCourses2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:backgroundTint="@color/bright_orange"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/browse_courses"
+                                android:textAllCaps="false"
+                                app:cornerRadius="12dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBookmarkedCourses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/card_bookmarked_course" />
+
+                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>
