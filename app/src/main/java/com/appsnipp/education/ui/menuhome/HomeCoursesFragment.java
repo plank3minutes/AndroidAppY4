@@ -75,7 +75,7 @@ public class HomeCoursesFragment extends BaseFragment implements ItemClickListen
                     binding.rvPopularCourses.setLayoutManager(
                             new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     );
-                    viewModel.getFiveCourses().observe(getViewLifecycleOwner(), courses -> {
+                    viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
                         popularCoursesAdapter.setListDataItems(courses);
                     });
                     seeAll1=0;
@@ -108,10 +108,9 @@ public class HomeCoursesFragment extends BaseFragment implements ItemClickListen
     private void setupViewModel() {
         viewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
 
-        viewModel.getFiveCourses().observe(getViewLifecycleOwner(), courses -> {
-            popularCoursesAdapter.setListDataItems(courses);
-//            tutorialsAdapter.setListDataItems(courses);
-        });
+        viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+                        popularCoursesAdapter.setListDataItems(courses);
+                    });
 
         progressViewModel = new ViewModelProvider(requireActivity()).get(ProgressViewModel.class);
 
