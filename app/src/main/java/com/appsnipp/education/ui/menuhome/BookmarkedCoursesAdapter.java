@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.appsnipp.education.databinding.BookmarkedCourseCardBinding;
-import com.appsnipp.education.ui.listeners.ItemClickListener;
+import com.appsnipp.education.databinding.CardBookmarkedCourseBinding;
+import com.appsnipp.education.databinding.CardSeeAllBinding;
+import com.appsnipp.education.ui.listeners.HomeCourseItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -21,10 +22,13 @@ import java.util.List;
 public class BookmarkedCoursesAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final ItemClickListener<Course> itemClickListener;
+    private static final int VIEW_TYPE_COURSE = 0;
+    private static final int VIEW_TYPE_SEE_ALL = 1;
+
+    private final HomeCourseItemClickListener itemClickListener;
     private List<Course> items;
 
-    public BookmarkedCoursesAdapter(List<Course> items, ItemClickListener<Course> listener) {
+    public BookmarkedCoursesAdapter(List<Course> items, HomeCourseItemClickListener listener) {
         this.items = items;
         this.itemClickListener = listener;
     }
@@ -37,32 +41,65 @@ public class BookmarkedCoursesAdapter
 
     @Override
     public int getItemCount() {
-        return items == null ? 0 : items.size();
+        return items == null ? 0 : items.size() > 3 ? items.size() + 1 : items.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == items.size()) {
+            return VIEW_TYPE_SEE_ALL; // Last item is "See All"
+        } else {
+            return VIEW_TYPE_COURSE;   // Normal course item
+        }
+    }
+
 
     @NotNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        BookmarkedCourseCardBinding binding = BookmarkedCourseCardBinding.inflate(inflater, viewGroup, false);
-        return new ViewHolder(binding);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        if (viewType == VIEW_TYPE_SEE_ALL) {
+            CardSeeAllBinding binding = CardSeeAllBinding.inflate(inflater, parent, false);
+            return new SeeAllViewHolder(binding);
+        } else {
+            CardBookmarkedCourseBinding binding = CardBookmarkedCourseBinding.inflate(inflater, parent, false);
+            return new BookmarkedCourseViewHolder(binding);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Course item = items.get(position);
-        ((ViewHolder) holder).bind(item, itemClickListener);
+        if (position == items.size()) {
+            ((SeeAllViewHolder) holder).bind(itemClickListener);
+        } else {
+            Course item = items.get(position);
+            ((BookmarkedCourseViewHolder) holder).bind(item, itemClickListener);
+        }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final BookmarkedCourseCardBinding binding;
+    public static class SeeAllViewHolder extends RecyclerView.ViewHolder {
+        CardSeeAllBinding binding;
 
-        public ViewHolder(BookmarkedCourseCardBinding binding) {
+        public SeeAllViewHolder(CardSeeAllBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(Course item, ItemClickListener<Course> itemClickListener) {
+        public void bind(HomeCourseItemClickListener itemClickListener) {
+            itemView.setOnClickListener(v -> itemClickListener.onSeeAllClick(SeeAllType.BOOKMARKED));
+        }
+    }
+
+    public static class BookmarkedCourseViewHolder extends RecyclerView.ViewHolder {
+        private final CardBookmarkedCourseBinding binding;
+
+        public BookmarkedCourseViewHolder(CardBookmarkedCourseBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bind(Course item, HomeCourseItemClickListener itemClickListener) {
             binding.tvCourseTitle.setText(item.getCourseTitle());
             Glide.with(itemView.getContext())
                     .load(item.getImageResource())
@@ -70,7 +107,7 @@ public class BookmarkedCoursesAdapter
                     .into(binding.imvCoursePhoto);
 
             itemView.setOnClickListener(v -> {
-                itemClickListener.onItemClick(item, binding.imvCoursePhoto);
+                itemClickListener.onCourseItemClick(item);
             });
         }
     }

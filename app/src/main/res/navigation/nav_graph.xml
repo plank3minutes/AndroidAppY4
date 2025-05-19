@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2020. rogergcc
   -->
 
@@ -17,6 +16,9 @@
         <action
             android:id="@+id/action_homeCoursesFragment_to_courseDetailFragment"
             app:destination="@id/courseDetailFragment" />
+        <action
+            android:id="@+id/action_homeCoursesFragment_to_seeAllFragment"
+            app:destination="@id/seeAllFragment" />
     </fragment>
     <fragment
         android:id="@+id/coursesStaggedFragment"
@@ -71,5 +73,16 @@
         <argument
             android:name="courseId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/seeAllFragment"
+        android:name="com.appsnipp.education.ui.menuhome.SeeAllFragment"
+        android:label="SeeAllFragment">
+        <argument
+            android:name="viewType"
+            app:argType="com.appsnipp.education.ui.menuhome.SeeAllType" />
+        <action
+            android:id="@+id/action_seeAllFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
     </fragment>
 </navigation>

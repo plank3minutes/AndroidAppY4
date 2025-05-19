@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
 package com.appsnipp.education.ui.menucourses;
 
 import android.content.Context;
@@ -12,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,8 +23,6 @@ import com.appsnipp.education.ui.utils.MyUtilsApp;
 import com.appsnipp.education.ui.utils.helpers.GridSpacingItemDecoration;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 
-import java.util.List;
-
 public class CoursesStaggedFragment extends Fragment implements ItemClickListener<Course> {
 
     private FragmentCoursesStaggedBinding binding;
@@ -38,7 +31,7 @@ public class CoursesStaggedFragment extends Fragment implements ItemClickListene
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         binding = FragmentCoursesStaggedBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -83,7 +76,7 @@ public class CoursesStaggedFragment extends Fragment implements ItemClickListene
     }
 
     private void performSearch(String query) {
-        if(!query.isEmpty()){
+        if (!query.isEmpty()) {
             viewModel.getCoursesByName(query).observe(getViewLifecycleOwner(), courses -> {
                 adapter.setCourseCards(courses);
             });
@@ -107,7 +100,7 @@ public class CoursesStaggedFragment extends Fragment implements ItemClickListene
         Bundle args = new Bundle();
         args.putString("courseId", course.getId());
         NavHostFragment.findNavController(this)
-            .navigate(R.id.action_coursesStaggedFragment_to_courseDetailFragment, args);
+                .navigate(R.id.action_coursesStaggedFragment_to_courseDetailFragment, args);
     }
 
     @Override

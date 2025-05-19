@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.appsnipp.education.databinding.JoinedCourseCardBinding;
-import com.appsnipp.education.databinding.SeeAllCardBinding;
-import com.appsnipp.education.ui.listeners.ItemClickListener;
+import com.appsnipp.education.databinding.CardJoinedCourseBinding;
+import com.appsnipp.education.databinding.CardSeeAllBinding;
+import com.appsnipp.education.ui.listeners.HomeCourseItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.UserProgress;
 import com.bumptech.glide.Glide;
@@ -24,10 +24,10 @@ public class JoinedCoursesAdapter
     private static final int VIEW_TYPE_COURSE = 0;
     private static final int VIEW_TYPE_SEE_ALL = 1;
 
-    private final ItemClickListener<Course> itemClickListener;
+    private final HomeCourseItemClickListener itemClickListener;
     private List<Pair<Course, UserProgress>> items;
 
-    public JoinedCoursesAdapter(List<Pair<Course, UserProgress>> items, ItemClickListener<Course> listener) {
+    public JoinedCoursesAdapter(List<Pair<Course, UserProgress>> items, HomeCourseItemClickListener listener) {
         this.items = items;
         this.itemClickListener = listener;
     }
@@ -40,7 +40,7 @@ public class JoinedCoursesAdapter
 
     @Override
     public int getItemCount() {
-        return items == null ? 0 : items.size() >= 2 ? items.size() + 1 : items.size();
+        return items == null ? 0 : items.size() > 3 ? items.size() + 1 : items.size();
     }
 
     @Override
@@ -58,10 +58,10 @@ public class JoinedCoursesAdapter
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         if (viewType == VIEW_TYPE_SEE_ALL) {
-            SeeAllCardBinding binding = SeeAllCardBinding.inflate(inflater, parent, false);
+            CardSeeAllBinding binding = CardSeeAllBinding.inflate(inflater, parent, false);
             return new SeeAllViewHolder(binding);
         } else {
-            JoinedCourseCardBinding binding = JoinedCourseCardBinding.inflate(inflater, parent, false);
+            CardJoinedCourseBinding binding = CardJoinedCourseBinding.inflate(inflater, parent, false);
             return new JoinedCourseViewHolder(binding);
         }
     }
@@ -77,27 +77,27 @@ public class JoinedCoursesAdapter
     }
 
     public static class SeeAllViewHolder extends RecyclerView.ViewHolder {
-        SeeAllCardBinding binding;
+        CardSeeAllBinding binding;
 
-        public SeeAllViewHolder(SeeAllCardBinding binding) {
+        public SeeAllViewHolder(CardSeeAllBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(ItemClickListener<Course> itemClickListener) {
-            itemView.setOnClickListener(v -> itemClickListener.onItemClick(null, null));
+        public void bind(HomeCourseItemClickListener itemClickListener) {
+            itemView.setOnClickListener(v -> itemClickListener.onSeeAllClick(SeeAllType.JOINED));
         }
     }
 
     public static class JoinedCourseViewHolder extends RecyclerView.ViewHolder {
-        JoinedCourseCardBinding binding;
+        CardJoinedCourseBinding binding;
 
-        public JoinedCourseViewHolder(JoinedCourseCardBinding binding) {
+        public JoinedCourseViewHolder(CardJoinedCourseBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(Pair<Course, UserProgress> item, ItemClickListener<Course> itemClickListener) {
+        public void bind(Pair<Course, UserProgress> item, HomeCourseItemClickListener itemClickListener) {
             Course course = item.first;
             UserProgress progress = item.second;
 
@@ -106,14 +106,14 @@ public class JoinedCoursesAdapter
 
             binding.tvCourseTitle.setText(course.getCourseTitle());
             binding.progressBar.setProgress(completionPercentage);
-            binding.tvPercentage.setText(progressText);
+            binding.tvFeaturedProgressPercentage.setText(progressText);
             Glide.with(itemView.getContext())
                     .load(course.getImageResource())
                     .apply(new RequestOptions().centerCrop())
                     .into(binding.imvCoursePhoto);
 
             itemView.setOnClickListener(v -> {
-                itemClickListener.onItemClick(course, binding.imvCoursePhoto);
+                itemClickListener.onCourseItemClick(course);
             });
         }
     }

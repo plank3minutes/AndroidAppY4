@@ -45,9 +45,10 @@
     <string name="title_search">More</string>
     <string name="title_user">User</string>
     <string name="title_tutorials">Tutorials</string>
-    <string name="title_home_message">Continue with \nWeb Developer Course</string>
+    <string name="featured_course_title">Start with the basics</string>
     <string name="title_course">Design Basic</string>
     <string name="course_details">Learn design basics.</string>
+    <string name="continue_learning">Continue Learning</string>
 
     <!-- New strings for course detail -->
     <string name="lessons">Lessons</string>
@@ -78,6 +79,9 @@
     <string name="bookmark_added">Added to bookmarks</string>
     <string name="bookmark_removed">Removed from bookmarks</string>
 
+    <string name="all_joined_courses">All Joined Courses</string>
+    <string name="all_bookmarked_courses">All Bookmarked Courses</string>
+
     <!-- New strings for settings -->
     <string name="settings">Settings</string>
     <string name="theme">Theme</string>
@@ -93,10 +97,18 @@
     <string name="restore">Restore</string>
     <string name="backup_success">Backup successful</string>
     <string name="restore_success">Restore successful</string>
-    <string name="your_courses">Your Courses</string>
-    <string name="bookmarked">Bookmarked</string>
+    <string name="bookmarked">Bookmarked Courses</string>
     <string name="havent_joined">Hello! It seems like you haven\'t joined any course yet, have you?</string>
     <string name="explore_courses">Let\'s explore the available courses here!</string>
     <string name="btn_explore_courses">Let\'s expore new courses</string>
+    <string name="featured_course_sub">Embark your learning journey today</string>
+    <string name="featured_progress_percentage">0% Complete</string>
+    <string name="featured_course_btn_label">Start Learning</string>
+    <string name="no_courses_yet">No courses yet</string>
+    <string name="explore_our_catalog_and_enroll_in_your_first_course">Explore our catalog and enroll in your first course</string>
+    <string name="browse_courses">Browse Courses</string>
+    <string name="no_bookmarked_courses_yet">No bookmarked courses yet</string>
+    <string name="browse_our_catalog_and_bookmark_courses_you_re_interested_in">Browse our catalog and bookmark courses you\'re interested in!</string>
+    <string name="joined_courses">Joined Courses</string>
 
 </resources>
