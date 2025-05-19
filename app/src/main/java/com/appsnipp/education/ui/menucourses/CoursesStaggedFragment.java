@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
 package com.appsnipp.education.ui.menucourses;
 
 import android.content.Context;
@@ -49,6 +45,32 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
         setupRecyclerView();
         setupViewModel();
         setupSearchView();
+
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("All"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Android"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("AI"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Other"));
+
+        binding.tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                String type = tab.getText().toString();
+                binding.edtSearch.setText("");
+                viewModel.getCoursesByNameAndType("", type).observe(getViewLifecycleOwner(), courses -> {
+                    adapter.setCourseCards(courses);
+                });
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void setupRecyclerView() {
@@ -83,12 +105,13 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
     }
 
     private void performSearch(String query) {
+        String type = binding.tabLayout.getTabAt(binding.tabLayout.getSelectedTabPosition()).getText().toString();
         if(!query.isEmpty()){
-            viewModel.getCoursesByName(query).observe(getViewLifecycleOwner(), courses -> {
+            viewModel.getCoursesByNameAndType(query,type).observe(getViewLifecycleOwner(), courses -> {
                 adapter.setCourseCards(courses);
             });
         } else {
-            viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+            viewModel.getCoursesByNameAndType("", type).observe(getViewLifecycleOwner(), courses -> {
                 adapter.setCourseCards(courses);
             });
         }
