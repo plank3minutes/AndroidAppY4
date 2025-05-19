@@ -109,6 +109,13 @@
     <string name="no_bookmarked_courses_yet">No bookmarked courses yet</string>
     <string name="browse_our_catalog_and_bookmark_courses_you_re_interested_in">Browse our catalog and bookmark courses you\'re interested in!</string>
     <string name="joined_courses">Joined Courses</string>
+    <string name="your_process">Your Progress</string>
+    <string name="continue_button">Continue</string>
+    <string name="lesson_content">Lesson Content</string>
+    <string name="video_tutorial">Video Tutorial</string>
+    <string name="button_quiz">Take Quiz</string>
+    <string name="button_complete_lesson">Complete Lesson</string>
+    <string name="quiz_title">Quiz</string>
 
     <!-- New Strings for profile -->
     <string name="profile">Profile</string>

@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnBottomNavTabSel
             appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.homeCoursesFragment,
                     R.id.coursesStaggedFragment,
-                    R.id.matchesCoursesFragment)
+                    R.id.profileFragment)
                     .build();
 
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
