@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.ui.quiz;
 
 import android.app.AlertDialog;
@@ -68,12 +64,27 @@ public class QuizFragment extends Fragment {
             lessonId = getArguments().getString("lessonId");
         }
 
+        // Khôi phục trạng thái nếu có
+        if (savedInstanceState != null) {
+            currentQuestionIndex = savedInstanceState.getInt("currentQuestionIndex", 0);
+            userAnswers = savedInstanceState.getIntArray("userAnswers");
+            score = savedInstanceState.getInt("score", 0);
+        }
+
         // Khởi tạo danh sách RadioButton và CardView
         initRadioButtonsAndCards();
         setupToolbar();
         setupViewModels();
         observeQuizData();
         setupButtonListeners();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("currentQuestionIndex", currentQuestionIndex);
+        outState.putIntArray("userAnswers", userAnswers);
+        outState.putInt("score", score);
     }
 
     private void initRadioButtonsAndCards() {
@@ -114,9 +125,12 @@ public class QuizFragment extends Fragment {
                     quizzes = quizList;
                     // Get questions from the first quiz
                     questions = quizList.get(0).getQuestions();
-                    userAnswers = new int[questions.size()];
-                    for (int i = 0; i < userAnswers.length; i++) {
-                        userAnswers[i] = -1; // -1 means no answer selected
+                    // Chỉ khởi tạo userAnswers nếu chưa được khôi phục
+                    if (userAnswers == null) {
+                        userAnswers = new int[questions.size()];
+                        for (int i = 0; i < userAnswers.length; i++) {
+                            userAnswers[i] = -1; // -1 means no answer selected
+                        }
                     }
                     displayCurrentQuestion();
                 }
@@ -168,15 +182,15 @@ public class QuizFragment extends Fragment {
 
     private void resetCardBackgrounds() {
         for (MaterialCardView cardView : cardViews) {
-            cardView.setCardBackgroundColor(Color.parseColor("#33FFFFFF"));
-            cardView.setStrokeColor(Color.parseColor("#4DFFFFFF"));
+            cardView.setCardBackgroundColor(getResources().getColor(R.color.card_quiz_background));
+            cardView.setStrokeColor(getResources().getColor(R.color.card_quiz_stroke));
         }
     }
 
     private void highlightSelectedCard(int index) {
         if (index >= 0 && index < cardViews.size()) {
-            cardViews.get(index).setCardBackgroundColor(Color.parseColor("#4DFF5733"));
-            cardViews.get(index).setStrokeColor(requireContext().getResources().getColor(R.color.bright_orange, null));
+            cardViews.get(index).setCardBackgroundColor(getResources().getColor(R.color.card_quiz_selected_background));
+            cardViews.get(index).setStrokeColor(getResources().getColor(R.color.card_quiz_selected_stroke));
         }
     }
 
@@ -249,6 +263,8 @@ public class QuizFragment extends Fragment {
                 return;
             }
         }
+        // Nếu không có lựa chọn nào, đặt giá trị -1
+        userAnswers[currentQuestionIndex] = -1;
     }
 
     private void calculateScore() {

@@ -1,9 +1,7 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.ui.lesson;
 
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,27 +11,30 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.MediaController;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Transaction;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentLessonDetailBinding;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.UserProgress;
+import com.appsnipp.education.ui.utils.LiveDataUtils;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 import com.appsnipp.education.ui.viewmodel.LessonStatusViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 
+import java.util.Date;
 import java.util.List;
 
-public class LessonDetailFragment extends Fragment {
+public class LessonDetailFragment extends BaseFragment {
 
     private FragmentLessonDetailBinding binding;
     private CourseViewModel courseViewModel;
@@ -62,6 +63,13 @@ public class LessonDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Khôi phục trạng thái
+        if (savedInstanceState != null) {
+            isVideoWatched = savedInstanceState.getBoolean("isVideoWatched", false);
+            isQuizCompleted = savedInstanceState.getBoolean("isQuizCompleted", false);
+            lessonIndex = savedInstanceState.getInt("lessonIndex", 0);
+        }
+
         if (getArguments() != null) {
             lessonId = getArguments().getString("lessonId");
             courseId = getArguments().getString("courseId");
@@ -71,7 +79,14 @@ public class LessonDetailFragment extends Fragment {
         setupViewModels();
         observeData();
         setupButtonListeners();
-        updateLastAccessed(courseId);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("isVideoWatched", isVideoWatched);
+        outState.putBoolean("isQuizCompleted", isQuizCompleted);
+        outState.putInt("lessonIndex", lessonIndex);
     }
 
     private void setupToolbar() {
@@ -109,9 +124,11 @@ public class LessonDetailFragment extends Fragment {
                                 isQuizCompleted = true;
                                 binding.buttonCompleteLesson.setEnabled(false);
                                 binding.buttonTakeQuiz.setEnabled(false);
-                            } else if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
+                            }
+                            else if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
                                 onQuizCompleted();
-                            } else {
+                            }
+                            else {
                                 binding.buttonCompleteLesson.setEnabled(false);
                             }
                         });
@@ -133,6 +150,12 @@ public class LessonDetailFragment extends Fragment {
         }
     }
 
+    private boolean isDarkThemeEnabled() {
+        int nightModeFlags =
+                getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
     private void setupLessonContent(Lesson lesson) {
         binding.lessonToolbar.setTitle(lesson.getTitle());
         binding.textLessonTitle.setText(lesson.getTitle());
@@ -146,12 +169,19 @@ public class LessonDetailFragment extends Fragment {
         webSettings.setBuiltInZoomControls(false); // Cho phép zoom nếu cần
         webSettings.setDisplayZoomControls(false); // Ẩn nút zoom
 
+        int bgColorInt = getResources().getColor(R.color.card_background);
+        int textColorInt = getResources().getColor(R.color.contentTextColor);
+
+        // Chuyển sang mã HEX để dùng trong HTML
+        String bgColor = String.format("#%06X", (0xFFFFFF & bgColorInt));
+        String textColor = String.format("#%06X", (0xFFFFFF & textColorInt));
+
         String htmlContent = "<!DOCTYPE html>" +
                 "<html>" +
                 "<head>" +
                 "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
                 "<style>" +
-                "body { background-color: #2A2E45; color: #FFFFFF; font-family: Arial, sans-serif; margin: 20px; text-align:justify;}" +
+                "body { background-color: " + bgColor + " ; color: " + textColor + " ; font-family: Arial, sans-serif; margin: 20px; text-align:justify;}" +
                 "img { max-width: 100%; height: auto; }" +
                 "</style>" +
                 "</head>" +
@@ -161,7 +191,7 @@ public class LessonDetailFragment extends Fragment {
                 "</html>";
 
         binding.webViewLessonContent.loadDataWithBaseURL(null, htmlContent, "text/html", "UTF-8", null);
-
+        
         // Setup video if available
         if (lesson.getVideoUrl() != null && !lesson.getVideoUrl().isEmpty()) {
             binding.videoWebViewContainer.setVisibility(View.VISIBLE);
@@ -236,77 +266,6 @@ public class LessonDetailFragment extends Fragment {
 
     }
 
-    public void setVideoId(String videoId) {
-        // Gọi hàm JavaScript để thiết lập video ID
-        videoWebView.evaluateJavascript("loadVideoById('" + videoId + "');", null);
-    }
-
-    // Gọi hàm JavaScript từ Android
-    public void playVideo() {
-        videoWebView.evaluateJavascript("playVideo();", null);
-    }
-
-    public void pauseVideo() {
-        videoWebView.evaluateJavascript("pauseVideo();", null);
-    }
-
-    public void stopVideo() {
-        videoWebView.evaluateJavascript("stopVideo();", null);
-    }
-
-    private void setupButtonListeners() {
-        binding.buttonTakeQuiz.setOnClickListener(v -> {
-            // Navigate to quiz fragment
-            Bundle args = new Bundle();
-            args.putString("lessonId", lessonId);
-            args.putString("courseId", courseId);
-            NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_lessonDetailFragment_to_quizFragment, args);
-        });
-
-        binding.buttonCompleteLesson.setOnClickListener(v -> {
-            markLessonAsComplete();
-        });
-    }
-
-    private void checkCompletionStatus() {
-        // boolean canComplete = isVideoWatched && isQuizCompleted;
-        binding.buttonCompleteLesson.setEnabled(true);
-    }
-
-    public void onQuizCompleted() {
-        isQuizCompleted = true;
-        checkCompletionStatus();
-    }
-
-    public void updateLastAccessed(String courseId) {
-        progressViewModel.updateLastAccess(courseId);
-    }
-
-    @Transaction
-    private void markLessonAsComplete() {
-        if (currentCourse != null && currentLesson != null && userProgress != null) {
-            // Update LessonStatus, and auto increment completed lessons in user progress
-            lessonStatusViewModel.completeLessonWithoutQuiz(courseId, lessonId);
-
-            // Update UserProgress
-            progressViewModel.updateProgress(courseId, currentCourse.getLessonCount(), userProgress.getCompletedLessons() + 1);
-
-            // Hiển thị Toast và điều hướng
-            Toast.makeText(requireContext(), getString(R.string.lesson_completed), Toast.LENGTH_SHORT).show();
-            NavHostFragment.findNavController(this).popBackStack(R.id.courseDetailFragment, false);
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-        if (videoWebView != null) {
-            videoWebView.destroy();
-        }
-    }
-
     // Interface để nhận thông tin từ JavaScript
     public class WebAppInterface {
         @JavascriptInterface
@@ -355,6 +314,77 @@ public class LessonDetailFragment extends Fragment {
 //                isVideoWatched = true; // Đánh dấu video đã "xem" để bỏ qua yêu cầu
 //                checkCompletionStatus();
             });
+        }
+    }
+
+    public void setVideoId(String videoId) {
+        // Gọi hàm JavaScript để thiết lập video ID
+        videoWebView.evaluateJavascript("loadVideoById('" + videoId + "');", null);    }
+
+    // Gọi hàm JavaScript từ Android
+    public void playVideo() {
+        videoWebView.evaluateJavascript("playVideo();", null);
+    }
+
+    public void pauseVideo() {
+        videoWebView.evaluateJavascript("pauseVideo();", null);
+    }
+
+    public void stopVideo() {
+        videoWebView.evaluateJavascript("stopVideo();", null);
+    }
+
+    private void setupButtonListeners() {
+        binding.buttonTakeQuiz.setOnClickListener(v -> {
+            // Navigate to quiz fragment
+            Bundle args = new Bundle();
+            args.putString("lessonId", lessonId);
+            args.putString("courseId", courseId);
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_lessonDetailFragment_to_quizFragment, args);
+        });
+
+        binding.buttonCompleteLesson.setOnClickListener(v -> {
+            markLessonAsComplete();
+        });
+    }
+
+    private void checkCompletionStatus() {
+        boolean canComplete = isVideoWatched && isQuizCompleted;
+        binding.buttonCompleteLesson.setEnabled(canComplete);
+    }
+
+    public void onQuizCompleted() {
+        isQuizCompleted = true;
+        checkCompletionStatus();
+    }
+
+    public void updateLastAccessed(String courseId) {
+        progressViewModel.updateLastAccess(courseId);
+    }
+
+    @Transaction
+    private void markLessonAsComplete() {
+        if (currentCourse != null && currentLesson != null && userProgress != null) {
+            // Update LessonStatus, and auto increment completed lessons in user progress
+            lessonStatusViewModel.completeLessonWithoutQuiz(courseId, lessonId);
+
+            // Update UserProgress
+            progressViewModel.updateProgress(courseId, currentCourse.getLessonCount(), userProgress.getCompletedLessons() + 1);
+
+            // Hiển thị Toast và điều hướng
+            Toast.makeText(requireContext(), getString(R.string.lesson_completed), Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(this).popBackStack(R.id.courseDetailFragment, false);
+        }
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+        if (videoWebView != null) {
+            videoWebView.destroy();
         }
     }
 } 

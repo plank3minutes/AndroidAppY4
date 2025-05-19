@@ -9,11 +9,10 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
-import com.appsnipp.education.data.JsonDataRepository;
-import com.appsnipp.education.ui.model.Course;
-import com.appsnipp.education.ui.model.Lesson;
-import com.appsnipp.education.ui.model.Quiz;
+import com.appsnipp.education.data.*;
+import com.appsnipp.education.ui.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,20 +39,10 @@ public class CourseRepository {
         return allCourses;
     }
 
-    public LiveData<List<Course>> getCoursesByIds(List<String> courseIds) {
-        MutableLiveData<List<Course>> courses = new MutableLiveData<>();
-        List<Course> resultCourses = new ArrayList<>();
-
-        for (String courseId : courseIds) {
-            LiveData<Course> course = instance.getCourseById(courseId);
-            if (course != null) {
-                resultCourses.add(course.getValue());
-            }
-        }
-
-        courses.postValue(resultCourses);
-
-        return courses;
+    public LiveData<List<Course>> getFiveCourses() {
+        return Transformations.map(allCourses, courses -> {
+            return courses.subList(0, Math.min(courses.size(), 3));
+        });
     }
 
     public LiveData<Course> getCourseById(String courseId) {

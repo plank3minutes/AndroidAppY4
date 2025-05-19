@@ -26,11 +26,15 @@ public class DarkModePrefManager {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = pref.edit();
+        // Force light mode by default
+        if (!pref.contains(IS_NIGHT_MODE)) {
+            setDarkMode(false);
+        }
     }
 
     public void setDarkMode(boolean isFirstTime) {
         editor.putBoolean(IS_NIGHT_MODE, isFirstTime);
-        editor.apply();
+        editor.commit(); // Using commit instead of apply for immediate effect
     }
 
     public boolean isNightMode() {

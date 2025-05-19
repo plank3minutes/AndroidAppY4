@@ -68,6 +68,10 @@ public class LessonStatusRepository {
         new DeleteAllLessonStatusAsyncTask(lessonStatusDao).execute();
     }
 
+    public LiveData<Integer> getQuizTaken() {
+        return lessonStatusDao.getQuizTaken();
+    }
+
     public void completeQuiz(String courseId, String lessonId, int quizScore) {
         new CompleteQuizAsyncTask(lessonStatusDao).execute(
                 new LessonCompletion(courseId, lessonId, quizScore));

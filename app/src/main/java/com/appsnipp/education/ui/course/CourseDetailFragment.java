@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.ui.course;
 
 import android.os.Bundle;
@@ -12,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentCourseDetailBinding;
 import com.appsnipp.education.ui.adapter.LessonAdapter;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.LessonStatus;
@@ -32,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CourseDetailFragment extends Fragment {
+public class CourseDetailFragment extends BaseFragment {
 
     private FragmentCourseDetailBinding binding;
     private CourseViewModel courseViewModel;
@@ -64,10 +60,10 @@ public class CourseDetailFragment extends Fragment {
         setupRecyclerView();
         setupButtonListeners();
         observeCourseData();
+        updateLastAccessed(courseId);
     }
 
     private void setupToolbar() {
-        binding.toolbar.setNavigationIcon(R.drawable.ic_back);
         binding.toolbar.setNavigationOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigateUp();
         });
@@ -183,9 +179,15 @@ public class CourseDetailFragment extends Fragment {
         if (currentCourse != null && currentCourse.getLessonCount() > 0) {
             completionPercentage = (progress.getCompletedLessons() * 100) / currentCourse.getLessonCount();
         }
+        if (completionPercentage >= 100) {
+            binding.buttonContinue.setEnabled(false);
+            binding.buttonContinue.setAlpha(0.5f);
+            binding.buttonContinue.setText(R.string.completed);
+        }
         binding.progressBarCourse.setProgress(completionPercentage);
         binding.textProgress.setText(getString(R.string.percentage_course, completionPercentage));
     }
+
 
     private final LessonAdapter.LessonListener lessonListener = new LessonAdapter.LessonListener() {
         @Override
@@ -197,6 +199,10 @@ public class CourseDetailFragment extends Fragment {
             }
         }
     };
+
+    public void updateLastAccessed(String courseId) {
+        progressViewModel.updateLastAccess(courseId);
+    }
 
     @Override
     public void onDestroyView() {

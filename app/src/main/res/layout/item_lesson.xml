@@ -8,7 +8,7 @@
     app:cardBackgroundColor="@color/card_background"
     app:cardCornerRadius="12dp"
     app:cardElevation="0dp"
-    app:strokeColor="#33FFFFFF"
+    app:strokeColor="@color/grey_light"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:background="@drawable/circle_background"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/whiteTextColor"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:maxLines="2"
-            android:textColor="@color/white"
+            android:textColor="@color/contentTextColor"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/textLessonDescription"
             app:layout_constraintEnd_toStartOf="@+id/imageCompleted"
@@ -58,7 +58,7 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif"
             android:maxLines="1"
-            android:textColor="#B3FFFFFF"
+            android:textColor="@color/dashboard_subtitle"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageCompleted"
@@ -84,20 +84,9 @@
                 android:layout_height="16dp"
                 android:contentDescription="@string/video_available"
                 android:src="@drawable/ic_video"
-                app:tint="#B3FFFFFF" />
+                app:tint="@color/dashboard_subtitle" />
 
         </LinearLayout>
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imageStatus"-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:contentDescription="@string/lesson_completed"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            tools:src="@drawable/ic_play_circle"-->
-<!--            tools:tint="@color/bright_orange" />-->
 
         <ImageView
             android:id="@+id/imageCompleted"
@@ -111,7 +100,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -8,10 +8,6 @@ import com.appsnipp.education.BuildConfig;
 
 import timber.log.Timber;
 
-/**
- * Created on October.
- * year 2021 .
- */
 public final class AppLogger {
 
     private AppLogger() {

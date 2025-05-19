@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2025. rogergcc
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thông tin nhóm"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/contentTextColor"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nhóm: 12 - D21CNPM06"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/contentTextColor"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thành viên: 05 người"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/contentTextColor"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="• Dương Thanh Tùng - B21DCCN766\n• Phan Văn Tú - B21DCCN754\n• Vũ Xuân Tùng - B21DCCN778\n• Ngô Mạnh Dũng - B21DCCN035\n• Đỗ Mạnh Hùng - B21DCCN408"
+        android:textSize="16sp"
+        android:textColor="@color/contentTextColor"
+        android:lineSpacingExtra="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Môn học"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/contentTextColor"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lập trình thiết bị di động"
+        android:textSize="16sp"
+        android:textColor="@color/contentTextColor"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giảng viên"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/contentTextColor"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trịnh Thị Vân Anh"
+        android:textSize="16sp"
+        android:textColor="@color/contentTextColor"
+        android:layout_marginStart="16dp"/>
+
+</LinearLayout> 
