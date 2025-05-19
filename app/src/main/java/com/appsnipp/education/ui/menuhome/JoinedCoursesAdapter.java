@@ -23,6 +23,7 @@ public class JoinedCoursesAdapter
 
     private static final int VIEW_TYPE_COURSE = 0;
     private static final int VIEW_TYPE_SEE_ALL = 1;
+    private static final int MAX_ITEMS_WITH_SEE_ALL = 4;
 
     private final HomeCourseItemClickListener itemClickListener;
     private List<Pair<Course, UserProgress>> items;
@@ -40,12 +41,12 @@ public class JoinedCoursesAdapter
 
     @Override
     public int getItemCount() {
-        return items == null ? 0 : items.size() > 3 ? items.size() + 1 : items.size();
+        return items == null ? 0 : items.size() > 3 ? MAX_ITEMS_WITH_SEE_ALL : items.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == items.size()) {
+        if (position == MAX_ITEMS_WITH_SEE_ALL - 1) {
             return VIEW_TYPE_SEE_ALL; // Last item is "See All"
         } else {
             return VIEW_TYPE_COURSE;   // Normal course item
@@ -68,7 +69,7 @@ public class JoinedCoursesAdapter
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (position == items.size()) {
+        if (position == MAX_ITEMS_WITH_SEE_ALL - 1) {
             ((SeeAllViewHolder) holder).bind(itemClickListener);
         } else {
             Pair<Course, UserProgress> item = items.get(position);

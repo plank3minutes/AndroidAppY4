@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.databinding.CardBookmarkedCourseBinding;
-import com.appsnipp.education.databinding.CardSeeAllBinding;
+import com.appsnipp.education.databinding.CardSeeAllSmallBinding;
 import com.appsnipp.education.ui.listeners.HomeCourseItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.bumptech.glide.Glide;
@@ -24,6 +24,7 @@ public class BookmarkedCoursesAdapter
 
     private static final int VIEW_TYPE_COURSE = 0;
     private static final int VIEW_TYPE_SEE_ALL = 1;
+    private static final int MAX_ITEMS_WITH_SEE_ALL = 4;
 
     private final HomeCourseItemClickListener itemClickListener;
     private List<Course> items;
@@ -41,12 +42,12 @@ public class BookmarkedCoursesAdapter
 
     @Override
     public int getItemCount() {
-        return items == null ? 0 : items.size() > 3 ? items.size() + 1 : items.size();
+        return items == null ? 0 : items.size() > 3 ? MAX_ITEMS_WITH_SEE_ALL : items.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == items.size()) {
+        if (position == MAX_ITEMS_WITH_SEE_ALL - 1) {
             return VIEW_TYPE_SEE_ALL; // Last item is "See All"
         } else {
             return VIEW_TYPE_COURSE;   // Normal course item
@@ -60,7 +61,7 @@ public class BookmarkedCoursesAdapter
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         if (viewType == VIEW_TYPE_SEE_ALL) {
-            CardSeeAllBinding binding = CardSeeAllBinding.inflate(inflater, parent, false);
+            CardSeeAllSmallBinding binding = CardSeeAllSmallBinding.inflate(inflater, parent, false);
             return new SeeAllViewHolder(binding);
         } else {
             CardBookmarkedCourseBinding binding = CardBookmarkedCourseBinding.inflate(inflater, parent, false);
@@ -70,7 +71,7 @@ public class BookmarkedCoursesAdapter
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (position == items.size()) {
+        if (position == MAX_ITEMS_WITH_SEE_ALL - 1) {
             ((SeeAllViewHolder) holder).bind(itemClickListener);
         } else {
             Course item = items.get(position);
@@ -79,9 +80,9 @@ public class BookmarkedCoursesAdapter
     }
 
     public static class SeeAllViewHolder extends RecyclerView.ViewHolder {
-        CardSeeAllBinding binding;
+        CardSeeAllSmallBinding binding;
 
-        public SeeAllViewHolder(CardSeeAllBinding binding) {
+        public SeeAllViewHolder(CardSeeAllSmallBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
