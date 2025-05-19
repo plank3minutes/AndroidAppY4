@@ -178,7 +178,7 @@ public class CourseAnalysis extends BaseFragment{
     private static class QuizProgressHolder {
         int totalQuizzes = 0;
         int totalCompletedQuizzes = 0;
-        int totalInProgressQuizzes = 0;
+//        int totalInProgressQuizzes = 0;
     }
 
     private void updateProgressBars(CourseStat courseStat) {
@@ -239,21 +239,22 @@ public class CourseAnalysis extends BaseFragment{
                     .observe(getViewLifecycleOwner(), lessonStatuses -> {
                         if (lessonStatuses != null) {
                             int completedQuizzes = 0;
-                            int inProgressQuizzes = 0;
+//                            int inProgressQuizzes = 0;
 
                             for (LessonStatus status : lessonStatuses) {
                                 if (status.getQuizScore() > 0) {
                                     if (status.isCompleted() || status.getQuizScore() == 100) {
                                         completedQuizzes++;
-                                    } else {
-                                        inProgressQuizzes++;
                                     }
+//                                    else {
+//                                        inProgressQuizzes++;
+//                                    }
                                 }
                             }
 
                             // Update progress holder
                             progressHolder.totalCompletedQuizzes += completedQuizzes;
-                            progressHolder.totalInProgressQuizzes += inProgressQuizzes;
+//                            progressHolder.totalInProgressQuizzes += inProgressQuizzes;
 
                             // Update progress bar
                             updateQuizProgressBar(progressHolder);
@@ -269,11 +270,11 @@ public class CourseAnalysis extends BaseFragment{
     private void updateQuizProgressBar(QuizProgressHolder holder) {
         if (holder.totalQuizzes > 0) {
             int completedPercentage = (holder.totalCompletedQuizzes * 100) / holder.totalQuizzes;
-            int inProgressPercentage = (holder.totalInProgressQuizzes * 100) / holder.totalQuizzes;
+//            int inProgressPercentage = (holder.totalInProgressQuizzes * 100) / holder.totalQuizzes;
 
             quizProgressBar.setMax(100);
             quizProgressBar.setProgress(completedPercentage);
-            quizProgressBar.setSecondaryProgress(completedPercentage + inProgressPercentage);
+//            quizProgressBar.setSecondaryProgress(completedPercentage + inProgressPercentage);
         }
     }
 }
