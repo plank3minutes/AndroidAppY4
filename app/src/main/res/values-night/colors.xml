@@ -12,7 +12,7 @@
     <color name="primaryTextColor">#FF5733</color>
     <color name="whiteTextColor">#FFFFFF</color>
     <color name="color_hint">#AAAAAA</color>
-    <color name ="color_control">#E6E6F2</color>
+    <color name="color_control">#E6E6F2</color>
 
 
     <color name="dashboard_subtitle">#B7B7CC</color>
@@ -63,5 +63,8 @@
     <color name="card_quiz_stroke">#4DFFFFFF</color>
     <color name="card_quiz_selected_background">#4DFF5733</color>
     <color name="card_quiz_selected_stroke">@color/bright_orange</color>
+
+    <color name="joined_course_background">@color/card_background</color>
+    <color name="bookmarked_course_background">@color/card_background</color>
 
 </resources>
