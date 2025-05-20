@@ -4,6 +4,7 @@
 
 package com.appsnipp.education.ui.adapter;
 
+import android.content.Context;
 import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.appsnipp.education.R;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.LessonStatus;
+import com.appsnipp.education.ui.utils.FontSizeUtils;
+import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
 
 import java.util.List;
 
@@ -26,11 +29,14 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     private List<Lesson> lessons;
     private final LessonListener lessonListener;
     private List<LessonStatus> lessonStatuses;
+    private final FontSizePrefManager fontSizePrefManager;
+    private final Context context;
 
-
-    public LessonAdapter(List<Lesson> lessons, LessonListener lessonListener) {
+    public LessonAdapter(Context context, List<Lesson> lessons, LessonListener lessonListener) {
+        this.context = context;
         this.lessons = lessons;
         this.lessonListener = lessonListener;
+        this.fontSizePrefManager = new FontSizePrefManager(context);
     }
 
     public void updateLessons(List<Lesson> lessons) {
@@ -63,6 +69,11 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
             }
         }
         holder.bind(lesson, status, position);
+        
+        // Apply font sizes
+        FontSizeUtils.applyFontSize(holder.textLessonTitle, fontSizePrefManager.getFontSize());
+        FontSizeUtils.applyFontSize(holder.textLessonDescription, fontSizePrefManager.getFontSize());
+        FontSizeUtils.applyFontSize(holder.textLessonNumber, fontSizePrefManager.getFontSize());
     }
 
     @Override
@@ -91,8 +102,8 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
             textLessonTitle.setText(lesson.getTitle());
             String html = lesson.getContent();
             Spanned spanned = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY);
-            String plainText = spanned.toString(); // => "Hello world"
-            textLessonDescription.setText(plainText.substring(0, Math.min(lesson.getContent().length(), 100)) + "...");
+            String plainText = spanned.toString();
+            textLessonDescription.setText(plainText.substring(0, Math.min(plainText.length(), 100)) + "...");
             
             // Show video indicator if video URL exists
             if (lesson.getVideoUrl() != null && !lesson.getVideoUrl().isEmpty()) {
