@@ -90,9 +90,12 @@ public class QuizStatViewModel extends ViewModel {
 
         quizStat.setFailQuiz(failQuiz);
         quizStat.setPassQuiz(passQuiz);
-        quizStat.setAverageScore((double)totalScore/totalQuiz * 10);
-        quizStat.setCompletedPercentage((int) Math.round((double)passQuiz/(passQuiz+failQuiz) * 100));
+        quizStat.setAverageScore(totalQuiz == 0 ? 0.0 : (double)totalScore / totalQuiz * 10);
+        int totalAttempted = passQuiz + failQuiz;
+        quizStat.setCompletedPercentage(totalAttempted == 0 ? 0 : (int) Math.round((double) passQuiz / totalAttempted * 100));
         quizStat.setProgressByCourse(progressByCourse);
+
+        quizStatLiveData.setValue(quizStat);
     }
 
     public LiveData<QuizStat> getLiveDataQuizStat() {

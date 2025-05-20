@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/tvCourseName"
+            android:id="@+id/course_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -34,13 +34,13 @@
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvQuizScore"
+            app:layout_constraintEnd_toStartOf="@+id/quiz_score_tv"
             app:layout_constraintTop_toTopOf="@id/courseColorIndicator"
             app:layout_constraintBottom_toBottomOf="@id/courseColorIndicator"
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
-            android:id="@+id/tvQuizScore"
+            android:id="@+id/quiz_score_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -58,7 +58,7 @@
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
-            android:id="@+id/tvQuizTitle"
+            android:id="@+id/lesson_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -74,23 +74,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courseColorIndicator" />
 
-        <!-- Lesson Info -->
-        <TextView
-            android:id="@+id/tvLessonInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/lesson_badge_background"
-            android:fontFamily="sans-serif"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="2dp"
-            android:text="Bài 2"
-            android:textColor="@color/dashboard_subtitle"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvQuizTitle" />
-
         <!-- Date with icon -->
         <ImageView
             android:id="@+id/ivCalendarIcon"
@@ -101,11 +84,11 @@
             android:src="@drawable/calendar"
             android:contentDescription="Date icon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLessonInfo"
+            app:layout_constraintTop_toBottomOf="@+id/lesson_name_tv"
             app:tint="@color/dashboard_subtitle" />
 
         <TextView
-            android:id="@+id/tvQuizDate"
+            android:id="@+id/quiz_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -129,10 +112,10 @@
             android:textColor="@color/dashboard_subtitle"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/progressQuiz" />
+            app:layout_constraintBottom_toTopOf="@+id/progress_quiz" />
 
         <TextView
-            android:id="@+id/tvAccuracyPercentage"
+            android:id="@+id/accuracy_percentage_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -144,7 +127,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvAccuracyLabel" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressQuiz"
+            android:id="@+id/progress_quiz"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
