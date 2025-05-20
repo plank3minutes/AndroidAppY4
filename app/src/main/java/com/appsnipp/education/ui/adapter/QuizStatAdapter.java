@@ -1,10 +1,8 @@
 package com.appsnipp.education.ui.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,19 +13,18 @@ import com.appsnipp.education.data.converter.DateConverter;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.LessonStatus;
-import com.appsnipp.education.ui.model.Quiz;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
+import java.util.logging.Logger;
 
 public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_ITEM = 0;
     private static final int VIEW_TYPE_VIEW_MORE = 1;
+    private static final int MAX_ITEMS_TO_SHOW = 4;
     private boolean isExpanded;
     private List<LessonStatus> lessonStatuses;
     private Map<String, Course> courseMap;
@@ -58,6 +55,8 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             quizHolder.courseNameTextView.setText(courseMap.get(lessonStatus.getCourseId()).getTitle());
             quizHolder.quizScoreTextView.setText(getScoreTextView(position));
             quizHolder.lessonNameTextView.setText(getLessonName(position));
+            Logger.getAnonymousLogger().info(DateConverter.getDateFormated(lessonStatus.getCompletedAt()));
+
             quizHolder.quizDateTextView.setText(DateConverter.getDateFormated(lessonStatus.getCompletedAt()));
             int progressPercentage = getPercentageProgress(position);
             quizHolder.progressQuiz.setProgress(progressPercentage);
@@ -73,16 +72,42 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        return isExpanded ? lessonStatuses.size() : Math.min(lessonStatuses.size(), 3) + 1;
+        return isExpanded ? lessonStatuses.size() : lessonStatuses.size() > 3 ? MAX_ITEMS_TO_SHOW : lessonStatuses.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == lessonStatuses.size()) {
+        if (position == MAX_ITEMS_TO_SHOW && !isExpanded) {
             return VIEW_TYPE_VIEW_MORE;
         } else {
             return VIEW_TYPE_ITEM;
         }
+    }
+
+    private String getScoreTextView(int position) {
+        LessonStatus lessonStatus = this.lessonStatuses.get(position);
+        int totalQuiz = 0;
+        for (Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
+            if (ls.getId().equals(lessonStatus.getLessonId())) {
+                totalQuiz += ls.getQuiz().getQuestions().size();
+            }
+        }
+        int score = (int) Math.ceil(lessonStatus.getQuizScore() / 100.0 * totalQuiz);
+        return String.format(Locale.getDefault(), "%d/%d", score, totalQuiz);
+    }
+
+    private String getLessonName(int position) {
+        LessonStatus lessonStatus = this.lessonStatuses.get(position);
+        for (Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
+            if (ls.getId().equals(lessonStatus.getLessonId())) {
+                return ls.getTitle();
+            }
+        }
+        return "";
+    }
+
+    private int getPercentageProgress(int position) {
+        return lessonStatuses.get(position).getQuizScore();
     }
 
     static class QuizStatViewHolder extends RecyclerView.ViewHolder {
@@ -92,6 +117,7 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final TextView quizDateTextView;
         private final TextView accuracyPercentageTextView;
         private final LinearProgressIndicator progressQuiz;
+
         public QuizStatViewHolder(@NonNull View itemView) {
             super(itemView);
             this.courseNameTextView = itemView.findViewById(R.id.course_name_tv);
@@ -105,35 +131,10 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     static class ButtonViewAllHolder extends RecyclerView.ViewHolder {
         private final MaterialButton materialButton;
+
         public ButtonViewAllHolder(@NonNull View itemView) {
             super(itemView);
             materialButton = itemView.findViewById(R.id.view_all_btn);
         }
-    }
-
-    private String getScoreTextView(int position){
-        LessonStatus lessonStatus = this.lessonStatuses.get(position);
-        int totalQuiz = 0;
-        for(Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
-            if(ls.getId().equals(lessonStatus.getLessonId())) {
-                totalQuiz += ls.getQuiz().getQuestions().size();
-            }
-        }
-        int score = (int) Math.ceil(lessonStatus.getQuizScore() / 100.0 * totalQuiz);
-        return String.format(Locale.getDefault(), "%d/%d", score, totalQuiz);
-    }
-
-    private String getLessonName(int position) {
-        LessonStatus lessonStatus = this.lessonStatuses.get(position);
-        for(Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
-            if(ls.getId().equals(lessonStatus.getLessonId())) {
-                return ls.getTitle();
-            }
-        }
-        return "";
-    }
-
-    private int getPercentageProgress(int position) {
-        return lessonStatuses.get(position).getQuizScore();
     }
 }
