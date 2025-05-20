@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.ui.viewmodel;
 
 import android.app.Application;
@@ -67,8 +63,8 @@ public class CourseViewModel extends AndroidViewModel {
         return repository.getCoursesByName(name);
     }
 
-    public LiveData<List<Course>> getFiveCourses() {
-        return repository.getFiveCourses();
+    public LiveData<List<Course>> getCoursesByNameAndType(String name, String type) {
+        return repository.getCoursesByNameAndType(name, type);
     }
 
 } 
