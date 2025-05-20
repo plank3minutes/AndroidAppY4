@@ -113,13 +113,13 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private String getScoreTextView(int position){
         LessonStatus lessonStatus = this.lessonStatuses.get(position);
-        int score = lessonStatus.getQuizScore();
         int totalQuiz = 0;
         for(Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
             if(ls.getId().equals(lessonStatus.getLessonId())) {
-                totalQuiz = ls.getQuiz().getQuestions().size();
+                totalQuiz += ls.getQuiz().getQuestions().size();
             }
         }
+        int score = (int) Math.ceil(lessonStatus.getQuizScore() / 100.0 * totalQuiz);
         return String.format(Locale.getDefault(), "%d/%d", score, totalQuiz);
     }
 
@@ -134,14 +134,6 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private int getPercentageProgress(int position) {
-        LessonStatus lessonStatus = this.lessonStatuses.get(position);
-        int score = lessonStatus.getQuizScore();
-        int totalQuiz = 0;
-        for(Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
-            if(ls.getId().equals(lessonStatus.getLessonId())) {
-                totalQuiz = ls.getQuiz().getQuestions().size();
-            }
-        }
-        return (int) Math.ceil((double) score/totalQuiz * 100);
+        return lessonStatuses.get(position).getQuizScore();
     }
 }

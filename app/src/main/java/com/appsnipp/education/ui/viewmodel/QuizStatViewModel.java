@@ -58,10 +58,10 @@ public class QuizStatViewModel extends ViewModel {
         for(LessonStatus lessonStatus: lessonStatuses) {
             if(lessonStatus.getQuizScore() >= 0) {
                 totalScore += lessonStatus.getQuizScore();
+                totalQuiz++;
                 Course course = courseMap.get(lessonStatus.getCourseId());
                 for(Lesson lesson : course.getLessons()) {
                     if(lesson.getId().equals(lessonStatus.getLessonId())) {
-                        totalQuiz += lesson.getQuiz().getQuestions().size();
                         if (lessonStatus.getQuizScore() > Math.floor((double) lesson.getQuiz().getQuestions().size()/2)) {
                             passQuiz++;
                         } else {
@@ -79,18 +79,18 @@ public class QuizStatViewModel extends ViewModel {
                 for(LessonStatus lessonStatus: lessonStatuses) {
                     if(lessonStatus.getQuizScore() >= 0 && lessonStatus.getLessonId().equals(ls.getId()) && lessonStatus.getCourseId().equals(course.getId())) {
                         quizScoreCourse += lessonStatus.getQuizScore();
-                        totalQuizCourse += ls.getQuiz().getQuestions().size();
+                        totalQuizCourse++;
                     }
                 }
             }
             if (totalQuizCourse != 0) {
-                progressByCourse.put(course.getId(), (int)Math.ceil((double) quizScoreCourse / totalQuizCourse * 100));
+                progressByCourse.put(course.getId(), (int)Math.ceil((double) quizScoreCourse / totalQuizCourse));
             }
         }
 
         quizStat.setFailQuiz(failQuiz);
         quizStat.setPassQuiz(passQuiz);
-        quizStat.setAverageScore(totalQuiz == 0 ? 0.0 : (double)totalScore / totalQuiz * 10);
+        quizStat.setAverageScore(totalQuiz == 0 ? 0.0 : (double)totalScore / totalQuiz / 10);
         int totalAttempted = passQuiz + failQuiz;
         quizStat.setCompletedPercentage(totalAttempted == 0 ? 0 : (int) Math.round((double) passQuiz / totalAttempted * 100));
         quizStat.setProgressByCourse(progressByCourse);
