@@ -1,6 +1,6 @@
 [
   {
-    "id": "course1",
+    "id": "course1-android",
     "title": "Java for Beginners",
     "description": "Learn to code in Java — a robust programming language used to create software, web and mobile apps, and more.",
     "imageResource": "course_design_coding",
@@ -148,7 +148,7 @@
     ]
   },
   {
-    "id": "course2",
+    "id": "course2-ai",
     "title": "Machine Learning Fundamentals",
     "description": "Master the core concepts, algorithms, and practical applications of machine learning to solve real-world problems.",
     "imageResource": "course_design_thinking",
@@ -296,7 +296,7 @@
     ]
   },
   {
-    "id": "course3",
+    "id": "course3-other",
     "title": "Digital Marketing Essentials",
     "description": "Learn the fundamentals of digital marketing including SEO, social media, email marketing, and analytics to boost your online presence.",
     "imageResource": "course_design_marketing",
@@ -444,7 +444,7 @@
     ]
   },
   {
-    "id": "course4",
+    "id": "course4-other",
     "title": "Financial Literacy 101",
     "description": "Build a strong foundation in personal finance, from budgeting and saving to investing and planning for retirement.",
     "imageResource": "course_design_whatisthisshit",
@@ -592,7 +592,7 @@
     ]
   },
   {
-    "id": "course5",
+    "id": "course5-other",
     "title": "Photography Masterclass",
     "description": "Learn the art and science of photography, from camera basics to advanced composition and editing techniques.",
     "imageResource": "course_design_securityexpert",
