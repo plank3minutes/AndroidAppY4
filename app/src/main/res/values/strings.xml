@@ -150,6 +150,8 @@
     <!-- Empty state strings -->
     <string name="no_course_data_available">No course data available</string>
     <string name="no_course_performance">No Course Performance Yet</string>
+    <string name="no_course_completed">No Course Completed Yet</string>
+    <string name="no_course_in_progress">No Course In Progress Yet</string>
     <string name="complete_quiz_to_see_performance">Complete quizzes to see your performance by course</string>
     <string name="no_quiz_results_available">No quiz results available</string>
     <string name="no_quiz_results_yet">No Quiz Results Yet</string>

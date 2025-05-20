@@ -73,11 +73,10 @@ public class CourseStatViewModel extends ViewModel {
         }
 
         for (Course course : courses) {
-            if (completedCourses.contains(course) || inProgressCourses.contains(course)) continue;
+            if (completedCourses.contains(course) || inProgressCourses.contains(course) || notJoinCourses.contains(course)) continue;
             notJoinCourses.add(course);
             notJoinProgress.add(0);
         }
-        // Truyền về dữ liệu cho Fragment
         CourseStat data = new CourseStat(completedCourses, completedProgress, inProgressCourses, inProgress, notJoinCourses, notJoinProgress);
         courseStatLiveData.setValue(data);
     }

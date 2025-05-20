@@ -29,11 +29,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.appsnipp.education.R;
-import com.appsnipp.education.data.repository.CourseRepository;
 import com.appsnipp.education.data.repository.LessonStatusRepository;
 import com.appsnipp.education.data.repository.ProgressRepository;
 import com.appsnipp.education.ui.base.BaseFragment;
-import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.utils.TimeTrackerApp;
 import com.appsnipp.education.ui.utils.helpers.FontSizeChangeEvent;
 

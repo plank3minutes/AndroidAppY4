@@ -68,6 +68,13 @@ public class CourseStatAdapter extends RecyclerView.Adapter<CourseStatAdapter.Co
         return courses.size();
     }
 
+    public void updateData(List<Course> courses, List<Integer> progresses, CourseStatListener listener) {
+        this.courses = courses;
+        this.progresses = progresses;
+        this.listener = listener;
+        notifyDataSetChanged();
+    }
+
     static class CourseStatViewHolder extends RecyclerView.ViewHolder {
         private final ImageView courseIv;
         private final TextView titleCourseTv;
