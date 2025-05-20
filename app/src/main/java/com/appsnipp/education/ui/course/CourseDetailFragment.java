@@ -76,7 +76,7 @@ public class CourseDetailFragment extends BaseFragment {
     }
 
     private void setupRecyclerView() {
-        lessonAdapter = new LessonAdapter(new ArrayList<>(), lessonListener);
+        lessonAdapter = new LessonAdapter(requireContext(), new ArrayList<>(), lessonListener);
         binding.recyclerViewLessons.setAdapter(lessonAdapter);
         binding.recyclerViewLessons.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
