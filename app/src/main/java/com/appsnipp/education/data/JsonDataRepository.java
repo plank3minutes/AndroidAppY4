@@ -91,11 +91,12 @@ public class JsonDataRepository {
                 String title = courseJson.getString("title");
                 String description = courseJson.getString("description");
                 String imageName = courseJson.getString("imageResource");
+                String type = courseJson.getString("type");
                 int imageResource = context.getResources().getIdentifier(
                         imageName, "drawable", context.getPackageName());
                 
                 List<Lesson> lessons = getLessonsFromCourseJson(courseJson);
-                courses.add(new Course(id, title, description, lessons, imageResource));
+                courses.add(new Course(id, title, description, lessons, imageResource,type));
             }
         } catch (JSONException e) {
             e.printStackTrace();

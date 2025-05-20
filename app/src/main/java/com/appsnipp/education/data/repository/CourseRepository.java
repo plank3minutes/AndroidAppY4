@@ -141,7 +141,7 @@ public class CourseRepository {
                         filtered.add(course);
                     }
                 } else {
-                    if (course.getName().toLowerCase().contains(name.toLowerCase()) && course.getId().contains(type.toLowerCase())) {
+                    if (course.getName().toLowerCase().contains(name.toLowerCase()) && course.getType().equals(type.toLowerCase())) {
                         filtered.add(course);
                     }
                 }

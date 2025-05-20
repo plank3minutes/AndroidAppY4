@@ -4,6 +4,7 @@
     "title": "Java for Beginners",
     "description": "Learn to code in Java — a robust programming language used to create software, web and mobile apps, and more.",
     "imageResource": "course_design_coding",
+    "type": "android",
     "lessons": [
       {
         "id": "lesson1_1",
@@ -152,6 +153,7 @@
     "title": "Machine Learning Fundamentals",
     "description": "Master the core concepts, algorithms, and practical applications of machine learning to solve real-world problems.",
     "imageResource": "course_design_thinking",
+    "type": "ai",
     "lessons": [
       {
         "id": "lesson2_1",
@@ -300,6 +302,7 @@
     "title": "Digital Marketing Essentials",
     "description": "Learn the fundamentals of digital marketing including SEO, social media, email marketing, and analytics to boost your online presence.",
     "imageResource": "course_design_marketing",
+    "type": "other",
     "lessons": [
       {
         "id": "lesson3_1",
@@ -448,6 +451,7 @@
     "title": "Financial Literacy 101",
     "description": "Build a strong foundation in personal finance, from budgeting and saving to investing and planning for retirement.",
     "imageResource": "course_design_whatisthisshit",
+    "type": "other",
     "lessons": [
       {
         "id": "lesson4_1",
@@ -596,6 +600,7 @@
     "title": "Photography Masterclass",
     "description": "Learn the art and science of photography, from camera basics to advanced composition and editing techniques.",
     "imageResource": "course_design_securityexpert",
+    "type": "other",
     "lessons": [
       {
         "id": "lesson5_1",

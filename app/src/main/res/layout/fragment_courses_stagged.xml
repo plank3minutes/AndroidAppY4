@@ -81,13 +81,14 @@
                 android:textColorHint="@color/color_hint"
                 android:textSize="14sp" />
 
-          <com.google.android.material.tabs.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffba60"
                 app:tabTextColor="#FFFFFF"
                 app:tabSelectedTextColor="@color/colorPrimaryDark"
+                app:tabTextAppearance="@style/TabTextStyle"
                 app:tabIndicatorColor="@color/colorPrimaryDark"/>
 
             <LinearLayout
