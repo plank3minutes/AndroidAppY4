@@ -81,7 +81,7 @@
                             android:layout_height="120dp">
 
                             <com.google.android.material.progressindicator.CircularProgressIndicator
-                                android:id="@+id/overallProgressIndicator"
+                                android:id="@+id/overall_progress"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
@@ -142,7 +142,7 @@
                                     android:textSize="14sp" />
 
                                 <TextView
-                                    android:id="@+id/total_quiz_tv"
+                                    android:id="@+id/pass_quiz_tv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif-medium"
@@ -169,7 +169,7 @@
                                     android:textSize="14sp" />
 
                                 <TextView
-                                    android:id="@+id/completed_quiz_tv"
+                                    android:id="@+id/fail_quiz_tv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif-medium"
@@ -221,11 +221,11 @@
                 app:strokeWidth="1dp">
 
                 <LinearLayout
+                    android:id="@+id/performance_quiz_stat_by_course_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp"
-                    android:id="@+id/performance_quiz_stat_by_course_list">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -244,45 +244,44 @@
                         android:text="@string/accurate_rate_by_course"
                         android:textColor="@color/dashboard_subtitle"
                         android:textSize="14sp" />
+                    <!-- Empty State -->
+                    <LinearLayout
+                        android:id="@+id/empty_performance_quiz_stat_by_course"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:contentDescription="@string/no_course_data_available"
+                            android:src="@drawable/empty_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/no_course_performance"
+                            android:textAlignment="center"
+                            android:textColor="@color/contentTextColor"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/complete_quiz_to_see_performance"
+                            android:textAlignment="center"
+                            android:textColor="@color/dashboard_subtitle"
+                            android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <!-- Empty State -->
-                <LinearLayout
-                    android:id="@+id/empty_performance_quiz_stat_by_course"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:contentDescription="@string/no_course_data_available"
-                        android:src="@drawable/empty_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/no_course_performance"
-                        android:textAlignment="center"
-                        android:textColor="@color/contentTextColor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/complete_quiz_to_see_performance"
-                        android:textAlignment="center"
-                        android:textColor="@color/dashboard_subtitle"
-                        android:textSize="14sp" />
-                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Recent Quiz Results -->
@@ -303,7 +302,7 @@
 
                 <!-- Horizontal RecyclerView for Quiz Results -->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewQuizResults"
+                    android:id="@+id/recycler_view_quiz_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -315,7 +314,7 @@
 
                 <!-- Empty State for Quiz Results -->
                 <LinearLayout
-                    android:id="@+id/emptyQuizResultsLayout"
+                    android:id="@+id/empty_quiz_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -349,31 +348,6 @@
                         android:textColor="@color/dashboard_subtitle"
                         android:textSize="14sp" />
                 </LinearLayout>
-
-                <!-- View All Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnViewAllQuizzes"
-                    android:layout_width="180dp"
-                    android:layout_height="220dp"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="@color/card_background"
-                    android:fontFamily="sans-serif-medium"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:text="@string/all_quiz_result"
-                    android:textAllCaps="false"
-                    android:textColor="@color/contentTextColor"
-                    android:textSize="16sp"
-                    app:cornerRadius="20dp"
-                    app:icon="@drawable/ic_arrow_forward"
-                    app:iconGravity="textTop"
-                    app:iconPadding="16dp"
-                    app:iconSize="48dp"
-                    app:iconTint="@color/contentTextColor"
-                    app:strokeColor="@color/grey_light"
-                    app:strokeWidth="1dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
