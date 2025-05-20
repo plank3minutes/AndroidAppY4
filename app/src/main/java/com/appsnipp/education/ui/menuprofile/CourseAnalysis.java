@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,13 +59,15 @@ public class CourseAnalysis extends BaseFragment{
     private RecyclerView courseCompletedRv;
     private RecyclerView courseInProgressRv;
     private RecyclerView courseNotJoinRv;
-    private TextView completedEmptyTv;
-    private TextView inProgressEmptyTv;
-    private TextView notJoinEmptyTv;
+    private LinearLayout completedEmptyTv;
+    private LinearLayout inProgressEmptyTv;
+    private LinearLayout notJoinEmptyTv;
     private CourseStatViewModel viewModel;
     private CourseRepository courseRepository;
     private ProgressRepository progressRepository;
     private LessonStatusRepository lessonStatusRepository;
+
+    private CourseStatAdapter completedAdapter, inProgressAdapter, notJoinAdapter;
 
     private final CourseStatAdapter.CourseStatListener listener = new CourseStatAdapter.CourseStatListener () {
         @Override
@@ -92,11 +95,14 @@ public class CourseAnalysis extends BaseFragment{
     public View onCreateView(@NonNull LayoutInflater inflater,
                             @Nullable ViewGroup container,
                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_course_analysis, container, false);
+        return inflater.inflate(R.layout.fragment_course_analysis, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initializeViews(view);
         initViewModel();
         loadData();
-        return view;
     }
 
     private void initializeViews(View view) {
@@ -130,6 +136,14 @@ public class CourseAnalysis extends BaseFragment{
         courseNotJoinRv = view.findViewById(R.id.not_join_course_rv);
         courseNotJoinRv.setLayoutManager(linearLayoutManager3);
 
+        completedAdapter   = new CourseStatAdapter(requireContext(), new ArrayList<>(), new ArrayList<>(), listener);
+        inProgressAdapter  = new CourseStatAdapter(requireContext(), new ArrayList<>(), new ArrayList<>(), listener);
+        notJoinAdapter     = new CourseStatAdapter(requireContext(), new ArrayList<>(), new ArrayList<>(), listener);
+
+        courseCompletedRv.setAdapter(completedAdapter);
+        courseInProgressRv.setAdapter(inProgressAdapter);
+        courseNotJoinRv.setAdapter(notJoinAdapter);
+
         completedEmptyTv = view.findViewById(R.id.completed_course_empty_tv);
         inProgressEmptyTv = view.findViewById(R.id.in_progress_course_empty_tv);
         notJoinEmptyTv = view.findViewById(R.id.not_join_course_empty_tv);
@@ -147,39 +161,30 @@ public class CourseAnalysis extends BaseFragment{
             @Override
             public void onChanged(CourseStat courseStat) {
                 if (courseStat.completedCourses.isEmpty()) {
-                    courseCompletedRv.setVisibility(INVISIBLE);
-                    completedEmptyTv.setVisibility(VISIBLE);
+                    courseCompletedRv.setVisibility(View.GONE);
+                    completedEmptyTv.setVisibility(View.VISIBLE);
                 } else {
-                    courseCompletedRv.setAdapter(new CourseStatAdapter(
-                        requireContext(),
-                        courseStat.completedCourses, 
-                        courseStat.completedProgress, 
-                        listener
-                    ));
+                    courseCompletedRv.setVisibility(View.VISIBLE);
+                    completedEmptyTv.setVisibility(View.GONE);
+                    completedAdapter.updateData(courseStat.completedCourses, courseStat.completedProgress, listener);
                 }
 
                 if (courseStat.inProgressCourses.isEmpty()) {
-                    courseInProgressRv.setVisibility(INVISIBLE);
+                    courseInProgressRv.setVisibility(View.GONE);
                     inProgressEmptyTv.setVisibility(VISIBLE);
                 } else {
-                    courseInProgressRv.setAdapter(new CourseStatAdapter(
-                        requireContext(),
-                        courseStat.inProgressCourses, 
-                        courseStat.inProgress, 
-                        listener
-                    ));
+                    courseInProgressRv.setVisibility(View.VISIBLE);
+                    inProgressEmptyTv.setVisibility(View.GONE);
+                    inProgressAdapter.updateData(courseStat.inProgressCourses, courseStat.inProgress, listener);
                 }
 
                 if (courseStat.notJoinCourses.isEmpty()) {
-                    courseNotJoinRv.setVisibility(INVISIBLE);
+                    courseNotJoinRv.setVisibility(View.GONE);
                     notJoinEmptyTv.setVisibility(VISIBLE);
                 } else {
-                    courseNotJoinRv.setAdapter(new CourseStatAdapter(
-                        requireContext(),
-                        courseStat.notJoinCourses, 
-                        courseStat.notJoinProgress, 
-                        listener
-                    ));
+                    courseNotJoinRv.setVisibility(View.VISIBLE);
+                    notJoinEmptyTv.setVisibility(View.GONE);
+                    notJoinAdapter.updateData(courseStat.notJoinCourses, courseStat.notJoinProgress, listener);
                 }
 
                 // Update progress bars with real data

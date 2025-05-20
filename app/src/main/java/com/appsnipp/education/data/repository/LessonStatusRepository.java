@@ -77,6 +77,15 @@ public class LessonStatusRepository {
                 new LessonCompletion(courseId, lessonId, quizScore));
     }
 
+    public LiveData<List<LessonStatus>> getAllLessonStatus() {
+        return lessonStatusDao.getAllLessonStatus();
+    }
+
+    public void completeLessonWithoutQuiz(String courseId, String lessonId) {
+        new CompleteLessonWithoutQuizzAsyncTask(lessonStatusDao).execute(
+                new LessonCompletion(courseId, lessonId, -1));
+    }
+
     private static class CompleteQuizAsyncTask extends AsyncTask<LessonCompletion, Void, Void> {
         private final LessonStatusDao lessonStatusDao;
 
@@ -101,11 +110,6 @@ public class LessonStatusRepository {
             }
             return null;
         }
-    }
-
-    public void completeLessonWithoutQuiz(String courseId, String lessonId) {
-        new CompleteLessonWithoutQuizzAsyncTask(lessonStatusDao).execute(
-                new LessonCompletion(courseId, lessonId, -1));
     }
 
     private static class CompleteLessonWithoutQuizzAsyncTask extends AsyncTask<LessonCompletion, Void, Void> {

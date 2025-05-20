@@ -137,4 +137,23 @@
     <string name="in_progress">In progress</string>
     <string name="not_join">Not Join</string>
     <string name="empty_data">Empty data</string>
+    <string name="overview">Overview</string>
+    <string name="quiz_performance">Your quiz performance</string>
+    <string name="performance_by_course">Performance by course</string>
+    <string name="pass">Pass</string>
+    <string name="fail">Fail</string>
+    <string name="average_score">Average Score</string>
+    <string name="accurate_rate_by_course">Accuracy rate by course</string>
+    <string name="recent_quiz_result">Recent quiz results</string>
+    <string name="all_quiz_result">All quiz result</string>
+
+    <!-- Empty state strings -->
+    <string name="no_course_data_available">No course data available</string>
+    <string name="no_course_performance">No Course Performance Yet</string>
+    <string name="no_course_completed">No Course Completed Yet</string>
+    <string name="no_course_in_progress">No Course In Progress Yet</string>
+    <string name="complete_quiz_to_see_performance">Complete quizzes to see your performance by course</string>
+    <string name="no_quiz_results_available">No quiz results available</string>
+    <string name="no_quiz_results_yet">No Quiz Results Yet</string>
+    <string name="take_quiz_to_see_results">Take quizzes to see your results here</string>
 </resources>
