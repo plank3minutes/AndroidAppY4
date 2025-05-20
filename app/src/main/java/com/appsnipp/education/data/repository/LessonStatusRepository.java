@@ -77,6 +77,10 @@ public class LessonStatusRepository {
                 new LessonCompletion(courseId, lessonId, quizScore));
     }
 
+    public LiveData<List<LessonStatus>> getAllLessonStatus() {
+        return lessonStatusDao.getAllLessonStatus();
+    }
+
     private static class CompleteQuizAsyncTask extends AsyncTask<LessonCompletion, Void, Void> {
         private final LessonStatusDao lessonStatusDao;
 

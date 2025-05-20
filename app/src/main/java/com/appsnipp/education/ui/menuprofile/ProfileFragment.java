@@ -217,7 +217,7 @@ public class ProfileFragment extends BaseFragment {
         courseAnalysisCardView = view.findViewById(R.id.course_analysis_card_view_id);
         courseTakeTextView = view.findViewById(R.id.course_take_text_view);
         quizTakeTextView = view.findViewById(R.id.quiz_take_text_view);
-        
+
         // Initialize text views for font size changes
         profileTitle = view.findViewById(R.id.profileTitle);
         timeTrackerTitle = view.findViewById(R.id.time_tracker_title);

@@ -1,17 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.menuprofile.QuizResultFragment">
+    android:background="@color/contentBodyColor">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Header -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/contentBodyColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/quiz_result"
+        app:titleTextColor="@color/contentTextColor" />
 
-</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp">
+
+            <!-- Overall Statistics Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/grey_light"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/overview"
+                        android:textColor="@color/contentTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/quiz_performance"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="14sp" />
+
+                    <!-- Circular Progress -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="120dp"
+                            android:layout_height="120dp">
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/overallProgressIndicator"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:progress="78"
+                                app:indicatorColor="@color/bright_orange"
+                                app:indicatorSize="120dp"
+                                app:trackColor="@color/grey_light"
+                                app:trackThickness="8dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/overall_percentage_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="78%"
+                                    android:textColor="@color/contentTextColor"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif"
+                                    android:text="@string/completed"
+                                    android:textColor="@color/dashboard_subtitle"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="sans-serif"
+                                    android:text="@string/pass"
+                                    android:textColor="@color/contentTextColor"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/total_quiz_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="24"
+                                    android:textColor="@color/contentTextColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="sans-serif"
+                                    android:text="@string/fail"
+                                    android:textColor="@color/contentTextColor"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/completed_quiz_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="18"
+                                    android:textColor="@color/contentTextColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="sans-serif"
+                                    android:text="@string/average_score"
+                                    android:textColor="@color/contentTextColor"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/average_score_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="8.2/10"
+                                    android:textColor="@color/contentTextColor"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Performance by Course Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/grey_light"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:id="@+id/performance_quiz_stat_by_course_list">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/performance_by_course"
+                        android:textColor="@color/contentTextColor"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/accurate_rate_by_course"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <!-- Empty State -->
+                <LinearLayout
+                    android:id="@+id/empty_performance_quiz_stat_by_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/no_course_data_available"
+                        android:src="@drawable/empty_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/no_course_performance"
+                        android:textAlignment="center"
+                        android:textColor="@color/contentTextColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/complete_quiz_to_see_performance"
+                        android:textAlignment="center"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Recent Quiz Results -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/recent_quiz_result"
+                    android:textColor="@color/contentTextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- Horizontal RecyclerView for Quiz Results -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewQuizResults"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="12dp"
+                    android:visibility="visible" />
+
+                <!-- Empty State for Quiz Results -->
+                <LinearLayout
+                    android:id="@+id/emptyQuizResultsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/no_quiz_results_available"
+                        android:src="@drawable/empty_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/no_quiz_results_yet"
+                        android:textAlignment="center"
+                        android:textColor="@color/contentTextColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/take_quiz_to_see_results"
+                        android:textAlignment="center"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- View All Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnViewAllQuizzes"
+                    android:layout_width="180dp"
+                    android:layout_height="220dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/card_background"
+                    android:fontFamily="sans-serif-medium"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/all_quiz_result"
+                    android:textAllCaps="false"
+                    android:textColor="@color/contentTextColor"
+                    android:textSize="16sp"
+                    app:cornerRadius="20dp"
+                    app:icon="@drawable/ic_arrow_forward"
+                    app:iconGravity="textTop"
+                    app:iconPadding="16dp"
+                    app:iconSize="48dp"
+                    app:iconTint="@color/contentTextColor"
+                    app:strokeColor="@color/grey_light"
+                    app:strokeWidth="1dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
