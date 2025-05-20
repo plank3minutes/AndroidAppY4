@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2025. rogergcc
- */
-
 package com.appsnipp.education.ui.menuprofile;
 
 import android.graphics.Color;
@@ -9,7 +5,6 @@ import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -23,7 +18,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +32,6 @@ import com.appsnipp.education.data.repository.ProgressRepository;
 import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.utils.TimeTrackerApp;
 
-import java.util.logging.Logger;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -47,4 +47,7 @@ public interface LessonStatusDao {
 
     @Query("SELECT COUNT(*) FROM lesson_status ls WHERE ls.quizScore >= 0")
     LiveData<Integer> getQuizTaken();
-} 
+
+    @Query("SELECT * FROM lesson_status ls ORDER BY ls.completedAt DESC")
+    LiveData<List<LessonStatus>> getAllLessonStatus();
+}
