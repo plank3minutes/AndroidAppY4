@@ -1,11 +1,8 @@
-
-
 package com.appsnipp.education.ui.menuprofile;
 
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
@@ -21,6 +18,7 @@ import android.widget.TextView;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.ui.adapter.QuizStatAdapter;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Quiz;
 import com.appsnipp.education.ui.model.QuizStat;
@@ -33,10 +31,10 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link BaseFragment} subclass.
  * create an instance of this fragment.
  */
-public class QuizResultFragment extends Fragment {
+public class QuizResultFragment extends BaseFragment {
     private Toolbar toolbar;
     private TextView overallPercentageTv;
     private CircularProgressIndicator circularProgressIndicator;
