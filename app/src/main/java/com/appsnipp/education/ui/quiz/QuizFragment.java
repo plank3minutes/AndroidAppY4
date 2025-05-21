@@ -11,12 +11,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentQuizBinding;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.Question;
 import com.appsnipp.education.ui.model.Quiz;
 import com.appsnipp.education.ui.model.UserProgress;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class QuizFragment extends Fragment {
+public class QuizFragment extends BaseFragment {
 
     private FragmentQuizBinding binding;
     private CourseViewModel courseViewModel;

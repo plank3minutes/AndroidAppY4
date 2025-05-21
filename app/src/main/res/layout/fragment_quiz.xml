@@ -28,36 +28,37 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/quiz_title"
         android:textColor="@color/contentTextColor"
-        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quizToolbar" />
+
+    <TextView
+        android:id="@+id/textProgress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/question_progress"
+        android:textColor="@color/dashboard_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textQuizTitle" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressIndicator"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="16dp"
-        android:progress="40"
+        android:layout_marginTop="8dp"
+        android:progress="25"
         app:indicatorColor="@color/bright_orange"
-        app:trackColor="@color/grey_light"
-        app:trackThickness="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textQuizTitle" />
-
-    <TextView
-        android:id="@+id/textProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Question 2 of 5"
-        android:textColor="@color/dashboard_subtitle"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/progressIndicator"
-        app:layout_constraintTop_toBottomOf="@+id/progressIndicator" />
+        app:layout_constraintTop_toBottomOf="@+id/textProgress"
+        app:trackColor="@color/grey_light"
+        app:trackThickness="8dp" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardQuiz"
@@ -83,17 +84,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/textQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
+                    android:text="What is the main advantage of using Jetpack Compose over traditional Android View system?"
                     android:textColor="@color/contentTextColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="What is the main advantage of using Jetpack Compose over traditional XML layouts in Android development?" />
+                    android:textStyle="bold" />
 
                 <RadioGroup
                     android:id="@+id/radioGroupOptions"
@@ -120,7 +120,6 @@
                             android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
                             android:padding="16dp"
                             android:textColor="@color/contentTextColor"
-                            android:textSize="16sp"
                             tools:text="It allows for more declarative UI building with less boilerplate code" />
                     </com.google.android.material.card.MaterialCardView>
 
@@ -143,8 +142,7 @@
                             android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
                             android:padding="16dp"
                             android:textColor="@color/contentTextColor"
-                            android:textSize="16sp"
-                            tools:text="It's the only way to create animations in Android" />
+                            tools:text="It has better performance than XML layouts" />
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
@@ -166,13 +164,13 @@
                             android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
                             android:padding="16dp"
                             android:textColor="@color/contentTextColor"
-                            android:textSize="16sp"
-                            tools:text="It consumes less memory than XML layouts" />
+                            tools:text="It requires less memory usage" />
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
                         app:cardBackgroundColor="@color/card_quiz_background"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
@@ -188,17 +186,20 @@
                             android:drawableEnd="?android:attr/listChoiceIndicatorSingle"
                             android:padding="16dp"
                             android:textColor="@color/contentTextColor"
-                            android:textSize="16sp"
-                            tools:text="It automatically optimizes layouts for all screen sizes" />
+                            tools:text="It is easier to learn for beginners" />
                     </com.google.android.material.card.MaterialCardView>
+
                 </RadioGroup>
+
             </LinearLayout>
+
         </androidx.core.widget.NestedScrollView>
+
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/buttonLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="24dp"
@@ -210,34 +211,33 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonPrevious"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/bottomNavigationBackground"
-            android:fontFamily="sans-serif-medium"
+            android:backgroundTint="@color/card_quiz_background"
             android:text="@string/previous"
             android:textColor="@color/contentTextColor"
-            android:textAllCaps="false"
-            android:textSize="16sp"
             app:cornerRadius="12dp"
+            app:icon="@drawable/ic_arrow_back"
+            app:iconGravity="textStart"
             app:iconTint="@color/contentTextColor"
-            app:icon="@drawable/ic_back"
-            app:iconGravity="textStart" />
+            app:strokeColor="@color/grey_light"
+            app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonNext"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/bright_orange"
-            android:fontFamily="sans-serif-medium"
             android:text="@string/next"
-            android:textAllCaps="false"
-            android:textSize="16sp"
+            android:textColor="@color/white"
             app:cornerRadius="12dp"
             app:icon="@drawable/ic_arrow_forward"
-            app:iconGravity="textEnd" />
+            app:iconGravity="textEnd"
+            app:iconTint="@color/white" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
