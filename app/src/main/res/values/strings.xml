@@ -27,6 +27,7 @@
     <string name="title_popular_courses">Popular Courses</string>
     <string name="more">. .</string>
     <string name="hello_message">Hello, what would you like to learn today?</string>
+    <string name="hello_course_message">Hello, What a beautiful day to learn something new?</string>
     <string name="percentage_course">%1$d%% Completed</string>
 
     <string name="play_video">Play video</string>

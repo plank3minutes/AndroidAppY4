@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentHomeCoursesBinding;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.listeners.HomeCourseItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.UserProgress;
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class HomeCoursesFragment extends Fragment implements HomeCourseItemClickListener {
+public class HomeCoursesFragment extends BaseFragment implements HomeCourseItemClickListener {
     private FragmentHomeCoursesBinding binding;
     private JoinedCoursesAdapter joinedCoursesAdapter;
     private BookmarkedCoursesAdapter bookmarkedCoursesAdapter;

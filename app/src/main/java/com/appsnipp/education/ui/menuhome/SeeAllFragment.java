@@ -14,12 +14,12 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.appsnipp.education.R;
 import com.appsnipp.education.databinding.FragmentSeeAllBinding;
+import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.UserProgress;
@@ -29,7 +29,7 @@ import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SeeAllFragment extends Fragment implements ItemClickListener<Course> {
+public class SeeAllFragment extends BaseFragment implements ItemClickListener<Course> {
     private SeeAllBookmarkedCoursesAdapter bookmarkedCoursesAdapter;
     private SeeAllJoinedCoursesAdapter joinedCoursesAdapter;
     private FragmentSeeAllBinding binding;
