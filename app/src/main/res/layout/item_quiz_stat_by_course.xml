@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/item_course_progress.xml -->
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:orientation="vertical">
+
+    <!-- Android Development Course -->
+    <TextView
+        android:id="@+id/title_course_quiz_stat_by_course_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Android Development"
+        android:textColor="@color/contentTextColor"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_quiz_stat_by_course"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:progress="85"
+            app:indicatorColor="@color/bright_orange"
+            app:trackColor="@color/grey_light"
+            app:trackThickness="8dp" />
+
+        <TextView
+            android:id="@+id/progress_quiz_stat_by_course_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="85%"
+            android:textColor="@color/contentTextColor"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

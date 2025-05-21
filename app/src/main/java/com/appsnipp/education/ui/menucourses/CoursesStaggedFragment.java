@@ -1,11 +1,10 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
 package com.appsnipp.education.ui.menucourses;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.utils.MyUtilsApp;
 import com.appsnipp.education.ui.utils.helpers.GridSpacingItemDecoration;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -35,6 +35,8 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
     private FragmentCoursesStaggedBinding binding;
     private CourseRecyclerAdapter adapter;
     private CourseViewModel viewModel;
+    private Handler debounceHandler = new Handler();
+    private Runnable searchRunnable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -49,6 +51,32 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
         setupRecyclerView();
         setupViewModel();
         setupSearchView();
+
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("All"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Android"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("AI"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Other"));
+
+        binding.tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                String type = tab.getText().toString();
+                binding.edtSearch.setText("");
+                viewModel.getCoursesByNameAndType("", type).observe(getViewLifecycleOwner(), courses -> {
+                    adapter.setCourseCards(courses);
+                });
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void setupRecyclerView() {
@@ -80,15 +108,43 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
             }
             return false;
         });
+
+        binding.edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Không dùng
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Huỷ các callback cũ
+                debounceHandler.removeCallbacks(searchRunnable);
+
+                // Tạo callback mới
+                searchRunnable = () -> {
+                    String query = s.toString().trim();
+                    if (!query.isEmpty()) {
+                        performSearch(query);
+                    }
+                };
+
+                debounceHandler.postDelayed(searchRunnable, 1000);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     private void performSearch(String query) {
+        String type = binding.tabLayout.getTabAt(binding.tabLayout.getSelectedTabPosition()).getText().toString();
         if(!query.isEmpty()){
-            viewModel.getCoursesByName(query).observe(getViewLifecycleOwner(), courses -> {
+            viewModel.getCoursesByNameAndType(query,type).observe(getViewLifecycleOwner(), courses -> {
                 adapter.setCourseCards(courses);
             });
         } else {
-            viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+            viewModel.getCoursesByNameAndType("", type).observe(getViewLifecycleOwner(), courses -> {
                 adapter.setCourseCards(courses);
             });
         }

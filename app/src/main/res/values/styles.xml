@@ -155,4 +155,9 @@
     <style name="TextAppearance.App.Hint.Large" parent="TextAppearance.App.Hint">
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

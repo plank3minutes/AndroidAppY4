@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2025. rogergcc
- */
 
 package com.appsnipp.education.ui.utils;
 

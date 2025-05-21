@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020. rogergcc
- */
-
 package com.appsnipp.education.data.repository;
 
 import android.content.Context;
@@ -121,6 +117,33 @@ public class CourseRepository {
             for (Course course : currentCourses) {
                 if (course.getName().toLowerCase().contains(name.toLowerCase())) {
                     filtered.add(course);
+                }
+            }
+
+            result.setValue(filtered);
+        } else {
+            result.setValue(new ArrayList<>());
+        }
+
+        return result;
+    }
+
+    public LiveData<List<Course>> getCoursesByNameAndType(String name, String type) {
+        MutableLiveData<List<Course>> result = new MutableLiveData<>();
+        List<Course> currentCourses = allCourses.getValue();
+
+        if (currentCourses != null) {
+            List<Course> filtered = new ArrayList<>();
+
+            for (Course course : currentCourses) {
+                if(type.toLowerCase().equals("all")){
+                    if (course.getName().toLowerCase().contains(name.toLowerCase())) {
+                        filtered.add(course);
+                    }
+                } else {
+                    if (course.getName().toLowerCase().contains(name.toLowerCase()) && course.getType().equals(type.toLowerCase())) {
+                        filtered.add(course);
+                    }
                 }
             }
 

@@ -7,7 +7,7 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="@color/color2"
+    app:cardBackgroundColor="@color/joined_course_background"
     app:cardCornerRadius="16dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/grey_light"
@@ -16,8 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imvCoursePhoto"
@@ -27,38 +26,46 @@
             android:scaleType="centerCrop"
             android:src="@drawable/android_developer" />
 
-        <TextView
-            android:id="@+id/tvCourseTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
-            android:lines="1"
-            android:text="@string/title_course"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:progress="60"
-            app:indicatorColor="@color/white"
-            app:trackColor="#33FFFFFF"
-            app:trackThickness="8dp" />
+            <TextView
+                android:id="@+id/tvCourseTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:lines="1"
+                android:text="@string/title_course"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvFeaturedProgressPercentage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/percentage_course"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:progress="60"
+                app:indicatorColor="@color/white"
+                app:trackColor="#33FFFFFF"
+                app:trackThickness="8dp" />
+
+            <TextView
+                android:id="@+id/tvFeaturedProgressPercentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="end"
+                android:text="@string/percentage_course"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

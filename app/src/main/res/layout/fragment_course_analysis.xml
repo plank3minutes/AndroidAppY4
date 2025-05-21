@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2025. rogergcc
-  -->
+
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -235,14 +233,42 @@
                     android:padding="8dp"
                     android:clipToPadding="false"
                     android:scrollbars="horizontal" />
-                <TextView
+                <!-- Empty State -->
+                <LinearLayout
+                    android:id="@+id/completed_course_empty_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/completed_course_empty_tv"
+                    android:layout_marginTop="24dp"
                     android:gravity="center"
-                    android:text="@string/empty_data"
-                    android:padding="14dp"
-                    android:visibility="gone"/>
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/no_course_data_available"
+                        android:src="@drawable/empty_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/no_course_completed"
+                        android:textAlignment="center"
+                        android:textColor="@color/contentTextColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/complete_quiz_to_see_performance"
+                        android:textAlignment="center"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -261,14 +287,42 @@
                     android:padding="8dp"
                     android:clipToPadding="false"
                     android:scrollbars="horizontal" />
-                <TextView
+                <!-- Empty State -->
+                <LinearLayout
+                    android:id="@+id/in_progress_course_empty_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/in_progress_course_empty_tv"
+                    android:layout_marginTop="24dp"
                     android:gravity="center"
-                    android:text="@string/empty_data"
-                    android:padding="14dp"
-                    android:visibility="gone"/>
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/no_course_data_available"
+                        android:src="@drawable/empty_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/no_course_in_progress"
+                        android:textAlignment="center"
+                        android:textColor="@color/contentTextColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/complete_quiz_to_see_performance"
+                        android:textAlignment="center"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -287,14 +341,42 @@
                     android:padding="8dp"
                     android:clipToPadding="false"
                     android:scrollbars="horizontal" />
-                <TextView
+                <!-- Empty State -->
+                <LinearLayout
+                    android:id="@+id/not_join_course_empty_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/not_join_course_empty_tv"
+                    android:layout_marginTop="24dp"
                     android:gravity="center"
-                    android:text="@string/empty_data"
-                    android:padding="14dp"
-                    android:visibility="gone"/>
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/no_course_data_available"
+                        android:src="@drawable/empty_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/no_course_performance"
+                        android:textAlignment="center"
+                        android:textColor="@color/contentTextColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/complete_quiz_to_see_performance"
+                        android:textAlignment="center"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

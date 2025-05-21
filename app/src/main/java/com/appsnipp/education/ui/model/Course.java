@@ -9,7 +9,18 @@ public class Course {
     private List<Lesson> lessons;
     private int imageResource;
 
+    private String type;
+
     public Course() {
+    }
+
+    public Course(String id, String title, String description, List<Lesson> lessons, int imageResource, String type) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.lessons = lessons;
+        this.imageResource = imageResource;
+        this.type = type;
     }
 
     public Course(String id, String title, String description, List<Lesson> lessons, int imageResource) {
@@ -18,6 +29,14 @@ public class Course {
         this.description = description;
         this.lessons = lessons;
         this.imageResource = imageResource;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getId() {
