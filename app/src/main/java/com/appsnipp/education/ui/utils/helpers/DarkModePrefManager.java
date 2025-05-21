@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2024. rogergcc
- */
-
 package com.appsnipp.education.ui.utils.helpers;
 
 import android.content.Context;

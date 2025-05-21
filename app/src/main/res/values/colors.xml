@@ -67,4 +67,6 @@
 
     <color name="joined_course_background">@color/color2</color>
     <color name="bookmarked_course_background">@color/color5</color>
+    <color name="search_bg_color">@color/white</color>
+    <color name="search_item_bg">@color/white</color>
 </resources>

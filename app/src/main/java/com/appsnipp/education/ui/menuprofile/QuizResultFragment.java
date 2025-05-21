@@ -30,10 +30,6 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * A simple {@link BaseFragment} subclass.
- * create an instance of this fragment.
- */
 public class QuizResultFragment extends BaseFragment {
     private Toolbar toolbar;
     private TextView overallPercentageTv;

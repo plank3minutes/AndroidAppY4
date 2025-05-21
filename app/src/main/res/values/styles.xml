@@ -160,4 +160,25 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="MyAlertDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <!-- Thay đổi màu nền dialog -->
+        <item name="android:background">@color/card_background</item>
+
+        <!-- Màu tiêu đề và text -->
+        <item name="android:textColorPrimary">@color/contentTextColor</item>
+
+         Nút
+        <item name="android:buttonBarPositiveButtonStyle">@style/MyPositiveButton</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/MyNegativeButton</item>
+    </style>
+
+    <style name="MyPositiveButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/color_hint</item>
+    </style>
+
+    <style name="MyNegativeButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/color_hint</item>
+    </style>
+
 </resources>

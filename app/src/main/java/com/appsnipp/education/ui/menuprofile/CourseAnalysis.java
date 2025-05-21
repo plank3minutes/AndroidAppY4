@@ -48,11 +48,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- * A simple {@link BaseFragment} subclass.
- * Use the {@link CourseAnalysis#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CourseAnalysis extends BaseFragment{
     private ProgressBar courseProgressBar;
     private ProgressBar quizProgressBar;

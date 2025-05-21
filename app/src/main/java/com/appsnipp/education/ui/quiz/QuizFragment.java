@@ -221,7 +221,7 @@ public class QuizFragment extends BaseFragment {
                 currentQuestionIndex++;
                 displayCurrentQuestion();
             } else {
-                new AlertDialog.Builder(requireContext())
+                new AlertDialog.Builder(requireContext(), R.style.MyAlertDialogTheme)
                         .setTitle("Complete Quiz")
                         .setMessage("Are you sure you want to submit your answers?")
                         .setPositiveButton("Submit", (dialog, which) -> {

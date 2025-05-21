@@ -38,7 +38,7 @@
     <string name="imageAccess">Image</string>
     <string name="message_banner">The more you learn, the more you realize how much you do not know</string>
     <string name="title_drawer">Android developer</string>
-    <string name="email_drawer">devhunter@movidev.com</string>
+    <string name="email_drawer">email@gmail.com</string>
     <string name="title_menu">Menu</string>
     <string name="title_courses">Courses</string>
     <string name="title_home">Home</string>
@@ -56,6 +56,7 @@
     <string name="bookmark_button">Bookmark</string>
     <string name="course_image">Course image</string>
     <string name="completed">Completed</string>
+    <string name="start_lesson">Start</string>
 
     <!-- New strings for lesson detail -->
     <string name="num_lesson">%1$d Lesson</string>

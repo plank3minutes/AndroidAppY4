@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2021. rogergcc
- */
-
 package com.appsnipp.education.ui.menucourses;
 
 import android.content.Context;
@@ -105,7 +101,7 @@ public class CourseRecyclerAdapter extends
             itemCardBinding.stagItemCourse.setText(item.getCourseTitle());
 
             // Sửa lỗi: Chuyển int thành String cho số lượng bài học
-            itemCardBinding.stagItemQuantityLesson.setText(item.getLessonCount() + " bài học");
+            itemCardBinding.stagItemQuantityLesson.setText(item.getLessonCount() + " lessons");
 
             // Đặt màu nền
             itemCardBinding.cardViewImage.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.color1));

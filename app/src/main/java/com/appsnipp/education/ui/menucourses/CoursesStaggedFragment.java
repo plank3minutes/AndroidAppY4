@@ -37,10 +37,11 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
     private CourseViewModel viewModel;
     private Handler debounceHandler = new Handler();
     private Runnable searchRunnable;
+    private String currentQuery = "";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         binding = FragmentCoursesStaggedBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -51,10 +52,12 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
         setupRecyclerView();
         setupViewModel();
         setupSearchView();
+        setupNotFoundView();
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("All"));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Android"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Programing"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("AI"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Finance"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Other"));
 
         binding.tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -62,19 +65,20 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
             public void onTabSelected(TabLayout.Tab tab) {
                 String type = tab.getText().toString();
                 binding.edtSearch.setText("");
+                currentQuery = "";
                 viewModel.getCoursesByNameAndType("", type).observe(getViewLifecycleOwner(), courses -> {
-                    adapter.setCourseCards(courses);
+                    updateUI(courses);
                 });
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                // Không dùng
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                // Không dùng
             }
         });
     }
@@ -92,7 +96,7 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
         viewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
 
         viewModel.getAllCourses().observe(getViewLifecycleOwner(), courses -> {
-            adapter.setCourseCards(courses);
+            updateUI(courses);
         });
     }
 
@@ -100,6 +104,7 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
         binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 String query = v.getText().toString();
+                currentQuery = query;
                 if (!query.isEmpty()) {
                     performSearch(query);
                 }
@@ -123,30 +128,84 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
                 // Tạo callback mới
                 searchRunnable = () -> {
                     String query = s.toString().trim();
+                    currentQuery = query;
                     if (!query.isEmpty()) {
                         performSearch(query);
+                    } else {
+                        // Nếu trống, hiển thị tất cả
+                        String type = binding.tabLayout.getTabAt(binding.tabLayout.getSelectedTabPosition()).getText().toString();
+                        viewModel.getCoursesByNameAndType("", type).observe(getViewLifecycleOwner(), courses -> {
+                            updateUI(courses);
+                        });
                     }
                 };
 
-                debounceHandler.postDelayed(searchRunnable, 1000);
+                debounceHandler.postDelayed(searchRunnable, 300);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                // Không dùng
             }
+        });
+    }
+
+    private void setupNotFoundView() {
+        binding.btnClearSearch.setOnClickListener(v -> {
+            binding.edtSearch.setText("");
+            currentQuery = "";
+            String type = binding.tabLayout.getTabAt(binding.tabLayout.getSelectedTabPosition()).getText().toString();
+            viewModel.getCoursesByNameAndType("", type).observe(getViewLifecycleOwner(), courses -> {
+                updateUI(courses);
+            });
         });
     }
 
     private void performSearch(String query) {
         String type = binding.tabLayout.getTabAt(binding.tabLayout.getSelectedTabPosition()).getText().toString();
         if(!query.isEmpty()){
-            viewModel.getCoursesByNameAndType(query,type).observe(getViewLifecycleOwner(), courses -> {
-                adapter.setCourseCards(courses);
+            viewModel.getCoursesByNameAndType(query, type).observe(getViewLifecycleOwner(), courses -> {
+                updateUI(courses);
             });
         } else {
             viewModel.getCoursesByNameAndType("", type).observe(getViewLifecycleOwner(), courses -> {
-                adapter.setCourseCards(courses);
+                updateUI(courses);
             });
+        }
+    }
+
+    private void updateUI(List<Course> courses) {
+        adapter.setCourseCards(courses);
+
+        if (courses == null || courses.isEmpty()) {
+            // Hiển thị layout không tìm thấy
+            binding.rvCourses.setVisibility(View.GONE);
+            binding.layoutNotFound.setVisibility(View.VISIBLE);
+
+            // Cập nhật thông báo dựa trên tab đang chọn
+            String type = binding.tabLayout.getTabAt(binding.tabLayout.getSelectedTabPosition()).getText().toString();
+            String message;
+
+            if (currentQuery.isEmpty()) {
+                if ("All".equals(type)) {
+                    message = "There are currently no courses available.";
+                } else {
+                    message = "There are no courses available in the \"" + type + "\" category.";
+                }
+            } else {
+                if ("All".equals(type)) {
+                    message = "No courses found matching \"" + currentQuery + "\".";
+                } else {
+                    message = "No courses found in the \"" + type + "\" category matching \"" + currentQuery + "\".";
+                }
+            }
+
+
+            binding.tvNotFoundMessage.setText(message);
+        } else {
+            // Hiển thị danh sách khóa học
+            binding.rvCourses.setVisibility(View.VISIBLE);
+            binding.layoutNotFound.setVisibility(View.GONE);
         }
     }
 
@@ -159,11 +218,10 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
 
     @Override
     public void onItemClick(Course course, ImageView imageView) {
-        MyUtilsApp.showToast(requireContext(), course.getCourseTitle());
         Bundle args = new Bundle();
         args.putString("courseId", course.getId());
         NavHostFragment.findNavController(this)
-            .navigate(R.id.action_coursesStaggedFragment_to_courseDetailFragment, args);
+                .navigate(R.id.action_coursesStaggedFragment_to_courseDetailFragment, args);
     }
 
     @Override

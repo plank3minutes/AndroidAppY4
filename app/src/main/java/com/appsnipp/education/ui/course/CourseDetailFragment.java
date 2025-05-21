@@ -179,7 +179,11 @@ public class CourseDetailFragment extends BaseFragment {
         if (currentCourse != null && currentCourse.getLessonCount() > 0) {
             completionPercentage = (progress.getCompletedLessons() * 100) / currentCourse.getLessonCount();
         }
-        if (completionPercentage >= 100) {
+        if (completionPercentage == 0) {
+            binding.buttonContinue.setEnabled(true);
+            binding.buttonContinue.setAlpha(1f);
+            binding.buttonContinue.setText(R.string.start_lesson);
+        } else if (completionPercentage >= 100) {
             binding.buttonContinue.setEnabled(false);
             binding.buttonContinue.setAlpha(0.5f);
             binding.buttonContinue.setText(R.string.completed);

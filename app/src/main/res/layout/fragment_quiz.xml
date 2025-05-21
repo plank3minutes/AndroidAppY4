@@ -209,6 +209,8 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
+            android:paddingVertical="12dp"
+            android:gravity="center_vertical|center_horizontal"
             android:id="@+id/buttonPrevious"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -222,9 +224,12 @@
             app:iconGravity="textStart"
             app:iconTint="@color/contentTextColor"
             app:strokeColor="@color/grey_light"
-            app:strokeWidth="1dp" />
+            app:strokeWidth="1dp"
+            android:layout_marginStart="8dp"/>
 
         <com.google.android.material.button.MaterialButton
+            android:paddingVertical="12dp"
+            android:gravity="center_vertical|center_horizontal"
             android:id="@+id/buttonNext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

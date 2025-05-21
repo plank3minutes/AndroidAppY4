@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/back_courses"
     tools:context=".ui.menucourses.CoursesStaggedFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffba60">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,12 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-
                 android:paddingLeft="@dimen/horizontal_dashboard"
                 android:paddingTop="@dimen/fab_margin"
                 android:paddingRight="@dimen/horizontal_dashboard"
-
-
                 android:weightSum="100">
 
                 <TextView
@@ -44,7 +41,6 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:layout_weight="60"
                     android:contentDescription="@string/imageAccess"
                     android:src="@drawable/refer_icon" />
@@ -57,27 +53,21 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/horizontal_dashboard"
                 android:layout_marginTop="@dimen/normalPadding"
-
                 android:layout_marginRight="@dimen/horizontal_dashboard"
                 android:autofillHints="username"
                 android:background="@drawable/container_search"
                 android:drawableStart="@drawable/search_icon"
                 android:drawablePadding="@dimen/drawable_left"
-
                 android:fontFamily="@font/bariol_regular"
                 android:gravity="center_vertical"
-
-
                 android:hint="@string/edt_search"
                 android:imeOptions="actionSearch"
-
                 android:inputType="text"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/normalPadding"
                 android:paddingVertical="@dimen/top_text_card"
                 android:singleLine="true"
-                android:textColor="?attr/colorPrimaryDark"
-
+                android:textColor="@color/contentTextColor"
                 android:textColorHint="@color/color_hint"
                 android:textSize="14sp" />
 
@@ -87,6 +77,8 @@
                 android:layout_height="wrap_content"
                 android:background="#ffba60"
                 app:tabTextColor="#FFFFFF"
+                app:tabMode="auto"
+                app:tabGravity="fill"
                 app:tabSelectedTextColor="@color/colorPrimaryDark"
                 app:tabTextAppearance="@style/TabTextStyle"
                 app:tabIndicatorColor="@color/colorPrimaryDark"/>
@@ -120,19 +112,72 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_courses"
-
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/horizontal_dashboard"
                             android:layout_marginTop="@dimen/normalPadding"
                             android:layout_marginRight="@dimen/horizontal_dashboard"
                             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-
                             app:spanCount="2"
                             tools:itemCount="7"
                             tools:listitem="@layout/item_card">
-
                         </androidx.recyclerview.widget.RecyclerView>
+
+                        <!-- Layout Không Tìm Thấy -->
+                        <LinearLayout
+                            android:id="@+id/layout_not_found"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/horizontal_dashboard"
+                            android:layout_marginTop="100dp"
+                            android:layout_marginRight="@dimen/horizontal_dashboard"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                app:tint="@color/darkTextColor"
+                                android:src="@drawable/ic_not_found"
+                                android:contentDescription="@string/imageAccess"
+                                android:alpha="0.8" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/bariol_bold"
+                                android:text="No courses found"
+                                android:textColor="@color/contentTextColor"
+                                android:textSize="22sp" />
+
+                            <TextView
+                                android:id="@+id/tv_not_found_message"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/bariol_regular"
+                                android:gravity="center"
+                                android:text="Không tìm thấy khóa học phù hợp với tìm kiếm của bạn."
+                                android:textColor="@color/color_hint"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_clear_search"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="24dp"
+                                android:backgroundTint="@color/colorPrimaryDark"
+                                android:fontFamily="@font/bariol_bold"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:text="Clear"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                app:cornerRadius="24dp" />
+                        </LinearLayout>
 
                     </LinearLayout>
                 </RelativeLayout>

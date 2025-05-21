@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2024. rogergcc
- */
-
 package com.appsnipp.education.ui.listeners;
 
 import android.widget.ImageView;

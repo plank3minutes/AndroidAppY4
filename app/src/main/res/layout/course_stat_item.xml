@@ -1,16 +1,18 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:layout_marginEnd="12dp"
-    card_view:cardCornerRadius="16dp"
-    card_view:cardElevation="6dp">
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/contentBodyColor"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/grey_light"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/item_course_stat"
-        android:padding="12dp"
         android:orientation="vertical">
 
         <ImageView
@@ -21,6 +23,7 @@
             android:contentDescription="Course Image" />
 
         <TextView
+            android:paddingHorizontal="12dp"
             android:id="@+id/title_course_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,28 +31,31 @@
             android:text="@string/title_course"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="#000000"
+            android:textColor="@color/contentTextColor"
             android:maxLines="1"
             android:ellipsize="end" />
 
         <ProgressBar
+            android:paddingHorizontal="12dp"
             android:id="@+id/progress_bar_pb"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:layout_marginTop="8dp"
             android:progressTint="@color/bright_orange"
-            android:backgroundTint="#E0E0E0"
+            android:backgroundTint="@color/color_hint"
             android:max="100"
             android:progress="50"/>
 
         <TextView
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="12dp"
             android:id="@+id/progress_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="70% completed"
             android:textSize="12sp"
-            android:textColor="#757575"
+            android:textColor="@color/color_hint"
             android:layout_marginTop="4dp" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/contentBodyColor"
     tools:context=".SplashActivity">
 
 
@@ -14,7 +14,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/education_2"
+        android:src="@drawable/app_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -34,7 +34,7 @@
         android:fontFamily="@font/bariol_bold"
         android:gravity="center"
         android:text="@string/msg_splash"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/contentTextColor"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/imv_logo_image"
         app:layout_constraintStart_toStartOf="@+id/imv_logo_image"

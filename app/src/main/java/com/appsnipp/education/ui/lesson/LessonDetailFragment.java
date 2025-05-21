@@ -278,7 +278,7 @@ public class LessonDetailFragment extends BaseFragment {
         public void onVideoHalfway() {
             // Xử lý khi video xem được 50%
             requireActivity().runOnUiThread(() -> {
-                Toast.makeText(requireContext(), "Đã xem được 50% video!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "You have watched 50% of the video!", Toast.LENGTH_SHORT).show();
                 isVideoWatched = true;
                 checkCompletionStatus();
             });
@@ -290,22 +290,22 @@ public class LessonDetailFragment extends BaseFragment {
                 String errorMessage;
                 switch (errorCode) {
                     case 0:
-                        errorMessage = "Player chưa sẵn sàng!";
+                        errorMessage = "Player is not ready!";
                         break;
                     case 2:
-                        errorMessage = "Video ID không hợp lệ!";
+                        errorMessage = "Video ID invalid!";
                         break;
                     case 100:
-                        errorMessage = "Video không tìm thấy!";
+                        errorMessage = "Video not found!";
                         break;
                     case 101:
                     case 150:
-                        errorMessage = "Video bị hạn chế nhúng!";
+                        errorMessage = "Video embedding is restricted!";
                         break;
                     default:
-                        errorMessage = "Lỗi video không xác định: " + errorCode;
+                        errorMessage = "Unknown video error: " + errorCode;
                 }
-                Toast.makeText(requireContext(), errorMessage + " Lỗi thì nghe nhạc Jack tạm nhé, hoặc tắt player đi thì vào code bỏ comment =))", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
                 // Lỗi thì nghe nhạc Jack tạm nhé =))
                 setVideoId("KYrnTn9nXFI");
                 // Hoặc có thể ẩn video

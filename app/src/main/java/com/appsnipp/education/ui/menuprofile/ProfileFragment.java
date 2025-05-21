@@ -40,10 +40,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.logging.Logger;
 
-/**
- * A simple {@link BaseFragment} subclass.
- * create an instance of this fragment.
- */
 public class ProfileFragment extends BaseFragment {
     private ProgressBar timeProgressBar;
     private Handler handler;
@@ -257,11 +253,11 @@ public class ProfileFragment extends BaseFragment {
     private int getColor(int time) {
         if (time == 0) {
             return Color.parseColor("#EEEEEE");
-        } else if (time < 1800) {
+        } else if (time < 300) {
             return Color.parseColor("#9BE9A8");
-        } else if (time < 3600) {
+        } else if (time < 600) {
             return Color.parseColor("#40C463");
-        } else if (time < 5400) {
+        } else if (time < 900) {
             return Color.parseColor("#30A14E");
         } else {
             return Color.parseColor("#216E39");

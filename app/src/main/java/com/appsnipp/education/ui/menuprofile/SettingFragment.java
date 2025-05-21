@@ -66,7 +66,7 @@ public class SettingFragment extends BaseFragment {
         final String[] themes = {"Light", "Dark"};
         int currentTheme = darkModePrefManager.isNightMode() ? 1 : 0;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.MyAlertDialogTheme);
         builder.setTitle("Choose Theme")
                 .setSingleChoiceItems(themes, currentTheme, (dialog, which) -> {
                     boolean isDarkMode = which == 1;
@@ -98,7 +98,7 @@ public class SettingFragment extends BaseFragment {
                 break;
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.MyAlertDialogTheme);
         builder.setView(dialogView)
                 .setPositiveButton("OK", (dialog, which) -> {
                     int selectedFontSize;
@@ -123,7 +123,7 @@ public class SettingFragment extends BaseFragment {
     private void showIntroductionDialog() {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_introduction, null);
         
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.MyAlertDialogTheme);
         builder.setView(dialogView)
                 .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                 .show();
