@@ -56,7 +56,6 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/overview"
                         android:textColor="@color/contentTextColor"
-                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -65,29 +64,27 @@
                         android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif"
                         android:text="@string/quiz_performance"
-                        android:textColor="@color/dashboard_subtitle"
-                        android:textSize="14sp" />
+                        android:textColor="@color/dashboard_subtitle" />
 
                     <!-- Circular Progress -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <FrameLayout
-                            android:layout_width="120dp"
-                            android:layout_height="120dp">
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
                             <com.google.android.material.progressindicator.CircularProgressIndicator
                                 android:id="@+id/overall_progress"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:progress="78"
                                 app:indicatorColor="@color/bright_orange"
-                                app:indicatorSize="120dp"
+                                app:indicatorSize="100dp"
                                 app:trackColor="@color/grey_light"
                                 app:trackThickness="8dp" />
 
@@ -105,7 +102,6 @@
                                     android:fontFamily="sans-serif-medium"
                                     android:text="78%"
                                     android:textColor="@color/contentTextColor"
-                                    android:textSize="24sp"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -113,8 +109,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif"
                                     android:text="@string/completed"
-                                    android:textColor="@color/dashboard_subtitle"
-                                    android:textSize="12sp" />
+                                    android:textColor="@color/dashboard_subtitle" />
                             </LinearLayout>
                         </FrameLayout>
 
@@ -138,8 +133,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="sans-serif"
                                     android:text="@string/pass"
-                                    android:textColor="@color/contentTextColor"
-                                    android:textSize="14sp" />
+                                    android:textColor="@color/contentTextColor" />
 
                                 <TextView
                                     android:id="@+id/pass_quiz_tv"
@@ -148,7 +142,6 @@
                                     android:fontFamily="sans-serif-medium"
                                     android:text="24"
                                     android:textColor="@color/contentTextColor"
-                                    android:textSize="16sp"
                                     android:textStyle="bold" />
                             </LinearLayout>
 
@@ -165,8 +158,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="sans-serif"
                                     android:text="@string/fail"
-                                    android:textColor="@color/contentTextColor"
-                                    android:textSize="14sp" />
+                                    android:textColor="@color/contentTextColor" />
 
                                 <TextView
                                     android:id="@+id/fail_quiz_tv"
@@ -175,7 +167,6 @@
                                     android:fontFamily="sans-serif-medium"
                                     android:text="18"
                                     android:textColor="@color/contentTextColor"
-                                    android:textSize="16sp"
                                     android:textStyle="bold" />
                             </LinearLayout>
 
@@ -191,8 +182,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="sans-serif"
                                     android:text="@string/average_score"
-                                    android:textColor="@color/contentTextColor"
-                                    android:textSize="14sp" />
+                                    android:textColor="@color/contentTextColor" />
 
                                 <TextView
                                     android:id="@+id/average_score_tv"
@@ -201,7 +191,6 @@
                                     android:fontFamily="sans-serif-medium"
                                     android:text="8.2/10"
                                     android:textColor="@color/contentTextColor"
-                                    android:textSize="16sp"
                                     android:textStyle="bold" />
                             </LinearLayout>
                         </LinearLayout>
@@ -233,7 +222,6 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/performance_by_course"
                         android:textColor="@color/contentTextColor"
-                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -242,46 +230,43 @@
                         android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif"
                         android:text="@string/accurate_rate_by_course"
-                        android:textColor="@color/dashboard_subtitle"
-                        android:textSize="14sp" />
+                        android:textColor="@color/dashboard_subtitle" />
+
                     <!-- Empty State -->
                     <LinearLayout
                         android:id="@+id/empty_performance_quiz_stat_by_course"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:visibility="gone">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:contentDescription="@string/no_course_data_available"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:contentDescription="@string/no_quiz_results_available"
                             android:src="@drawable/empty_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="12dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="@string/no_course_performance"
+                            android:text="@string/no_quiz_results_yet"
                             android:textAlignment="center"
-                            android:textColor="@color/contentTextColor"
-                            android:textSize="16sp" />
+                            android:textColor="@color/contentTextColor" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="4dp"
                             android:fontFamily="sans-serif"
-                            android:text="@string/complete_quiz_to_see_performance"
+                            android:text="@string/take_quiz_to_see_results"
                             android:textAlignment="center"
-                            android:textColor="@color/dashboard_subtitle"
-                            android:textSize="14sp" />
+                            android:textColor="@color/dashboard_subtitle" />
                     </LinearLayout>
                 </LinearLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Recent Quiz Results -->
@@ -297,7 +282,6 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/recent_quiz_result"
                     android:textColor="@color/contentTextColor"
-                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <!-- Horizontal RecyclerView for Quiz Results -->
@@ -335,8 +319,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/no_quiz_results_yet"
                         android:textAlignment="center"
-                        android:textColor="@color/contentTextColor"
-                        android:textSize="16sp" />
+                        android:textColor="@color/contentTextColor" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -345,8 +328,7 @@
                         android:fontFamily="sans-serif"
                         android:text="@string/take_quiz_to_see_results"
                         android:textAlignment="center"
-                        android:textColor="@color/dashboard_subtitle"
-                        android:textSize="14sp" />
+                        android:textColor="@color/dashboard_subtitle" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

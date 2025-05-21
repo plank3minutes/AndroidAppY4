@@ -1,5 +1,6 @@
 package com.appsnipp.education.ui.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import com.appsnipp.education.data.converter.DateConverter;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.LessonStatus;
+import com.appsnipp.education.ui.utils.FontSizeUtils;
+import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
@@ -28,6 +31,7 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private boolean isExpanded;
     private List<LessonStatus> lessonStatuses;
     private Map<String, Course> courseMap;
+    private FontSizePrefManager fontSizePrefManager;
 
     public QuizStatAdapter(List<LessonStatus> ls, Map<String, Course> courseMap) {
         this.lessonStatuses = ls;
@@ -38,6 +42,11 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Initialize FontSizePrefManager with parent context if not already initialized
+        if (fontSizePrefManager == null) {
+            fontSizePrefManager = new FontSizePrefManager(parent.getContext());
+        }
+
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_quiz_result, parent, false);
             return new QuizStatViewHolder(view);
@@ -50,16 +59,28 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof QuizStatViewHolder) {
-            LessonStatus lessonStatus = this.lessonStatuses.get(position);
-            QuizStatViewHolder quizHolder = (QuizStatViewHolder) holder;
-            quizHolder.courseNameTextView.setText(courseMap.get(lessonStatus.getCourseId()).getTitle());
-            quizHolder.quizScoreTextView.setText(getScoreTextView(position));
-            quizHolder.lessonNameTextView.setText(getLessonName(position));
-            int progressPercentage = getPercentageProgress(position);
-            quizHolder.progressQuiz.setProgress(progressPercentage);
-            quizHolder.accuracyPercentageTextView.setText(String.format(Locale.getDefault(), "%d%%", progressPercentage));
+            QuizStatViewHolder quizStatViewHolder = (QuizStatViewHolder) holder;
+            LessonStatus lessonStatus = lessonStatuses.get(position);
+            Course course = courseMap.get(lessonStatus.getCourseId());
+            
+            quizStatViewHolder.courseNameTv.setText(course.getTitle());
+            quizStatViewHolder.lessonNameTv.setText(getLessonName(position));
+            quizStatViewHolder.quizScoreTv.setText(getScoreTextView(position));
+            quizStatViewHolder.accuracyPercentageTv.setText(String.format("%d%%", getPercentageProgress(position)));
+            quizStatViewHolder.progressQuiz.setProgress(getPercentageProgress(position));
+            
+            // Apply font sizes
+            if (fontSizePrefManager != null) {
+                FontSizeUtils.applyFontSize(quizStatViewHolder.courseNameTv, fontSizePrefManager.getFontSize());
+                FontSizeUtils.applyFontSize(quizStatViewHolder.lessonNameTv, fontSizePrefManager.getFontSize());
+                FontSizeUtils.applyFontSize(quizStatViewHolder.quizScoreTv, fontSizePrefManager.getFontSize());
+                FontSizeUtils.applyFontSize(quizStatViewHolder.accuracyPercentageTv, fontSizePrefManager.getFontSize());
+            }
         } else if (holder instanceof ButtonViewAllHolder) {
             ButtonViewAllHolder buttonViewAllHolder = (ButtonViewAllHolder) holder;
+            if (fontSizePrefManager != null) {
+                FontSizeUtils.applyFontSize(buttonViewAllHolder.viewAllBtn, fontSizePrefManager.getFontSize());
+            }
             buttonViewAllHolder.materialButton.setOnClickListener(v -> {
                 isExpanded = true;
                 notifyDataSetChanged(); // Cập nhật danh sách
@@ -69,38 +90,42 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        return isExpanded ? lessonStatuses.size() : lessonStatuses.size() > 3 ? MAX_ITEMS_TO_SHOW : lessonStatuses.size();
+        if (lessonStatuses == null) return 0;
+        return isExpanded ? lessonStatuses.size() : Math.min(lessonStatuses.size(), MAX_ITEMS_TO_SHOW);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == MAX_ITEMS_TO_SHOW && !isExpanded) {
+        if (!isExpanded && position == MAX_ITEMS_TO_SHOW - 1 && lessonStatuses.size() > MAX_ITEMS_TO_SHOW) {
             return VIEW_TYPE_VIEW_MORE;
-        } else {
-            return VIEW_TYPE_ITEM;
         }
+        return VIEW_TYPE_ITEM;
     }
 
     static class QuizStatViewHolder extends RecyclerView.ViewHolder {
-        private final TextView courseNameTextView;
-        private final TextView quizScoreTextView;
-        private final TextView lessonNameTextView;
-        private final TextView accuracyPercentageTextView;
-        private final LinearProgressIndicator progressQuiz;
-        public QuizStatViewHolder(@NonNull View itemView) {
+        TextView courseNameTv;
+        TextView lessonNameTv;
+        TextView quizScoreTv;
+        TextView accuracyPercentageTv;
+        LinearProgressIndicator progressQuiz;
+
+        QuizStatViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.courseNameTextView = itemView.findViewById(R.id.course_name_tv);
-            this.quizScoreTextView = itemView.findViewById(R.id.quiz_score_tv);
-            this.lessonNameTextView = itemView.findViewById(R.id.lesson_name_tv);
-            this.accuracyPercentageTextView = itemView.findViewById(R.id.accuracy_percentage_tv);
-            this.progressQuiz = itemView.findViewById(R.id.progress_quiz);
+            courseNameTv = itemView.findViewById(R.id.course_name_tv);
+            lessonNameTv = itemView.findViewById(R.id.lesson_name_tv);
+            quizScoreTv = itemView.findViewById(R.id.quiz_score_tv);
+            accuracyPercentageTv = itemView.findViewById(R.id.accuracy_percentage_tv);
+            progressQuiz = itemView.findViewById(R.id.progress_quiz);
         }
     }
 
     static class ButtonViewAllHolder extends RecyclerView.ViewHolder {
-        private final MaterialButton materialButton;
-        public ButtonViewAllHolder(@NonNull View itemView) {
+        MaterialButton viewAllBtn;
+        MaterialButton materialButton;
+
+        ButtonViewAllHolder(@NonNull View itemView) {
             super(itemView);
+            viewAllBtn = itemView.findViewById(R.id.view_all_btn);
             materialButton = itemView.findViewById(R.id.view_all_btn);
         }
     }
