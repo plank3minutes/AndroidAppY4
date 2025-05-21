@@ -32,6 +32,8 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
     private FragmentCoursesStaggedBinding binding;
     private CourseRecyclerAdapter adapter;
     private CourseViewModel viewModel;
+    private Handler debounceHandler = new Handler();
+    private Runnable searchRunnable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -102,6 +104,33 @@ public class CoursesStaggedFragment extends BaseFragment implements ItemClickLis
                 return true;
             }
             return false;
+        });
+
+        binding.edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Không dùng
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Huỷ các callback cũ
+                debounceHandler.removeCallbacks(searchRunnable);
+
+                // Tạo callback mới
+                searchRunnable = () -> {
+                    String query = s.toString().trim();
+                    if (!query.isEmpty()) {
+                        performSearch(query);
+                    }
+                };
+
+                debounceHandler.postDelayed(searchRunnable, 1000);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
