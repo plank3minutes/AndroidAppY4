@@ -45,8 +45,6 @@ Công nghệ sử dụng: **Android Java**, kiến trúc **MVVM**, `Fragment` v�
 | F6  | Bookmark             | Đánh dấu bài học yêu thích                                   |
 | F7  | Tìm kiếm             | Tìm khóa học/bài học theo từ khóa                            |
 | F8  | Cài đặt              | Chọn `theme (light/dark)`, kích thước font, thông báo        |
-| F9  | Backup & Restore     | Xuất/Nhập tiến độ học tập qua file `JSON`                    |
-| F10 | Thông báo nhắc học   | Báo nhắc học hàng ngày (sử dụng `AlarmManager`)              |
 
 ---
 
@@ -56,21 +54,12 @@ Công nghệ sử dụng: **Android Java**, kiến trúc **MVVM**, `Fragment` v�
 
 ---
 
-## 5. Yêu cầu Phi chức năng
-
-* **Hiệu năng:** Thời gian load danh sách & chi tiết ≤ 300ms.
-* **Bảo mật:** Dữ liệu cá nhân (progress) mã hóa trên thiết bị.
-* **Khả năng mở rộng:** Dễ dàng thêm khóa học mới qua JSON.
-* **Tương thích:** Android API Level 21 trở lên.
-* **UI/UX:** Material Design, hỗ trợ chế độ Dark Mode.
-
----
-
-## 6. Thiết kế Dữ liệu
+## 5. Thiết kế Dữ liệu
 
 ### `Course`
 
 * `id: String`
+* `type: String`
 * `title: String`
 * `description: String`
 * `lessons: List<Lesson>`
@@ -120,7 +109,7 @@ Công nghệ sử dụng: **Android Java**, kiến trúc **MVVM**, `Fragment` v�
 
 ---
 
-## 7. Điều hướng & Giao diện
+## 6. Điều hướng & Giao diện
 
 * **`BottomNavigationView` với 3 tabs:**
 
@@ -138,7 +127,7 @@ Công nghệ sử dụng: **Android Java**, kiến trúc **MVVM**, `Fragment` v�
 
 ---
 
-## 8. Repository & Storage
+## 7. Repository & Storage
 
 * **Room Database:** lưu `UserProgress, LessonStatus
 * **Assets:** `courses.json` chứa dữ liệu offline
