@@ -1,7 +1,6 @@
 package com.appsnipp.education.ui.lesson;
 
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.MediaController;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,12 +24,10 @@ import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.UserProgress;
-import com.appsnipp.education.ui.utils.LiveDataUtils;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 import com.appsnipp.education.ui.viewmodel.LessonStatusViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 
-import java.util.Date;
 import java.util.List;
 
 public class LessonDetailFragment extends BaseFragment {
@@ -124,11 +120,9 @@ public class LessonDetailFragment extends BaseFragment {
                                 isQuizCompleted = true;
                                 binding.buttonCompleteLesson.setEnabled(false);
                                 binding.buttonTakeQuiz.setEnabled(false);
-                            }
-                            else if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
+                            } else if (status != null && status.getQuizScore() > 0 && !status.isCompleted()) {
                                 onQuizCompleted();
-                            }
-                            else {
+                            } else {
                                 binding.buttonCompleteLesson.setEnabled(false);
                             }
                         });
@@ -191,7 +185,7 @@ public class LessonDetailFragment extends BaseFragment {
                 "</html>";
 
         binding.webViewLessonContent.loadDataWithBaseURL(null, htmlContent, "text/html", "UTF-8", null);
-        
+
         // Setup video if available
         if (lesson.getVideoUrl() != null && !lesson.getVideoUrl().isEmpty()) {
             binding.videoWebViewContainer.setVisibility(View.VISIBLE);
@@ -319,7 +313,8 @@ public class LessonDetailFragment extends BaseFragment {
 
     public void setVideoId(String videoId) {
         // Gọi hàm JavaScript để thiết lập video ID
-        videoWebView.evaluateJavascript("loadVideoById('" + videoId + "');", null);    }
+        videoWebView.evaluateJavascript("loadVideoById('" + videoId + "');", null);
+    }
 
     // Gọi hàm JavaScript từ Android
     public void playVideo() {
