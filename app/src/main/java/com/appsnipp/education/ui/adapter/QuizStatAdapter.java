@@ -1,6 +1,5 @@
 package com.appsnipp.education.ui.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appsnipp.education.R;
-import com.appsnipp.education.data.converter.DateConverter;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.Lesson;
 import com.appsnipp.education.ui.model.LessonStatus;
 import com.appsnipp.education.ui.utils.FontSizeUtils;
 import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_ITEM = 0;
@@ -62,13 +59,13 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             QuizStatViewHolder quizStatViewHolder = (QuizStatViewHolder) holder;
             LessonStatus lessonStatus = lessonStatuses.get(position);
             Course course = courseMap.get(lessonStatus.getCourseId());
-            
+
             quizStatViewHolder.courseNameTv.setText(course.getTitle());
             quizStatViewHolder.lessonNameTv.setText(getLessonName(position));
             quizStatViewHolder.quizScoreTv.setText(getScoreTextView(position));
             quizStatViewHolder.accuracyPercentageTv.setText(String.format("%d%%", getPercentageProgress(position)));
             quizStatViewHolder.progressQuiz.setProgress(getPercentageProgress(position));
-            
+
             // Apply font sizes
             if (fontSizePrefManager != null) {
                 FontSizeUtils.applyFontSize(quizStatViewHolder.courseNameTv, fontSizePrefManager.getFontSize());
@@ -79,7 +76,7 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (holder instanceof ButtonViewAllHolder) {
             ButtonViewAllHolder buttonViewAllHolder = (ButtonViewAllHolder) holder;
             if (fontSizePrefManager != null) {
-                FontSizeUtils.applyFontSize(buttonViewAllHolder.viewAllBtn, fontSizePrefManager.getFontSize());
+                FontSizeUtils.applyFontSize(buttonViewAllHolder.viewAllBtn.findViewById(R.id.tvSeeAll), fontSizePrefManager.getFontSize());
             }
             buttonViewAllHolder.materialButton.setOnClickListener(v -> {
                 isExpanded = true;
@@ -120,8 +117,8 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     static class ButtonViewAllHolder extends RecyclerView.ViewHolder {
-        MaterialButton viewAllBtn;
-        MaterialButton materialButton;
+        MaterialCardView viewAllBtn;
+        MaterialCardView materialButton;
 
         ButtonViewAllHolder(@NonNull View itemView) {
             super(itemView);
@@ -130,11 +127,11 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    private String getScoreTextView(int position){
+    private String getScoreTextView(int position) {
         LessonStatus lessonStatus = this.lessonStatuses.get(position);
         int totalQuiz = 0;
-        for(Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
-            if(ls.getId().equals(lessonStatus.getLessonId())) {
+        for (Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
+            if (ls.getId().equals(lessonStatus.getLessonId())) {
                 totalQuiz += ls.getQuiz().getQuestions().size();
             }
         }
@@ -144,8 +141,8 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private String getLessonName(int position) {
         LessonStatus lessonStatus = this.lessonStatuses.get(position);
-        for(Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
-            if(ls.getId().equals(lessonStatus.getLessonId())) {
+        for (Lesson ls : this.courseMap.get(lessonStatus.getCourseId()).getLessons()) {
+            if (ls.getId().equals(lessonStatus.getLessonId())) {
                 return ls.getTitle();
             }
         }

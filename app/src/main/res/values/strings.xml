@@ -146,7 +146,7 @@
     <string name="fail">Fail</string>
     <string name="average_score">Average Score</string>
     <string name="accurate_rate_by_course">Accuracy rate by course</string>
-    <string name="recent_quiz_result">Recent quiz results</string>
+    <string name="recent_quiz_result">Recent Quiz Results</string>
     <string name="all_quiz_result">All quiz result</string>
 
     <!-- Empty state strings -->
