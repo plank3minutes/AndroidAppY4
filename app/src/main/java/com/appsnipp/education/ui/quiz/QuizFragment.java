@@ -1,7 +1,6 @@
 package com.appsnipp.education.ui.quiz;
 
 import android.app.AlertDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +18,12 @@ import com.appsnipp.education.databinding.FragmentQuizBinding;
 import com.appsnipp.education.ui.base.BaseFragment;
 import com.appsnipp.education.ui.model.Question;
 import com.appsnipp.education.ui.model.Quiz;
-import com.appsnipp.education.ui.model.UserProgress;
 import com.appsnipp.education.ui.viewmodel.CourseViewModel;
 import com.appsnipp.education.ui.viewmodel.LessonStatusViewModel;
 import com.appsnipp.education.ui.viewmodel.ProgressViewModel;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class QuizFragment extends BaseFragment {
@@ -120,11 +117,9 @@ public class QuizFragment extends BaseFragment {
 
     private void observeQuizData() {
         if (courseId != null) {
-            courseViewModel.getQuizzesByCourseId(courseId).observe(getViewLifecycleOwner(), quizList -> {
-                if (quizList != null && !quizList.isEmpty()) {
-                    quizzes = quizList;
-                    // Get questions from the first quiz
-                    questions = quizList.get(0).getQuestions();
+            courseViewModel.getQuizByCourseIdAndLessonId(courseId, lessonId).observe(getViewLifecycleOwner(), quiz -> {
+                if (quiz != null && !quiz.getQuestions().isEmpty()) {
+                    questions = quiz.getQuestions();
                     // Chỉ khởi tạo userAnswers nếu chưa được khôi phục
                     if (userAnswers == null) {
                         userAnswers = new int[questions.size()];

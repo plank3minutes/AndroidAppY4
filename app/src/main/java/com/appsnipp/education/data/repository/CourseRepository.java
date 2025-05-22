@@ -7,8 +7,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.appsnipp.education.data.*;
-import com.appsnipp.education.ui.model.*;
+import com.appsnipp.education.data.JsonDataRepository;
+import com.appsnipp.education.ui.model.Course;
+import com.appsnipp.education.ui.model.Lesson;
+import com.appsnipp.education.ui.model.Quiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +80,7 @@ public class CourseRepository {
         return quizzes;
     }
 
-    public LiveData<Quiz> getQuizByLessonId(String courseId, String lessonId) {
+    public LiveData<Quiz> getQuizByCourseIdAndLessonId(String courseId, String lessonId) {
         MutableLiveData<Quiz> quiz = new MutableLiveData<>();
         List<Course> currentCourses = allCourses.getValue();
         if (currentCourses != null) {
@@ -136,7 +138,7 @@ public class CourseRepository {
             List<Course> filtered = new ArrayList<>();
 
             for (Course course : currentCourses) {
-                if(type.toLowerCase().equals("all")){
+                if (type.toLowerCase().equals("all")) {
                     if (course.getName().toLowerCase().contains(name.toLowerCase())) {
                         filtered.add(course);
                     }
