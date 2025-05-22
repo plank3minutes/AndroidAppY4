@@ -1,6 +1,7 @@
 package com.appsnipp.education.ui.menuhome;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -148,6 +149,7 @@ public class SeeAllFragment extends BaseFragment implements ItemClickListener<Co
     private void setupRecyclerViewAndSearchBar() {
         if (viewType == SeeAllType.JOINED) {
             joinedCoursesAdapter = new SeeAllJoinedCoursesAdapter(
+                    getContext(),
                     null,
                     this);
 
@@ -157,6 +159,7 @@ public class SeeAllFragment extends BaseFragment implements ItemClickListener<Co
             binding.rvCourses.setAdapter(joinedCoursesAdapter);
         } else {
             bookmarkedCoursesAdapter = new SeeAllBookmarkedCoursesAdapter(
+                    getContext(),
                     null,
                     this);
 

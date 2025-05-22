@@ -1,6 +1,7 @@
 package com.appsnipp.education.ui.menuhome;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import com.appsnipp.education.databinding.CardSeeAllBinding;
 import com.appsnipp.education.ui.listeners.HomeCourseItemClickListener;
 import com.appsnipp.education.ui.model.Course;
 import com.appsnipp.education.ui.model.UserProgress;
+import com.appsnipp.education.ui.utils.FontSizeUtils;
+import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -27,10 +30,14 @@ public class JoinedCoursesAdapter
 
     private final HomeCourseItemClickListener itemClickListener;
     private List<Pair<Course, UserProgress>> items;
+    private final Context context;
+    private final FontSizePrefManager fontSizePrefManager;
 
-    public JoinedCoursesAdapter(List<Pair<Course, UserProgress>> items, HomeCourseItemClickListener listener) {
+    public JoinedCoursesAdapter(Context context, List<Pair<Course, UserProgress>> items, HomeCourseItemClickListener listener) {
         this.items = items;
         this.itemClickListener = listener;
+        this.context = context;
+        this.fontSizePrefManager = new FontSizePrefManager(context);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -71,9 +78,14 @@ public class JoinedCoursesAdapter
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (position == MAX_ITEMS_WITH_SEE_ALL - 1) {
             ((SeeAllViewHolder) holder).bind(itemClickListener);
+            FontSizeUtils.applyFontSize(((SeeAllViewHolder) holder).binding.tvSeeAll, fontSizePrefManager.getFontSize());
+
         } else {
             Pair<Course, UserProgress> item = items.get(position);
             ((JoinedCourseViewHolder) holder).bind(item, itemClickListener);
+            // Set font size for the course title
+            FontSizeUtils.applyFontSize(((JoinedCourseViewHolder) holder).binding.tvCourseTitle, fontSizePrefManager.getFontSize());
+            FontSizeUtils.applyFontSize(((JoinedCourseViewHolder) holder).binding.tvFeaturedProgressPercentage, fontSizePrefManager.getFontSize());
         }
     }
 

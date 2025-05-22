@@ -50,11 +50,13 @@ public class HomeCoursesFragment extends BaseFragment implements HomeCourseItemC
 
     private void setupRecyclerViews() {
         joinedCoursesAdapter = new JoinedCoursesAdapter(
+                getContext(),
                 null,
                 this
         );
 
         bookmarkedCoursesAdapter = new BookmarkedCoursesAdapter(
+                getContext(),
                 null,
                 this
         );

@@ -88,7 +88,10 @@ public class MainActivity extends AppCompatActivity implements OnBottomNavTabSel
                 if (destination.getId() == R.id.courseDetailFragment
                         || destination.getId() == R.id.lessonDetailFragment
                         || destination.getId() == R.id.seeAllFragment
-                        || destination.getId() == R.id.quizFragment) {
+                        || destination.getId() == R.id.quizFragment
+                        || destination.getId() == R.id.courseAnalysisFragment
+                        || destination.getId() == R.id.quizResultFragment
+                        || destination.getId() == R.id.settingFragment){
                     binding.appBarMain.bottomNavigationView.setVisibility(View.GONE);
                 } else {
                     binding.appBarMain.bottomNavigationView.setVisibility(View.VISIBLE);

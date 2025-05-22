@@ -1,6 +1,7 @@
 package com.appsnipp.education.ui.menuhome;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,6 +12,8 @@ import com.appsnipp.education.databinding.CardBookmarkedCourseBinding;
 import com.appsnipp.education.databinding.CardSeeAllSmallBinding;
 import com.appsnipp.education.ui.listeners.HomeCourseItemClickListener;
 import com.appsnipp.education.ui.model.Course;
+import com.appsnipp.education.ui.utils.FontSizeUtils;
+import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -28,10 +31,15 @@ public class BookmarkedCoursesAdapter
 
     private final HomeCourseItemClickListener itemClickListener;
     private List<Course> items;
+    private final Context context;
+    private final FontSizePrefManager fontSizePrefManager;
 
-    public BookmarkedCoursesAdapter(List<Course> items, HomeCourseItemClickListener listener) {
+
+    public BookmarkedCoursesAdapter(Context context, List<Course> items, HomeCourseItemClickListener listener) {
         this.items = items;
         this.itemClickListener = listener;
+        this.context = context;
+        this.fontSizePrefManager = new FontSizePrefManager(context);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -73,10 +81,15 @@ public class BookmarkedCoursesAdapter
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (position == MAX_ITEMS_WITH_SEE_ALL - 1) {
             ((SeeAllViewHolder) holder).bind(itemClickListener);
+            FontSizeUtils.applyFontSize(((SeeAllViewHolder) holder).binding.tvSeeAll, fontSizePrefManager.getFontSize());
+
         } else {
             Course item = items.get(position);
             ((BookmarkedCourseViewHolder) holder).bind(item, itemClickListener);
+            FontSizeUtils.applyFontSize(((BookmarkedCourseViewHolder) holder).binding.tvCourseTitle, fontSizePrefManager.getFontSize());
+
         }
+
     }
 
     public static class SeeAllViewHolder extends RecyclerView.ViewHolder {

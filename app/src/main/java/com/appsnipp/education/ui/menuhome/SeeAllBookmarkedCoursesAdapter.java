@@ -1,6 +1,7 @@
 package com.appsnipp.education.ui.menuhome;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.appsnipp.education.databinding.CardBookmarkedCourseSaBinding;
 import com.appsnipp.education.ui.listeners.ItemClickListener;
 import com.appsnipp.education.ui.model.Course;
+import com.appsnipp.education.ui.utils.FontSizeUtils;
+import com.appsnipp.education.ui.utils.helpers.FontSizePrefManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -20,10 +23,14 @@ public class SeeAllBookmarkedCoursesAdapter
 
     private final ItemClickListener<Course> itemClickListener;
     private List<Course> items;
+    private final Context context;
+    private final FontSizePrefManager fontSizePrefManager;
 
-    public SeeAllBookmarkedCoursesAdapter(List<Course> items, ItemClickListener<Course> listener) {
+    public SeeAllBookmarkedCoursesAdapter(Context context, List<Course> items, ItemClickListener<Course> listener) {
         this.items = items;
         this.itemClickListener = listener;
+        this.context = context;
+        this.fontSizePrefManager = new FontSizePrefManager(context);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -49,6 +56,11 @@ public class SeeAllBookmarkedCoursesAdapter
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Course item = items.get(position);
         ((SeeAllBookMarkedCoursesViewHolder) holder).bind(item, itemClickListener);
+
+        // Set font size for the title and description
+        FontSizeUtils.applyFontSize(((SeeAllBookMarkedCoursesViewHolder) holder).binding.tvCourseDescription, fontSizePrefManager.getFontSize());
+        FontSizeUtils.applyFontSize(((SeeAllBookMarkedCoursesViewHolder) holder).binding.tvCourseTitle, fontSizePrefManager.getFontSize());
+        FontSizeUtils.applyFontSize(((SeeAllBookMarkedCoursesViewHolder) holder).binding.tvCourseLesson, fontSizePrefManager.getFontSize());
     }
 
     public static class SeeAllBookMarkedCoursesViewHolder extends RecyclerView.ViewHolder {
