@@ -84,7 +84,7 @@
                                 android:layout_height="wrap_content"
                                 android:progress="78"
                                 app:indicatorColor="@color/bright_orange"
-                                app:indicatorSize="100dp"
+                                app:indicatorSize="130dp"
                                 app:trackColor="@color/grey_light"
                                 app:trackThickness="8dp" />
 

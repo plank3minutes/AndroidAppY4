@@ -156,9 +156,7 @@ public class ProfileFragment extends BaseFragment {
             if (progressLayer instanceof ClipDrawable) {
                 ClipDrawable clipDrawable = (ClipDrawable) progressLayer;
                 Drawable innerDrawable = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    innerDrawable = clipDrawable.getDrawable();
-                }
+                innerDrawable = clipDrawable.getDrawable();
                 if (innerDrawable instanceof GradientDrawable) {
                     GradientDrawable gradientDrawable = (GradientDrawable) innerDrawable;
                     int color = getColor(secondsElapsed);
@@ -252,15 +250,15 @@ public class ProfileFragment extends BaseFragment {
 
     private int getColor(int time) {
         if (time == 0) {
-            return Color.parseColor("#EEEEEE");
+            return Color.parseColor("#EEEEEE"); // grey color
         } else if (time < 300) {
-            return Color.parseColor("#9BE9A8");
+            return Color.parseColor("#9BE9A8"); // green color
         } else if (time < 600) {
-            return Color.parseColor("#40C463");
+            return Color.parseColor("#40c0c4"); // blue color
         } else if (time < 900) {
-            return Color.parseColor("#30A14E");
+            return Color.parseColor("#e8f016"); // yellow color
         } else {
-            return Color.parseColor("#216E39");
+            return Color.parseColor("#e32110"); // red color
         }
     }
 
