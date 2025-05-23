@@ -93,7 +93,7 @@ public class QuizStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (!isExpanded && position == MAX_ITEMS_TO_SHOW - 1 && lessonStatuses.size() > MAX_ITEMS_TO_SHOW) {
+        if (!isExpanded && position == MAX_ITEMS_TO_SHOW - 1) {
             return VIEW_TYPE_VIEW_MORE;
         }
         return VIEW_TYPE_ITEM;
