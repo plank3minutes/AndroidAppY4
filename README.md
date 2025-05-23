@@ -107,6 +107,23 @@ Công nghệ sử dụng: **Android Java**, kiến trúc **MVVM**, `Fragment` v�
 * `isCompleted: Boolean`
 * `completedAt: Date`
 
+### `QuizStat`
+* `passQuiz: Int`
+* `failQuiz: Int`
+* `averageScore: Double`
+* `completedPercentage: Int`
+* `lessonStatuses: List<LessonStatus>`
+* `courseMap: Map<String, Course>`
+* `progressByCourse: Map<String, Int>`
+
+### `CourseStat`
+* `completedCourses: List<Course>`
+* `inProgressCourses: List<Course>`
+* `notJoinCourses: List<Course>`
+* `completedProgress: List<Int>`
+* `inProgress: Int`
+* `notJoinProgress: List<Int>`
+
 ---
 
 ## 6. Điều hướng & Giao diện
@@ -122,8 +139,11 @@ Công nghệ sử dụng: **Android Java**, kiến trúc **MVVM**, `Fragment` v�
 * **SubFragment:**
 
   * `CourseDetailFragment`: Hiển thị chi tiết khóa học
-  * `LessonDetailFragment`: hiển thị nội dung bài học
-  * `QuizFragment`: hiển thị quiz
+  * `LessonDetailFragment`: Hiển thị nội dung bài học
+  * `QuizFragment`: Hiển thị quiz
+  * `SettingFragment`: Hiển thị giao diện Setting
+  * `CourseAnalysis`: Hiển thị giao diện thống kê khóa học
+  * `QuizResultFragment`: Hiển thị thống kê kết quả Quiz
 
 ---
 
